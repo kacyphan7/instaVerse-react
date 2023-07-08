@@ -1,34 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/kacyphan7/instaVerse-react">
+    <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjkzMi1uaW5nLTYzLXguanBn.jpg" height="450" width="800">
+  </a>
+<h2 align="center">InstaVerse (React)</h2>
 
-## Getting Started
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#built-with">How does InstaVerse work?</a></li>
+        <li><a href="#built-with">Features of InstaVerse</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#erd">ERD</a>
+    </li>
+    <li><a href="#wireframes">Wireframes</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
+    <li><a href="#future-enhancements">Future Enhancements</a></li>
+    <li><a href="#attribution">Attribution</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#authors">Authors</a></li>
 
-First, run the development server:
+  </ol>
+</details>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<!-- ABOUT THE PROJECT -->
+# **About InstaVerse App**
+InstaVerse is a photo social media application. The app allows users to view other users photos, upload/share their own photos. InstaVerse also allows users to view other users profile, like and comment on posts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# **Built With**
+- HTML
+- CSS
+- JavaScript
+- React
+- Cloudinary
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+# **How does InstaVerse work?**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# **Features of InstaVerse**
 
-## Learn More
+# **ERD**
 
-To learn more about Next.js, take a look at the following resources:
+# **Wireframes**
+<img src="src/app/assets/instaVerse-wireframe.png">
+<img src="src/app/assets/app-wireframe.png">
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# **Screenshots**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# **Future Enhancements**
+- Messages
+- Explore
+- Reels
+- Messages
+- Follow 
 
-## Deploy on Vercel
+# **Attribution**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# **License**
+The source code for the site is licensed under the MIT license, which you can find in the MIT-LICENSE.txt file.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2 align="center">Authors</h2>
+
+<div align="center">
+  <a href="https://github.com/jaylee1021">
+    <img src="https://avatars.githubusercontent.com/u/124960279?v=4"
+      alt="Contributors"
+      width="15%" />
+  </a>
+    <a href="https://github.com/kacyphan7">
+    <img src="https://avatars.githubusercontent.com/u/125235721?v=4"
+      alt="Contributors"
+      width="15%" />
+  </a>
+</div>
