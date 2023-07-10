@@ -1,7 +1,16 @@
-import Image from 'next/image';
+'use client';
+// import Image from 'next/image';
+// import 'bootstrap/dist/css/bootstrap.css';
+import './globals.css';
+import './post.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 export default function Homepage() {
   return (
+<<<<<<< Updated upstream
     <main className="main">
       <div className='homepage' style={{ display: 'flex', flexDirection: 'row' }}>
         <div className="homepage_nav" style={{ flex: 0.2 }}>
@@ -9,89 +18,146 @@ export default function Homepage() {
         </div>
         <div className="homepage_timeline" style={{ flex: 0.8 }}>
           <h1>Timeline</h1>
+=======
+    <main className="flex min-h-screen flex-col">
+      <div className="page-content page-container" id="page-content">
+        <div className="padding">
+          <div className="row container d-flex justify-content-center">
+            <div className="col-md-6">
+              <div className="box box-widget">
+                <div className="box-header with-border">
+                  <div className="user-block">
+                    <img className="img-circle" src="https://img.icons8.com/color/36/000000/guest-male.png" alt="User Image" />
+                    <span className="username">
+                      <a href="#" data-abc="true">Henery German</a>
+                    </span>
+                    <span className="description">Public - 7:30 PM Today</span>
+                  </div>
+                  <div className="box-tools">
+                    <button type="button" className="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                      <i className="fa fa-circle-o"></i>
+                    </button>
+                    <button type="button" className="btn btn-box-tool" data-widget="collapse">
+                      <i className="fa fa-minus"></i>
+                    </button>
+                    <button type="button" className="btn btn-box-tool" data-widget="remove">
+                      <i className="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="box-body">
+                  <img className="img-responsive pad" src="https://i.imgur.com/EAQkLS1.jpg" alt="Photo" />
+                  <p>Look at the beach photo I clicked</p>
+                  <button type="button" className="btn btn-default btn-xs">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                  <button type="button" className="btn btn-default btn-xs">
+                    <FontAwesomeIcon icon={faComment} />
+                  </button>
+                  <button type="button" className="btn btn-default btn-xs">
+                    <FontAwesomeIcon icon={faPaperPlane} />
+                  </button>
+                  <span className="pull-right text-muted">127 likes - 3 comments</span>
+                </div>
+                <div className="box-footer box-comments">
+                  <div className="box-comment">
+                    <img className="img-circle img-sm" src="https://img.icons8.com/office/36/000000/person-female.png" alt="User Image" />
+                    <div className="comment-text">
+                      <span className="username">
+                        Tina Domiaz <span className="text-muted pull-right">8:03 PM Today</span>
+                      </span>
+                      For what reason would it be advisable for me to think about business content?
+                    </div>
+                  </div>
+                  <div className="box-comment">
+                    <img className="img-circle img-sm" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="User Image" />
+                    <div className="comment-text">
+                      <span className="username">
+                        Smith helm <span className="text-muted pull-right">8:03 PM Today</span>
+                      </span>
+                      That might be a little bit risky to have a crew member like them.
+                    </div>
+                  </div>
+                </div>
+                <div className="box-footer">
+                  <form action="#" method="post">
+                    <img className="img-responsive img-circle img-sm" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="Alt Text" />
+                    <div className="img-push">
+                      <input type="text" className="form-control input-sm" placeholder="Press enter to post comment" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div className="box box-widget">
+                <div className="box-header with-border">
+                  <div className="user-block">
+                    <img className="img-circle" src="https://img.icons8.com/color/36/000000/guest-male.png" alt="User Image" />
+                    <span className="username">
+                      <a href="#" data-abc="true">Henery German</a>
+                    </span>
+                    <span className="description">Public - 7:30 PM Today</span>
+                  </div>
+                  <div className="box-tools">
+                    <button type="button" className="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                      <i className="fa fa-circle-o"></i>
+                    </button>
+                    <button type="button" className="btn btn-box-tool" data-widget="collapse">
+                      <i className="fa fa-minus"></i>
+                    </button>
+                    <button type="button" className="btn btn-box-tool" data-widget="remove">
+                      <i className="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="box-body">
+                  <img className="img-responsive pad" src="https://i.imgur.com/EAQkLS1.jpg" alt="Photo" />
+                  <p>Look at the beach photo I clicked</p>
+                  <button type="button" className="btn btn-default btn-xs">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                  <button type="button" className="btn btn-default btn-xs">
+                    <FontAwesomeIcon icon={faComment} />
+                  </button>
+                  <button type="button" className="btn btn-default btn-xs">
+                    <FontAwesomeIcon icon={faPaperPlane} />
+                  </button>
+                  <span className="pull-right text-muted">127 likes - 3 comments</span>
+                </div>
+                <div className="box-footer box-comments">
+                  <div className="box-comment">
+                    <img className="img-circle img-sm" src="https://img.icons8.com/office/36/000000/person-female.png" alt="User Image" />
+                    <div className="comment-text">
+                      <span className="username">
+                        Tina Domiaz <span className="text-muted pull-right">8:03 PM Today</span>
+                      </span>
+                      For what reason would it be advisable for me to think about business content?
+                    </div>
+                  </div>
+                  <div className="box-comment">
+                    <img className="img-circle img-sm" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="User Image" />
+                    <div className="comment-text">
+                      <span className="username">
+                        Smith helm <span className="text-muted pull-right">8:03 PM Today</span>
+                      </span>
+                      That might be a little bit risky to have a crew member like them.
+                    </div>
+                  </div>
+                </div>
+                <div className="box-footer">
+                  <form action="#" method="post">
+                    <img className="img-responsive img-circle img-sm" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="Alt Text" />
+                    <div className="img-push">
+                      <input type="text" className="form-control input-sm" placeholder="Press enter to post comment" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+>>>>>>> Stashed changes
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
     </main>
   );
 }
+
