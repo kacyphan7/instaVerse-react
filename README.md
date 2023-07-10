@@ -32,14 +32,16 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 # **About InstaVerse App**
+
 InstaVerse is a photo social media application. The app allows users to view other users photos, upload/share their own photos. InstaVerse also allows users to view other users profile, like and comment on posts.
 
 # **Built With**
-- HTML
+
+- MERN Stack (MongoDB, Express, React, NodeJs)
+- NextJS
 - CSS
-- JavaScript
-- React
 - Cloudinary
 
 # **How does InstaVerse work?**
@@ -48,22 +50,27 @@ InstaVerse is a photo social media application. The app allows users to view oth
 
 # **ERD**
 
+<img src="src/app/assets/ERD.png">
+
 # **Wireframes**
+
 <img src="src/app/assets/instaVerse-wireframe.png">
 <img src="src/app/assets/app-wireframe.png">
 
 # **Screenshots**
 
 # **Future Enhancements**
+
 - Messages
 - Explore
 - Reels
 - Messages
-- Follow 
+- Follow
 
 # **Attribution**
 
 # **License**
+
 The source code for the site is licensed under the MIT license, which you can find in the MIT-LICENSE.txt file.
 
 <h2 align="center">Authors</h2>
