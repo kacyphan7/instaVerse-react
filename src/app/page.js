@@ -10,15 +10,6 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 export default function Homepage() {
   return (
-<<<<<<< Updated upstream
-    <main className="main">
-      <div className='homepage' style={{ display: 'flex', flexDirection: 'row' }}>
-        <div className="homepage_nav" style={{ flex: 0.2 }}>
-          Side Navigation
-        </div>
-        <div className="homepage_timeline" style={{ flex: 0.8 }}>
-          <h1>Timeline</h1>
-=======
     <main className="flex min-h-screen flex-col">
       <div className="page-content page-container" id="page-content">
         <div className="padding">
@@ -154,7 +145,6 @@ export default function Homepage() {
               </div>
             </div>
           </div>
->>>>>>> Stashed changes
         </div>
       </div>
     </main>
