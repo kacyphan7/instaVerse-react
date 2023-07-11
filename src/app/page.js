@@ -12,7 +12,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 export default function Homepage() {
 
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="itemsCenter flex min-h-screen flex-col">
       <div className="page-content page-container" id="page-content">
         <div className="padding">
           <div className="row container d-flex justify-content-center">

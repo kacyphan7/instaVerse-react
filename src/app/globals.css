@@ -1,9 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bootstrap/dist/css/bootstrap.css';
 
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~bootstrap/dist/css/bootstrap.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,6 +26,20 @@ body {
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
+
+.rightbar{
+  height: 100%;
+  position: fixed;
+  width:280px;
+  
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
 .sidenav {
   height: 100%;
   width: 280px;
@@ -39,6 +50,11 @@ body {
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
+}
+
+.itemsCenter{
+  flex-wrap: wrap;
+  align-content: center;
 }
 
 .sidenav a {
@@ -54,11 +70,12 @@ body {
 }
 
 .main {
-  margin-left: 280px;
+  /* margin-left: 280px; */
   /* Same as the width of the sidenav */
   font-size: 28px;
   /* Increased text to enable scrolling */
   padding: 0px 10px;
+ 
 }
 
 @media screen and (max-height: 450px) {
