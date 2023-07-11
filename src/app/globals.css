@@ -39,6 +39,15 @@ body {
   padding-top: 20px;
 }
 
+.loginItems{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  text-align: center;
+}
+
 .sidenav {
   height: 100%;
   width: 400px;
