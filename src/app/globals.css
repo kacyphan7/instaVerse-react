@@ -28,26 +28,26 @@ body {
 
 
 .rightbar{
-  height: 100%;
-  position: fixed;
+  height: 50%;
+  position: absolute;
   width:280px;
-  
   z-index: 1;
   top: 0;
   right: 0;
-  background-color: #111;
+  /* background-color: #111; */
   overflow-x: hidden;
   padding-top: 20px;
 }
 
 .sidenav {
   height: 100%;
-  width: 280px;
+  width: 400px;
+  border-right: 1px solid grey;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  /* background-color: #111; */
   overflow-x: hidden;
   padding-top: 20px;
 }
