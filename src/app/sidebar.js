@@ -1,4 +1,3 @@
-
 'use client';
 import './globals.css';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -23,12 +22,12 @@ export default function Sidebar() {
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">
             < a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
                 <svg className="bi me-2" width="40" height="32"></svg>
-                <span className="fs-4">Instagram</span>
+                <span className="fs-4">InstaVerse</span>
             </a >
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
                 <li className="nav-item">
-                    <a href="#" className="nav-link active" aria-current="page">
+                    <a href="/" className="nav-link active" aria-current="page">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faHome} className="me-2" />
                         Home
@@ -77,7 +76,7 @@ export default function Sidebar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-link text-white">
+                    <a href="/users/profile" className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faUserCircle} className="me-2" />
                         Profile
