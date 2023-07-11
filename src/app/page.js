@@ -153,11 +153,6 @@ export default function Homepage() {
                   </form>
                 </div>
               </div>
-              <div className="" >
-                <div className="row container d-flex justify-content-end">
-                  Suggested for you
-                </div>
-              </div>
             </div>
           </div>
         </div>

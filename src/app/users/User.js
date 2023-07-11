@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 // import { faker } from "@faker-js/faker";
 export default function User({ user }) {
 
@@ -16,9 +17,14 @@ export default function User({ user }) {
 
     return (
         <tr>
-            <td>{user.fullName}</td>
-            <td>{user.username}</td>
-            <td>{user.email}</td>
+            <td className="is-capitalized">{user.fullName}</td>
+            <td className="is-capitalized">{user.username}</td>
+            <td onClick={addUserData} style={{
+                cursor: 'pointer',
+            }}>
+                {user.email}
+            </td>
+            <td><a href="/users/edit" class="card-footer-item">Edit</a></td>
         </tr>
     );
 }
