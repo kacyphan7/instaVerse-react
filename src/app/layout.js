@@ -15,13 +15,12 @@ export const metadata = {
 
 
 export default function RootLayout({ children }) {
-  // const router = useRouter();
-  // const showHeader = router.pathname === '/users/login' || router.pathname === '/users/signup';
+  const router = useRouter();
+  const showHeader = router.pathname === '/users/login' || router.pathname === '/users/signup';
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* {showHeader && <Sidebar />} */}
-        <Sidebar />
+        {showHeader && <Sidebar />}
         <section className="main">
           {children}
         </section>
