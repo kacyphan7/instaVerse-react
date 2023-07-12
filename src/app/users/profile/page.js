@@ -1,6 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import '../../profile.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 export default function Profile() {
     // state is what the data is representing in realtime
@@ -26,94 +30,181 @@ export default function Profile() {
     if (!data) return <p>No data shown...</p>; */
 
     return (
-        <div className="profile-container">
-            <div className="profile-card">
-                <div className="media align-items-end profile-head">
-                    <div className="profile mr-3">
+        <main>
+            <div class="container">
+                <div class="profile">
+                    <div class="profile-image">
                         <img
-                            src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-                            alt="..."
-                            width="130"
-                            className="rounded-circle mb-2 img-thumbnail"
+                            src="https://images.unsplash.com/photo-1682685797741-f0213d24418c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwzOTF8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=150&q=60w=152&h=152&fit=crop&crop=faces"
+                            alt=""
                         />
-                        <a href="#" className="btn btn-outline-dark btn-sm btn-block">
-                            Edit profile
-                        </a>
                     </div>
-                    <div className="media-body mb-5 text-black">
-                        <h4 className="mt-0 mb-0">Mark Williams</h4>
-                    </div>
-                </div>
 
-                <div className="bg-light p-4 d-flex justify-content-end text-center">
-                    <ul className="list-inline mb-0">
-                        <li className="list-inline-item">
-                            <h5 className="font-weight-bold mb-0 d-block">215</h5>
-                            <small className="text-muted">
-                                <i className="fas fa-image mr-1"></i>Photos
-                            </small>
-                        </li>
-                        <li className="list-inline-item">
-                            <h5 className="font-weight-bold mb-0 d-block">745</h5>
-                            <small className="text-muted">
-                                <i className="fas fa-user mr-1"></i>Followers
-                            </small>
-                        </li>
-                        <li className="list-inline-item">
-                            <h5 className="font-weight-bold mb-0 d-block">340</h5>
-                            <small className="text-muted">
-                                <i className="fas fa-user mr-1"></i>Following
-                            </small>
-                        </li>
-                    </ul>
-                </div>
-                <div className="px-4 py-3">
-                    <h5 className="mb-0">About</h5>
-                    <div className="p-4 rounded shadow-sm bg-light">
-                        <p className="font-italic mb-0">Web Developer</p>
-                        <p className="font-italic mb-0">Lives in New York</p>
-                        <p className="font-italic mb-0">Photographer</p>
+                    <div class="profile-user-settings">
+                        <h1 class="profile-user-name">bobdoe_</h1>
+
+                        <button class="btn profile-edit-btn">Edit Profile</button>
+
+                        <button
+                            class="btn profile-settings-btn"
+                            aria-label="profile settings"
+                        >
+                            <FontAwesomeIcon icon={faCog} className="me-2" />
+                        </button>
+                    </div>
+
+                    <div class="profile-stats">
+                        <ul>
+                            <li>
+                                <span class="profile-stat-count">164</span> posts
+                            </li>
+                            <li>
+                                <span class="profile-stat-count">188</span> followers
+                            </li>
+                            <li>
+                                <span class="profile-stat-count">206</span> following
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="profile-bio">
+                        <p>
+                            <span class="profile-real-name">Bob Doe</span> Lorem ipsum dolor
+                            sit, amet consectetur adipisicing elit 📷✈️🏕️
+                        </p>
                     </div>
                 </div>
-                <div className="py-4 px-4">
-                    <div className="d-flex align-items-center justify-content-between mb-3">
-                        <h5 className="mb-0">Recent photos</h5>
-                        <a href="#" className="btn btn-link text-muted">
-                            Show all
-                        </a>
+            </div>
+
+            <div class="container">
+                <div class="gallery">
+                    <div class="gallery-item" tabindex="0">
+                        <img
+                            src="https://images.unsplash.com/photo-1663573794485-6203eef8e30a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80w=500&h=500&fit=crop"
+                            class="gallery-image"
+                            alt=""
+                        />
+
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes">
+                                    <span class="visually-hidden">Likes:</span>
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" />56
+                                </li>
+                                <li class="gallery-item-comments">
+                                    <span class="visually-hidden">Comments:</span>
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div className="row">
-                        <div className="col-lg-6 mb-2 pr-lg-1">
-                            <img
-                                src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                alt=""
-                                className="img-fluid rounded shadow-sm"
-                            />
+
+                    <div class="gallery-item" tabindex="0">
+                        <img
+                            src="https://plus.unsplash.com/premium_photo-1686878940830-9031355ec98c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
+                            class="gallery-image"
+                            alt=""
+                        />
+
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes">
+                                    <span class="visually-hidden">Likes:</span>
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" />89
+                                </li>
+                                <li class="gallery-item-comments">
+                                    <span class="visually-hidden">Comments:</span>
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
+                                </li>
+                            </ul>
                         </div>
-                        <div className="col-lg-6 mb-2 pl-lg-1">
-                            <img
-                                src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                alt=""
-                                className="img-fluid rounded shadow-sm"
-                            />
+                    </div>
+
+                    <div class="gallery-item" tabindex="0">
+                        <img
+                            src="https://plus.unsplash.com/premium_photo-1682390303366-7463dcbec281?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyODR8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
+                            class="gallery-image"
+                            alt=""
+                        />
+
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes">
+                                    <span class="visually-hidden">Likes:</span>
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
+                                </li>
+                                <li class="gallery-item-comments">
+                                    <span class="visually-hidden">Comments:</span>
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
+                                </li>
+                            </ul>
                         </div>
-                        <div className="col-lg-6 pr-lg-1 mb-2">
-                            <img
-                                src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-                                alt=""
-                                className="img-fluid rounded shadow-sm"
-                            />
+                    </div>
+
+                    <div class="gallery-item" tabindex="0">
+                        <img
+                            src="https://images.unsplash.com/photo-1688876100196-23fe0b1efb84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNTB8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
+                            class="gallery-image"
+                            alt=""
+                        />
+
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes">
+                                    <span class="visually-hidden">Likes:</span>
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
+                                </li>
+                                <li class="gallery-item-comments">
+                                    <span class="visually-hidden">Comments:</span>
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
+                                </li>
+                            </ul>
                         </div>
-                        <div className="col-lg-6 pl-lg-1">
-                            <img
-                                src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                                alt=""
-                                className="img-fluid rounded shadow-sm"
-                            />
+                    </div>
+                    <div class="gallery-item" tabindex="0">
+                        <img
+                            src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
+                            class="gallery-image"
+                            alt=""
+                        />
+
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes">
+                                    <span class="visually-hidden">Likes:</span>
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
+                                </li>
+                                <li class="gallery-item-comments">
+                                    <span class="visually-hidden">Comments:</span>
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" tabindex="0">
+                        <img
+                            src="https://images.unsplash.com/photo-1688380303885-c45db2972da7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMDh8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
+                            class="gallery-image"
+                            alt=""
+                        />
+
+                        <div class="gallery-item-info">
+                            <ul>
+                                <li class="gallery-item-likes">
+                                    <span class="visually-hidden">Likes:</span>
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
+                                </li>
+                                <li class="gallery-item-comments">
+                                    <span class="visually-hidden">Comments:</span>
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="loader"></div>
+        </main>
     );
-};
+}
