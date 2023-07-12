@@ -1,6 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import '../../profile.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 export default function Profile() {
     // state is what the data is representing in realtime
@@ -45,7 +49,7 @@ export default function Profile() {
                             class="btn profile-settings-btn"
                             aria-label="profile settings"
                         >
-                            <i class="fas fa-cog" aria-hidden="true"></i>
+                            <FontAwesomeIcon icon={faCog} className="me-2" />
                         </button>
                     </div>
 
@@ -85,11 +89,11 @@ export default function Profile() {
                             <ul>
                                 <li class="gallery-item-likes">
                                     <span class="visually-hidden">Likes:</span>
-                                    <i class="fas fa-heart" aria-hidden="true"></i> 56
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" />56
                                 </li>
                                 <li class="gallery-item-comments">
                                     <span class="visually-hidden">Comments:</span>
-                                    <i class="fas fa-comment" aria-hidden="true"></i> 2
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
                                 </li>
                             </ul>
                         </div>
@@ -106,11 +110,11 @@ export default function Profile() {
                             <ul>
                                 <li class="gallery-item-likes">
                                     <span class="visually-hidden">Likes:</span>
-                                    <i class="fas fa-heart" aria-hidden="true"></i> 89
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" />89
                                 </li>
                                 <li class="gallery-item-comments">
                                     <span class="visually-hidden">Comments:</span>
-                                    <i class="fas fa-comment" aria-hidden="true"></i> 5
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
                                 </li>
                             </ul>
                         </div>
@@ -127,11 +131,11 @@ export default function Profile() {
                             <ul>
                                 <li class="gallery-item-likes">
                                     <span class="visually-hidden">Likes:</span>
-                                    <i class="fas fa-heart" aria-hidden="true"></i> 56
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
                                 </li>
                                 <li class="gallery-item-comments">
                                     <span class="visually-hidden">Comments:</span>
-                                    <i class="fas fa-comment" aria-hidden="true"></i> 2
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
                                 </li>
                             </ul>
                         </div>
@@ -148,11 +152,11 @@ export default function Profile() {
                             <ul>
                                 <li class="gallery-item-likes">
                                     <span class="visually-hidden">Likes:</span>
-                                    <i class="fas fa-heart" aria-hidden="true"></i> 89
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
                                 </li>
                                 <li class="gallery-item-comments">
                                     <span class="visually-hidden">Comments:</span>
-                                    <i class="fas fa-comment" aria-hidden="true"></i> 5
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
                                 </li>
                             </ul>
                         </div>
@@ -168,11 +172,11 @@ export default function Profile() {
                             <ul>
                                 <li class="gallery-item-likes">
                                     <span class="visually-hidden">Likes:</span>
-                                    <i class="fas fa-heart" aria-hidden="true"></i> 56
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
                                 </li>
                                 <li class="gallery-item-comments">
                                     <span class="visually-hidden">Comments:</span>
-                                    <i class="fas fa-comment" aria-hidden="true"></i> 2
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
                                 </li>
                             </ul>
                         </div>
@@ -189,11 +193,11 @@ export default function Profile() {
                             <ul>
                                 <li class="gallery-item-likes">
                                     <span class="visually-hidden">Likes:</span>
-                                    <i class="fas fa-heart" aria-hidden="true"></i> 89
+                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
                                 </li>
                                 <li class="gallery-item-comments">
                                     <span class="visually-hidden">Comments:</span>
-                                    <i class="fas fa-comment" aria-hidden="true"></i> 5
+                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
                                 </li>
                             </ul>
                         </div>
