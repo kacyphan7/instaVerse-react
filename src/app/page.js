@@ -8,19 +8,19 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import setAuthToken from './utils/setAuthToken';
+// import setAuthToken from './utils/setAuthToken';
 
 export default function Homepage() {
 
-  const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-  let currentTime = Date.now();
+  // const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+  // let currentTime = Date.now();
 
-  // make a condition that compares exp and current time
-  if (currentTime >= expirationTime) {
-    handleLogout();
-    alert('Session has ended. Please login to continue.');
-    router.push('/users/login');
-  }
+  // // make a condition that compares exp and current time
+  // if (currentTime >= expirationTime) {
+  //   handleLogout();
+  //   alert('Session has ended. Please login to continue.');
+  //   router.push('/users/login');
+  // }
 
   return (
     <main className="itemsCenter flex min-h-screen flex-col">
