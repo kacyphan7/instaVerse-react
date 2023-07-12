@@ -9,8 +9,19 @@ export default function User({ user }) {
     function addUserData() {
         // add email to localStorage 
         localStorage.setItem('email', user.email);
+        localStorage.setItem('userId', user._id);
         // set redirect to true 
         setRedirect(true);
+    }
+
+    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+    let currentTime = Date.now();
+
+    // make a condition that compares exp and current time
+    if (currentTime >= expirationTime) {
+        handleLogout();
+        alert('Session has ended. Please login to continue.');
+        router.push('/users/login');
     }
 
     if (redirect) { router.push('/users/profile'); }

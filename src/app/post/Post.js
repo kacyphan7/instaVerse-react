@@ -1,4 +1,4 @@
-import Comment from "../comments/Comment";
+import Comment from "../comment/page";
 import { faker } from "@faker-js/faker";
 
 export default function Post({ post }) {

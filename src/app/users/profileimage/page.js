@@ -11,6 +11,16 @@ const ProfileImage = () => {
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
+    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+    let currentTime = Date.now();
+
+    // make a condition that compares exp and current time
+    if (currentTime >= expirationTime) {
+        handleLogout();
+        alert('Session has ended. Please login to continue.');
+        router.push('/users/login');
+    }
+
     const handleProfileImage = (e) => {
         setProfileImage(e.target.files[0]);
     };
