@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import '../../user-new.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const NewUser = () => {
     const [profileImage, setProfileImage] = useState(undefined);
@@ -81,29 +84,87 @@ const NewUser = () => {
         <div className="row mt-4">
             <div className="col-md-7 offset-md-3">
                 <div className="card card-body">
-                    <h2 className="py-2">Make New User</h2>
+                    <h2 className="py-2" style={{ color: 'black' }}>
+                        Make New User
+                    </h2>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <input type="file" name="profileImage" onChange={handleProfileImage} />
+                            <label htmlFor="profileImage" style={{ color: 'black' }}>
+                                <FontAwesomeIcon icon={faUserCircle} className="me-2" />
+                            </label>
+                            <input
+                                type="file"
+                                name="profileImage"
+                                onChange={handleProfileImage}
+                                className="form-control-file"
+                                id="profileImage"
+                                style={{ color: 'black' }}
+                            />
                         </div>
                         <div className="form-group">
-                            <input type="text" name="fullName" value={fullName} onChange={handleFullName} className="form-control" placeholder='Full Name' />
+                            <label htmlFor="fullName" style={{ color: 'black' }}>
+                            </label>
+                            <input
+                                type="text"
+                                name="fullName"
+                                value={fullName}
+                                onChange={handleFullName}
+                                className="form-control"
+                                id="fullName"
+                                placeholder="Full Name"
+                                style={{ color: 'black' }}
+                            />
                         </div>
                         <div className="form-group">
-                            <input type="text" name="username" value={username} onChange={handleUsername} className="form-control" placeholder='Username' />
+                            <label htmlFor="username" style={{ color: 'black' }}>
+                            </label>
+                            <input
+                                type="text"
+                                name="username"
+                                value={username}
+                                onChange={handleUsername}
+                                className="form-control"
+                                id="username"
+                                placeholder="Username"
+                                style={{ color: 'black' }}
+                            />
                         </div>
                         <div className="form-group">
-                            <input type="email" name="email" value={email} onChange={handleEmail} className="form-control" placeholder='Email' />
+                            <label htmlFor="email" style={{ color: 'black' }}>
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={handleEmail}
+                                className="form-control"
+                                id="email"
+                                placeholder="Email"
+                                style={{ color: 'black' }}
+                            />
                         </div>
                         <div className="form-group">
-                            <input type="text" name="password" value={password} onChange={handlePassword} className="form-control" placeholder='Password' />
+                            <label htmlFor="password" style={{ color: 'black' }}>
+                            </label>
+                            <input
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={handlePassword}
+                                className="form-control"
+                                id="password"
+                                placeholder="Password"
+                                style={{ color: 'black' }}
+                            />
                         </div>
-                        <button type="submit" className="btn btn-primary float-right">Submit</button>
+                        <button type="submit" className="btn btn-blue float-right">
+                            Submit
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     );
-};
 
+};
 export default NewUser;
