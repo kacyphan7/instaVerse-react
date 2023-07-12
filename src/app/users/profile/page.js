@@ -5,29 +5,59 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
+import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/navigation';
+import handleLogout from '@/app/utils/handleLogout';
+import Link from 'next/link';
 
 export default function Profile() {
-    // state is what the data is representing in realtime
-    /* const [data, setData] = useState(null);
+    const router = useRouter();
+    const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
 
+    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+    let currentTime = Date.now();
+
+    // make a condition that compares exp and current time
+    if (currentTime >= expirationTime) {
+        handleLogout();
+        alert('Session has ended. Please login to continue.');
+        router.push('/users/login');
+    }
+
     useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/email/${localStorage.getItem('email')}`)
-            .then((res) => res.json())
-            .then((data) => {
-                // data is an object
-                console.log('--- found user ---', data.user[0]);
-                setData(data.user[0]);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log('error', error);
-                setLoading(false);
-            });
+        if (localStorage.getItem('jwtToken')) {
+            fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    // data is an object
+                    let userData = jwtDecode(localStorage.getItem('jwtToken'));
+                    console.log('userData', userData);
+                    if (userData.email === localStorage.getItem('email')) {
+                        setData(data.user[0]);
+                        setLoading(false);
+                    } else {
+                        console.log('error1');
+                        router.push('/users/login');
+                    }
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                    console.log('error2');
+                    router.push('/users/login');
+                });
+        } else {
+            console.log('error3');
+            router.push('/users/login');
+        }
+
+
     }, []);
 
     if (isLoading) return <p>Loading...</p>;
-    if (!data) return <p>No data shown...</p>; */
+    if (!data) return <p>No data shown...</p>;
 
     return (
         <main>

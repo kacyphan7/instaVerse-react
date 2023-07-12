@@ -2,10 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-const NewComment = ({ postId }) => {
+const Comment = ({ postId }) => {
     const [username, setUsername] = useState('');
     const [header, setHeader] = useState('');
     const [body, setBody] = useState('');
+
+    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+    let currentTime = Date.now();
+
+    // make a condition that compares exp and current time
+    if (currentTime >= expirationTime) {
+        handleLogout();
+        alert('Session has ended. Please login to continue.');
+        router.push('/users/login');
+    }
 
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
@@ -45,4 +55,4 @@ const NewComment = ({ postId }) => {
     );
 };
 
-export default NewComment;
+export default Comment;

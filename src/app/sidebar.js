@@ -16,6 +16,7 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 export default function Sidebar() {
     return (
@@ -79,7 +80,7 @@ export default function Sidebar() {
                     <a href="#" className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faUserCircle} className="me-2" />
-                        Profile
+                        <Link href={'/users/profile'}>Profile</Link>
                     </a>
                 </li>
             </ul>
