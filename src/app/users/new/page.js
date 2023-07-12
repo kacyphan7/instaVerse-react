@@ -55,7 +55,9 @@ const NewUser = () => {
                     // console.log(newUser);
                     axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/new`, newUser)
                         .then(response => {
+                            sessionStorage.setItem('userId', user._id);
                             setRedirect(true);
+
                         })
                         .catch(error => console.log('===> Error in Signup', error));
                 })
@@ -64,15 +66,16 @@ const NewUser = () => {
             const newUser = { imageURL, fullName, username, email, password };
             console.log(newUser);
             // console.log(newUser);
-            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/new`, newUser)
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
                 .then(response => {
+                    sessionStorage.setItem('userId', user._id);
                     setRedirect(true);
                 })
                 .catch(error => console.log('===> Error in Signup', error));
         }
     };
 
-    if (redirect) { router.push('/profile'); }
+    if (redirect) { router.push('/users/profile'); }
 
     return (
         <div className="row mt-4">
