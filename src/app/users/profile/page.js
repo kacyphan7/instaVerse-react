@@ -31,172 +31,172 @@ export default function Profile() {
 
     return (
         <main>
-            <div class="container">
-                <div class="profile">
-                    <div class="profile-image">
+            <div className="container">
+                <div className="profile">
+                    <div className="profile-image">
                         <img
                             src="https://images.unsplash.com/photo-1682685797741-f0213d24418c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwzOTF8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=150&q=60w=152&h=152&fit=crop&crop=faces"
                             alt=""
                         />
                     </div>
 
-                    <div class="profile-user-settings">
-                        <h1 class="profile-user-name">bobdoe_</h1>
+                    <div className="profile-user-settings">
+                        <h1 className="profile-user-name">bobdoe_</h1>
 
-                        <button class="btn profile-edit-btn">Edit Profile</button>
+                        <button className="btn profile-edit-btn">Edit Profile</button>
 
                         <button
-                            class="btn profile-settings-btn"
+                            className="btn profile-settings-btn"
                             aria-label="profile settings"
                         >
                             <FontAwesomeIcon icon={faCog} className="me-2" />
                         </button>
                     </div>
 
-                    <div class="profile-stats">
+                    <div className="profile-stats">
                         <ul>
                             <li>
-                                <span class="profile-stat-count">164</span> posts
+                                <span className="profile-stat-count">164</span> posts
                             </li>
                             <li>
-                                <span class="profile-stat-count">188</span> followers
+                                <span className="profile-stat-count">188</span> followers
                             </li>
                             <li>
-                                <span class="profile-stat-count">206</span> following
+                                <span className="profile-stat-count">206</span> following
                             </li>
                         </ul>
                     </div>
 
-                    <div class="profile-bio">
+                    <div className="profile-bio">
                         <p>
-                            <span class="profile-real-name">Bob Doe</span> Lorem ipsum dolor
+                            <span className="profile-real-name">Bob Doe</span> Lorem ipsum dolor
                             sit, amet consectetur adipisicing elit 📷✈️🏕️
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div class="container">
-                <div class="gallery">
-                    <div class="gallery-item" tabindex="0">
+            <div className="container">
+                <div className="gallery">
+                    <div className="gallery-item" tabIndex="0">
                         <img
                             src="https://images.unsplash.com/photo-1663573794485-6203eef8e30a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80w=500&h=500&fit=crop"
-                            class="gallery-image"
+                            className="gallery-image"
                             alt=""
                         />
 
-                        <div class="gallery-item-info">
+                        <div className="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes">
-                                    <span class="visually-hidden">Likes:</span>
+                                <li className="gallery-item-likes">
+                                    <span className="visually-hidden">Likes:</span>
                                     <FontAwesomeIcon icon={faHeart} className="me-2" />56
                                 </li>
-                                <li class="gallery-item-comments">
-                                    <span class="visually-hidden">Comments:</span>
+                                <li className="gallery-item-comments">
+                                    <span className="visually-hidden">Comments:</span>
                                     <FontAwesomeIcon icon={faComment} className="me-2" /> 2
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="gallery-item" tabindex="0">
+                    <div className="gallery-item" tabIndex="0">
                         <img
                             src="https://plus.unsplash.com/premium_photo-1686878940830-9031355ec98c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            class="gallery-image"
+                            className="gallery-image"
                             alt=""
                         />
 
-                        <div class="gallery-item-info">
+                        <div className="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes">
-                                    <span class="visually-hidden">Likes:</span>
+                                <li className="gallery-item-likes">
+                                    <span className="visually-hidden">Likes:</span>
                                     <FontAwesomeIcon icon={faHeart} className="me-2" />89
                                 </li>
-                                <li class="gallery-item-comments">
-                                    <span class="visually-hidden">Comments:</span>
+                                <li className="gallery-item-comments">
+                                    <span className="visually-hidden">Comments:</span>
                                     <FontAwesomeIcon icon={faComment} className="me-2" /> 5
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="gallery-item" tabindex="0">
+                    <div className="gallery-item" tabIndex="0">
                         <img
                             src="https://plus.unsplash.com/premium_photo-1682390303366-7463dcbec281?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyODR8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            class="gallery-image"
+                            className="gallery-image"
                             alt=""
                         />
 
-                        <div class="gallery-item-info">
+                        <div className="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes">
-                                    <span class="visually-hidden">Likes:</span>
+                                <li className="gallery-item-likes">
+                                    <span className="visually-hidden">Likes:</span>
                                     <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
                                 </li>
-                                <li class="gallery-item-comments">
-                                    <span class="visually-hidden">Comments:</span>
+                                <li className="gallery-item-comments">
+                                    <span className="visually-hidden">Comments:</span>
                                     <FontAwesomeIcon icon={faComment} className="me-2" /> 2
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="gallery-item" tabindex="0">
+                    <div className="gallery-item" tabIndex="0">
                         <img
                             src="https://images.unsplash.com/photo-1688876100196-23fe0b1efb84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNTB8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            class="gallery-image"
+                            className="gallery-image"
                             alt=""
                         />
 
-                        <div class="gallery-item-info">
+                        <div className="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes">
-                                    <span class="visually-hidden">Likes:</span>
+                                <li className="gallery-item-likes">
+                                    <span className="visually-hidden">Likes:</span>
                                     <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
                                 </li>
-                                <li class="gallery-item-comments">
-                                    <span class="visually-hidden">Comments:</span>
+                                <li className="gallery-item-comments">
+                                    <span className="visually-hidden">Comments:</span>
                                     <FontAwesomeIcon icon={faComment} className="me-2" /> 5
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="gallery-item" tabindex="0">
+                    <div className="gallery-item" tabIndex="0">
                         <img
                             src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
-                            class="gallery-image"
+                            className="gallery-image"
                             alt=""
                         />
 
-                        <div class="gallery-item-info">
+                        <div className="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes">
-                                    <span class="visually-hidden">Likes:</span>
+                                <li className="gallery-item-likes">
+                                    <span className="visually-hidden">Likes:</span>
                                     <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
                                 </li>
-                                <li class="gallery-item-comments">
-                                    <span class="visually-hidden">Comments:</span>
+                                <li className="gallery-item-comments">
+                                    <span className="visually-hidden">Comments:</span>
                                     <FontAwesomeIcon icon={faComment} className="me-2" /> 2
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="gallery-item" tabindex="0">
+                    <div className="gallery-item" tabIndex="0">
                         <img
                             src="https://images.unsplash.com/photo-1688380303885-c45db2972da7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMDh8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            class="gallery-image"
+                            className="gallery-image"
                             alt=""
                         />
 
-                        <div class="gallery-item-info">
+                        <div className="gallery-item-info">
                             <ul>
-                                <li class="gallery-item-likes">
-                                    <span class="visually-hidden">Likes:</span>
+                                <li className="gallery-item-likes">
+                                    <span className="visually-hidden">Likes:</span>
                                     <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
                                 </li>
-                                <li class="gallery-item-comments">
-                                    <span class="visually-hidden">Comments:</span>
+                                <li className="gallery-item-comments">
+                                    <span className="visually-hidden">Comments:</span>
                                     <FontAwesomeIcon icon={faComment} className="me-2" /> 5
                                 </li>
                             </ul>
@@ -204,7 +204,7 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
-            <div class="loader"></div>
+            <div className="loader"></div>
         </main>
     );
 }

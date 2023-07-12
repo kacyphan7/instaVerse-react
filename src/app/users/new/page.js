@@ -42,37 +42,18 @@ const NewUser = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); // at the beginning of a submit function
-        if (profileImage) {
-            const formData = new FormData();
-            formData.append('file', profileImage);
-            formData.append('upload_preset', 'instaverse');
-            axios.post('https://api.cloudinary.com/v1_1/dtnostfrb/image/upload', formData)
-                .then(response => {
-                    const secureUrl = response.data.secure_url;
-                    setImageURL(secureUrl);
-                    const newUser = { profilePicture: secureUrl, fullName, username, email, password };
-                    console.log(newUser);
-                    // console.log(newUser);
-                    axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/new`, newUser)
-                        .then(response => {
-                            sessionStorage.setItem('userId', user._id);
-                            setRedirect(true);
 
-                        })
-                        .catch(error => console.log('===> Error in Signup', error));
-                })
-                .catch(error => console.log('===> Error in Signup', error));
-        } else {
-            const newUser = { imageURL, fullName, username, email, password };
-            console.log(newUser);
-            // console.log(newUser);
-            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
-                .then(response => {
-                    sessionStorage.setItem('userId', user._id);
-                    setRedirect(true);
-                })
-                .catch(error => console.log('===> Error in Signup', error));
-        }
+
+        const newUser = { fullName, username, email, password };
+        console.log(newUser);
+        // console.log(newUser);
+        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
+            .then(response => {
+                sessionStorage.setItem('userId', user._id);
+                setRedirect(true);
+            })
+            .catch(error => console.log('===> Error in Signup', error));
+
     };
 
     if (redirect) { router.push('/users/profile'); }
@@ -83,9 +64,7 @@ const NewUser = () => {
                 <div className="card card-body">
                     <h2 className="py-2">Make New User</h2>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <input type="file" name="profileImage" onChange={handleProfileImage} />
-                        </div>
+
                         <div className="form-group">
                             <input type="text" name="fullName" value={fullName} onChange={handleFullName} className="form-control" placeholder='Full Name' />
                         </div>
