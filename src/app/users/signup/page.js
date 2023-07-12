@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const NewUser = () => {
 
@@ -38,8 +39,6 @@ const NewUser = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); // at the beginning of a submit function
-
-
         const newUser = { fullName, username, email, password };
         console.log(newUser);
         // console.log(newUser);
@@ -55,6 +54,10 @@ const NewUser = () => {
             });
 
     };
+    const handleCancel = (e) => {
+        e.preventDefault();
+        setRedirect(true);
+    };
 
     if (redirect) { router.push('/users/login'); }
     if (error) {
@@ -67,9 +70,9 @@ const NewUser = () => {
                             <br />
                             <h2>Login</h2>
                             <p>Sign In to your account</p>
-                            <a href="/users/login" type="button" className="btn btn-primary active mt-3">Login</a>
+                            <Link href="/users/login" type="button" className="btn btn-primary active mt-3">Login</Link>
                             <span>  </span>
-                            <a href="/users/signup" type="button" className="btn btn-secondary active mt-3">Signup</a>
+                            <Link href="/users/signup" type="button" className="btn btn-secondary active mt-3">Signup</Link>
                         </div>
                     </div>
                 </div>
@@ -94,8 +97,10 @@ const NewUser = () => {
                             <input type="email" name="email" value={email} onChange={handleEmail} className="form-control" placeholder='Email' required />
                         </div>
                         <div className="form-group">
-                            <input type="text" name="password" value={password} onChange={handlePassword} className="form-control" placeholder='Password' required />
+                            {/* <span className="input-group-addon"><i className="fa fa-lock"></i></span> */}
+                            <input type="password" name="password" value={password} onChange={handlePassword} className="form-control" placeholder='Password' required />
                         </div>
+                        <button type="submit" className="btn btn-primary float-right" onClick={handleCancel}>Cancel</button>
                         <button type="submit" className="btn btn-primary float-right">Submit</button>
                     </form>
                 </div>

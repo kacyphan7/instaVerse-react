@@ -33,6 +33,7 @@ export default function Login() {
                 localStorage.setItem('email', response.data.userData.email);
                 localStorage.setItem('expiration', response.data.userData.exp);
                 localStorage.setItem('userId', response.data.userData.id);
+                localStorage.setItem('username', response.data.userData.username);
                 setAuthToken(response.data.token);
                 let decoded = jwtDecode(response.data.token);
                 setRedirect(true);

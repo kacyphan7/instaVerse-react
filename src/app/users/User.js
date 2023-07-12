@@ -10,6 +10,7 @@ export default function User({ user }) {
         // add email to localStorage 
         localStorage.setItem('email', user.email);
         localStorage.setItem('userId', user._id);
+        localStorage.setItem('username', user.username);
         // set redirect to true 
         setRedirect(true);
     }

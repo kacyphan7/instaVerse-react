@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const showHeader = pathname === '/users/new' || pathname === '/users/login' || pathname === '/users/profileimage' ? false : true;
+  const showHeader = pathname === '/users/signup' || pathname === '/users/login' || pathname === '/users/profileimage' ? false : true;
   return (
     <html lang="en">
       <body className={inter.className}>

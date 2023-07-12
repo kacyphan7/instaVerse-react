@@ -10,21 +10,23 @@ import jwtDecode from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import handleLogout from '@/app/utils/handleLogout';
 import Link from 'next/link';
+import axios from 'axios';
 
 export default function Profile() {
     const router = useRouter();
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
+    const [posts, setPosts] = useState(null);
 
-    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-    let currentTime = Date.now();
+    // const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+    // let currentTime = Date.now();
 
-    // make a condition that compares exp and current time
-    if (currentTime >= expirationTime) {
-        handleLogout();
-        alert('Session has ended. Please login to continue.');
-        router.push('/users/login');
-    }
+    // // make a condition that compares exp and current time
+    // if (currentTime >= expirationTime) {
+    //     handleLogout();
+    //     alert('Session has ended. Please login to continue.');
+    //     router.push('/users/login');
+    // }
 
     useEffect(() => {
         if (localStorage.getItem('jwtToken')) {
@@ -33,15 +35,14 @@ export default function Profile() {
                 .then((data) => {
                     // data is an object
                     let userData = jwtDecode(localStorage.getItem('jwtToken'));
-                    console.log('userData', userData);
                     if (userData.email === localStorage.getItem('email')) {
-                        setData(data.user[0]);
+                        console.log('--- data ---', data.user);
+                        setData(data.user);
                         setLoading(false);
                     } else {
                         console.log('error1');
                         router.push('/users/login');
                     }
-
                 })
                 .catch((error) => {
                     console.log(error);
@@ -52,13 +53,24 @@ export default function Profile() {
             console.log('error3');
             router.push('/users/login');
         }
+    }, [router]);
 
-
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${localStorage.getItem('username')}`)
+            .then((postsData) => {
+                // data is an object
+                console.log(postsData.data.posts);
+                setPosts(postsData.data.posts);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
-
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No data shown...</p>;
-
+    function spitdata() {
+        console.log('posts', posts);
+    }
     return (
         <main>
             <div className="container">
@@ -71,7 +83,7 @@ export default function Profile() {
                     </div>
 
                     <div className="profile-user-settings">
-                        <h1 className="profile-user-name">bobdoe_</h1>
+                        <h1 className="profile-user-name">{data.username}</h1>
 
                         <button className="btn profile-edit-btn">Edit Profile</button>
 
@@ -109,27 +121,30 @@ export default function Profile() {
             <div className="container">
                 <div className="gallery">
                     <div className="gallery-item" tabIndex="0">
-                        <img
-                            src="https://images.unsplash.com/photo-1663573794485-6203eef8e30a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80w=500&h=500&fit=crop"
-                            className="gallery-image"
-                            alt=""
-                        />
-
-                        <div className="gallery-item-info">
-                            <ul>
-                                <li className="gallery-item-likes">
-                                    <span className="visually-hidden">Likes:</span>
-                                    <FontAwesomeIcon icon={faHeart} className="me-2" />56
-                                </li>
-                                <li className="gallery-item-comments">
-                                    <span className="visually-hidden">Comments:</span>
-                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
-                                </li>
-                            </ul>
-                        </div>
+                        {posts.map((post) => {
+                            return (
+                                <div key={data._id} className='gallery-container'>
+                                    <img
+                                        src={post.photo}
+                                        className="gallery-image"
+                                        alt="" />
+                                    <div className='gallery-stuff'>
+                                        <ul>
+                                            <li className="gallery-item-likes">
+                                                <span className="visually-hidden">Likes:</span>
+                                                <FontAwesomeIcon icon={faHeart} className="me-2" />{post.likes}
+                                                &nbsp;
+                                                <span className="visually-hidden">Comments:</span>
+                                                <FontAwesomeIcon icon={faComment} className="me-2" />2
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
 
-                    <div className="gallery-item" tabIndex="0">
+                    {/* <div className="gallery-item" tabIndex="0">
                         <img
                             src="https://plus.unsplash.com/premium_photo-1686878940830-9031355ec98c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
                             className="gallery-image"
@@ -231,7 +246,7 @@ export default function Profile() {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="loader"></div>
