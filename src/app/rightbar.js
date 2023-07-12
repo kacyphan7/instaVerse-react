@@ -17,12 +17,13 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
-export default function Sidebar() {
+export default function Rightbar() {
     return (
-        <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white">
+
+        <div className="rightbar d-flex flex flex-column flex-shrink-0 p-3 text-white">
             < a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
                 <svg className="bi me-2" width="40" height="32"></svg>
-                <span className="fs-4">Instagram</span>
+                <span className="fs-4">InstaVerse</span>
             </a >
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
@@ -83,41 +84,7 @@ export default function Sidebar() {
                     </a>
                 </li>
             </ul>
-            <hr />
-
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic" >
-                    <FontAwesomeIcon icon={faBars} className="me-2" />
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu className="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <Dropdown.Item href="#/action-1">
-                        <FontAwesomeIcon icon={faCog} className="me-2" />
-                        Setting
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                        <FontAwesomeIcon icon={faClock} className="me-2" />
-                        Your activity
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                        <FontAwesomeIcon icon={faBookmark} className="me-2" />
-                        Saved
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                        <FontAwesomeIcon icon={faSun} className="me-2" />
-                        Switch appearance
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                        <FontAwesomeIcon icon={faExclamationCircle} className="me-2" />
-                        Report a problem
-                    </Dropdown.Item>
-                    <hr></hr>
-                    <Dropdown.Item href="#/action-3">Switch accounts</Dropdown.Item>
-                    <hr></hr>
-                    <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-
         </div>
+
     );
 }

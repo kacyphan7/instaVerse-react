@@ -3,8 +3,7 @@ import './globals.css';
 // import './sidebars.css';
 import { Inter } from 'next/font/google';
 import Sidebar from './sidebar';
-import { useRouter } from 'next/navigation';
-
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,12 +14,12 @@ const inter = Inter({ subsets: ['latin'] });
 
 
 export default function RootLayout({ children }) {
-  const router = useRouter();
-  // const showHeader = router.pathname === '/users/login' && router.pathname === '/users/signup';
+  const pathname = usePathname();
+  const showHeader = pathname === '/users/new' || '/users/login' ? false : true;
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Sidebar />
+        {showHeader && <Sidebar />}
         <section className="main">
           {children}
         </section>
