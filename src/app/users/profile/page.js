@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import handleLogout from '@/app/utils/handleLogout';
 import Link from 'next/link';
 import axios from 'axios';
+import setAuthToken from '@/app/utils/setAuthToken';
 
 export default function Profile() {
     const router = useRouter();
@@ -29,28 +30,25 @@ export default function Profile() {
     // }
 
     useEffect(() => {
+        setAuthToken(localStorage.getItem('jwtToken'));
         if (localStorage.getItem('jwtToken')) {
-            fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
-                .then((res) => res.json())
-                .then((data) => {
+            console.log('jwttoken', localStorage.getItem('jwtToken'));
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
+                .then((response) => {
                     // data is an object
                     let userData = jwtDecode(localStorage.getItem('jwtToken'));
                     if (userData.email === localStorage.getItem('email')) {
-                        console.log('--- data ---', data.user);
-                        setData(data.user);
+                        setData(response.data.user);
                         setLoading(false);
                     } else {
-                        console.log('error1');
                         router.push('/users/login');
                     }
                 })
                 .catch((error) => {
                     console.log(error);
-                    console.log('error2');
                     router.push('/users/login');
                 });
         } else {
-            console.log('error3');
             router.push('/users/login');
         }
     }, [router]);

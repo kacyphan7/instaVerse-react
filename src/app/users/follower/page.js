@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import '../../follower.css';
+import setAuthToken from '@/app/utils/setAuthToken';
 
 const followers = [
     { id: 1, username: "user1" },
@@ -22,7 +23,7 @@ export default function Follower() {
     //     alert('Session has ended. Please login to continue.');
     //     router.push('/users/login');
     // }
-
+    setAuthToken(localStorage.getItem('jwtToken'));
     return (
         <main>
             <div className="follower-list-page">

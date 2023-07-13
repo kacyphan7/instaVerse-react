@@ -9,7 +9,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-// import setAuthToken from './utils/setAuthToken';
+import setAuthToken from './utils/setAuthToken';
 
 export default function Homepage() {
 
@@ -22,7 +22,7 @@ export default function Homepage() {
   //   alert('Session has ended. Please login to continue.');
   //   router.push('/users/login');
   // }
-
+  setAuthToken(localStorage.getItem('jwtToken'));
   return (
     <main className="d-flex justify-content-center align-items-center vh-100">
       <div className="home-feed">

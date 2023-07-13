@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import setAuthToken from '@/app/utils/setAuthToken';
 
 const ProfileImage = () => {
     const [profileImage, setProfileImage] = useState(undefined);
@@ -13,7 +14,7 @@ const ProfileImage = () => {
 
     const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
     let currentTime = Date.now();
-
+    setAuthToken(localStorage.getItem('jwtToken'));
     // make a condition that compares exp and current time
     if (currentTime >= expirationTime) {
         handleLogout();
@@ -26,6 +27,7 @@ const ProfileImage = () => {
     };
 
     const handleSubmit = (e) => {
+
         e.preventDefault(); // at the beginning of a submit function
 
         const formData = new FormData();

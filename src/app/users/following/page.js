@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import "./following.css";
 
+import setAuthToken from '@/app/utils/setAuthToken';
+
 const following = [
     { id: 1, username: "user1" },
     { id: 2, username: "user2" },
@@ -16,7 +18,7 @@ export default function Following() {
 
     const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
     let currentTime = Date.now();
-
+    setAuthToken(localStorage.getItem('jwtToken'));
     // make a condition that compares exp and current time
     if (currentTime >= expirationTime) {
         handleLogout();
