@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import setAuthToken from '@/app/utils/setAuthToken';
 import jwtDecode from 'jwt-decode';
+import '../../login.css';
 
 export default function Login() {
     const router = useRouter();
@@ -69,48 +70,31 @@ export default function Login() {
     }
 
     return (
-        <div className="container">
-            <br />
-            <br />
-            <br />
-            <br />
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card-group mb-0">
-                        <div className="card p-4">
-                            <form className="card-body" onSubmit={handleSubmit}>
-                                <h1>Login</h1>
-                                <p className="text-muted">Sign In to your account</p>
-                                <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i className="fa fa-user"></i></span>
-                                    <input type="text" className="form-control" placeholder="Email" value={email} onChange={handleEmail} required />
-                                </div>
-                                <div className="input-group mb-4">
-                                    <span className="input-group-addon"><i className="fa fa-lock"></i></span>
-                                    <input type="password" className="form-control" placeholder="Password" alue={password} onChange={handlePassword} required />
-                                </div>
-                                <div className="row">
-                                    <div className="col-6">
-                                        <button type="submit" className="btn btn-primary px-4">Login</button>
-                                    </div>
-                                    <div className="col-6 text-right">
-                                        <button type="button" className="btn btn-link px-0">Forgot password?</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="card text-white bg-primary py-5 d-md-down-none" style={{ width: "44%" }}>
-                            <div className="card-body text-center">
-                                <div>
-                                    <h2>Sign up</h2>
-                                    <p>Get started now by creating an account.</p>
-                                    <a href="/users/signup" type="button" className="btn btn-primary active mt-3">Register Now!</a>
-                                </div>
+        <main className="d-flex justify-content-center align-items-center vh-100">
+            <div className="row mt-4">
+                <div className="col-md-6 offset-md-3">
+                    <div className="card card-body">
+                        <h2 className="py-2 instaverse-heading">InstaVerse</h2>
+                        <form className="form-container" onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <input type="text" className="form-control" placeholder="Email" value={email} onChange={handleEmail} required />
                             </div>
-                        </div>
+                            <div className="form-group">
+                                <input type="password" className="form-control" placeholder="Password" value={password} onChange={handlePassword} required />
+                            </div>
+                            <div className="d-flex justify-content-between">
+                                <button type="submit" className="btn btn-primary center-button login-button">Login</button>
+                            </div>
+                            <p className="forgot-password">
+                                <a href="/#">Forgot password?</a>
+                            </p>
+                        </form>
+                    </div>
+                    <div className="card card-body card-signup">
+                        <p className="text-muted mb-0">Do not have an account? <a href="/users/signup">Sign up</a></p>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }
