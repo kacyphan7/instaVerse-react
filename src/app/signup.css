@@ -1,0 +1,107 @@
+.instaverse-heading {
+    font-size: 3.5rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.instaverse-description {
+    font-size: 1.5rem;
+    text-align: center;
+
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 500px;
+    max-width: 600px;
+    margin-top: auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 1rem 8rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+}
+
+.btn-primary {
+    background-color: #3897f0;
+    border-color: #3897f0;
+    color: #fff;
+    font-size: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #2680d0;
+    border-color: #2680d0;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.text-muted {
+    color: #888;
+}
+
+.float-right {
+    margin-left: auto;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    /* Adjust the width as needed */
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.small-font {
+    font-size: 1rem;
+}
+
+.fixed-text {
+    white-space: nowrap;
+}
+
+.center-button {
+    margin-top: 1rem;
+    padding: 10px;
+    width: 150px;
+    /* Adjust the width as needed */
+    border-radius: 1rem;
+}
+
+.card-login {
+    width: 100px;
+    max-width: 500px;
+    padding: 1rem;
+    margin-top: 10px;
+    margin-left: 295px;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
