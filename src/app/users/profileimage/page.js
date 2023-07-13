@@ -12,15 +12,15 @@ const ProfileImage = () => {
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
-    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-    let currentTime = Date.now();
-    setAuthToken(localStorage.getItem('jwtToken'));
-    // make a condition that compares exp and current time
-    if (currentTime >= expirationTime) {
-        handleLogout();
-        alert('Session has ended. Please login to continue.');
-        router.push('/users/login');
-    }
+    // const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+    // let currentTime = Date.now();
+    // setAuthToken(localStorage.getItem('jwtToken'));
+    // // make a condition that compares exp and current time
+    // if (currentTime >= expirationTime) {
+    //     handleLogout();
+    //     alert('Session has ended. Please login to continue.');
+    //     router.push('/users/login');
+    // }
 
     const handleProfileImage = (e) => {
         setProfileImage(e.target.files[0]);
@@ -38,17 +38,16 @@ const ProfileImage = () => {
                 const secureUrl = response.data.secure_url;
                 // setImageURL(secureUrl);
                 const newUser = { profilePicture: secureUrl };
-                console.log(newUser);
                 // console.log(newUser);
-                axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${sessionStorage.getItem('userId')}`, newUser)
+                axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, newUser)
                     .then(response => {
                         console.log(response.data);
                         // sessionStorage.setItem('userId', user._id);
                         setRedirect(true);
                     })
-                    .catch(error => console.log('===> Error in Signup', error));
+                    .catch(error => console.log('===> Error in Signup1', error));
             })
-            .catch(error => console.log('===> Error in Signup', error));
+            .catch(error => console.log('===> Error in Signup2', error));
     };
 
     const handleNo = (e) => {
@@ -56,7 +55,7 @@ const ProfileImage = () => {
         setRedirect(true);
     };
 
-    if (redirect) { router.push('/users/profile'); }
+    if (redirect) { router.push('/users/login'); }
 
     return (
         <div className="row mt-4">
