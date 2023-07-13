@@ -1,5 +1,7 @@
 .home-feed {
     display: flex;
+    /* Adjust the height as needed */
+    background-color: #fff;
 }
 
 .main-content {
@@ -30,6 +32,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .card-body {
@@ -59,10 +66,9 @@
     position: fixed;
     top: 0;
     right: 0;
-    width: 200px;
+    width: 300px;
     /* Adjust the width as needed */
     height: 100%;
-    /* Adjust the height as needed */
     background-color: #fff;
     padding: 1rem;
 }
@@ -78,12 +84,30 @@
 }
 
 .suggestions a {
+    font-size: 14px;
+    /* Adjust the font size as needed */
     color: #000;
     text-decoration: none;
 }
 
 .suggestions a:hover {
     text-decoration: underline;
+}
+
+.suggested-users {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.suggested-users p {
+    font-size: 14px;
+    /* Adjust the font size as needed */
+}
+
+.suggested-users p:last-child {
+    margin-right: 65px;
+    /* Adjust the margin as needed */
 }
 
 li {
@@ -121,6 +145,8 @@ li p:first-child {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 150px;
+    /* Adjust the height as needed */
 }
 
 .stories h2 {
