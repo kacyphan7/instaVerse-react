@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import '../../signup.css';
+import '../../css/signup.css';
 
 const NewUser = () => {
 

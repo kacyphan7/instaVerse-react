@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import '../../profile.css';
+import './profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';

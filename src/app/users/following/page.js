@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import "./following.css";
+import '../../css/following.css';
 
 import setAuthToken from '@/app/utils/setAuthToken';
 

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import setAuthToken from '@/app/utils/setAuthToken';
 import jwtDecode from 'jwt-decode';
-import '../../login.css';
+import '../../css/login.css';
 
 export default function Login() {
     const router = useRouter();

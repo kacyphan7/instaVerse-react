@@ -3,7 +3,7 @@
 // import 'bootstrap/dist/css/bootstrap.css';
 //import './globals.css';
 //import './post.css';
-import './home.css';
+import './css/home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';

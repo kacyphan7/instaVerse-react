@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import '../../css/follower.css';
 // import { faker } from "@faker-js/faker";
 
 export default function Follower({ follower }) {
