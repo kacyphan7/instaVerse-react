@@ -17,6 +17,7 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
+import handleLogout from './utils/handleLogout';
 
 export default function Sidebar() {
     return (
@@ -117,7 +118,7 @@ export default function Sidebar() {
                     <hr></hr>
                     <Dropdown.Item href="#/action-3">Switch accounts</Dropdown.Item>
                     <hr></hr>
-                    <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
+                    <Dropdown.Item href="/users/login" onClick={handleLogout}>Log out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
 

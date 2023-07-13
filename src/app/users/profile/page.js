@@ -32,7 +32,6 @@ export default function Profile() {
     useEffect(() => {
         setAuthToken(localStorage.getItem('jwtToken'));
         if (localStorage.getItem('jwtToken')) {
-            console.log('jwttoken', localStorage.getItem('jwtToken'));
             axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
                 .then((response) => {
                     // data is an object
@@ -64,18 +63,17 @@ export default function Profile() {
                 console.log(error);
             });
     }, []);
+
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No data shown...</p>;
-    function spitdata() {
-        console.log('posts', posts);
-    }
+
     return (
         <main>
             <div className="container">
                 <div className="profile">
                     <div className="profile-image">
                         <img
-                            src="https://images.unsplash.com/photo-1682685797741-f0213d24418c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwzOTF8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=150&q=60w=152&h=152&fit=crop&crop=faces"
+                            src={data.profilePicture}
                             alt=""
                         />
                     </div>
@@ -96,7 +94,7 @@ export default function Profile() {
                     <div className="profile-stats">
                         <ul>
                             <li>
-                                <span className="profile-stat-count">164</span> posts
+                                <span className="profile-stat-count">{posts.length || '0'}</span> posts
                             </li>
                             <li>
                                 <span className="profile-stat-count">188</span> followers
@@ -109,8 +107,7 @@ export default function Profile() {
 
                     <div className="profile-bio">
                         <p>
-                            <span className="profile-real-name">Bob Doe</span> Lorem ipsum dolor
-                            sit, amet consectetur adipisicing elit 📷✈️🏕️
+                            <span className="profile-real-name">{data.fullName}</span> {data.bio || ''}
                         </p>
                     </div>
                 </div>

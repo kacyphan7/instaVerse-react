@@ -45,6 +45,9 @@ const NewUser = () => {
         // console.log(newUser);
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
             .then(response => {
+                console.log('response', response.data);
+                localStorage.setItem('username', response.data.user.username);
+                localStorage.setItem('userId', response.data.user._id);
                 setRedirect(true);
             })
             .catch(error => {
@@ -60,7 +63,7 @@ const NewUser = () => {
         setRedirect(true);
     };
 
-    if (redirect) { router.push('/users/login'); }
+    if (redirect) { router.push('/users/profileimage'); }
     if (error) {
         return (
             <div>

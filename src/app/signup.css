@@ -34,8 +34,8 @@
 }
 
 .form-control {
-    width: 100%;
-    padding: 2rem 15rem;
+    /* width: 100%;
+    padding: 2rem 15rem; */
     border: 1px solid #ddd;
     border-radius: 0.25rem;
 }

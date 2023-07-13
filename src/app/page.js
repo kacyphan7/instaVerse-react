@@ -28,73 +28,73 @@ export default function Homepage() {
       <div className="home-feed">
         <div className="suggestions">
           <ul>
-            <li class="user-item">
+            <li className="user-item">
               <img
                 src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60"
                 alt="User Avatar"
-                class="user-avatar"
+                className="user-avatar"
               />
-              <a href="#" class="follow-link">
+              <a href="#" className="follow-link">
                 {" "}
                 Switch{" "}
               </a>
             </li>
             <hr />
-            <li class="suggested-users">
+            <li className="suggested-users">
               <p> Suggested for you </p>
               <p> See All </p>
             </li>
-            <li class="user-item">
+            <li className="user-item">
               <img
                 src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60"
                 alt="User Avatar"
-                class="user-avatar"
+                className="user-avatar"
               />
-              <a href="#" class="follow-link">
+              <a href="#" className="follow-link">
                 {" "}
                 Follow{" "}
               </a>
             </li>
-            <li class="user-item">
+            <li className="user-item">
               <img
                 src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60"
                 alt="User Avatar"
-                class="user-avatar"
+                className="user-avatar"
               />
-              <a href="#" class="follow-link">
+              <a href="#" className="follow-link">
                 {" "}
                 Follow{" "}
               </a>
             </li>
-            <li class="user-item">
+            <li className="user-item">
               <img
                 src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60"
                 alt="User Avatar"
-                class="user-avatar"
+                className="user-avatar"
               />
-              <a href="#" class="follow-link">
+              <a href="#" className="follow-link">
                 {" "}
                 Follow{" "}
               </a>
             </li>
-            <li class="user-item">
+            <li className="user-item">
               <img
                 src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDh8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60"
                 alt="User Avatar"
-                class="user-avatar"
+                className="user-avatar"
               />
-              <a href="#" class="follow-link">
+              <a href="#" className="follow-link">
                 {" "}
                 Follow{" "}
               </a>
             </li>
-            <li class="user-item">
+            <li className="user-item">
               <img
                 src="https://images.unsplash.com/photo-1492446845049-9c50cc313f00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60"
                 alt="User Avatar"
-                class="user-avatar"
+                className="user-avatar"
               />
-              <a href="#" class="follow-link">
+              <a href="#" className="follow-link">
                 {" "}
                 Follow{" "}
               </a>
