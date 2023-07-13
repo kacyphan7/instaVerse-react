@@ -1,0 +1,149 @@
+.instaverse-heading {
+    font-size: 5.5rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 500px;
+    max-width: 600px;
+    margin-top: 4rem;
+    margin-right: 25rem;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    width: 380px;
+    padding: 1.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+}
+
+.btn-primary {
+    background-color: #3897f0;
+    border-color: #3897f0;
+    color: #fff;
+    font-size: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #2680d0;
+    border-color: #2680d0;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.text-muted {
+    color: #888;
+}
+
+.float-right {
+    margin-left: auto;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 250px;
+    /* Adjust the width as needed */
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.small-font {
+    font-size: 1rem;
+}
+
+.fixed-text {
+    white-space: nowrap;
+}
+
+.center-button {
+    margin-top: 1rem;
+    padding: 10px;
+    width: 200px;
+    /* Adjust the width as needed */
+    border-radius: 1rem;
+}
+
+.login-button {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.forgot-password {
+    margin-top: 5px;
+    font-size: 1.5rem;
+}
+
+.card-signup {
+    width: 500px;
+    max-width: 800px;
+    padding: 2rem;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.footer {
+    padding: 20px;
+}
+
+.footer-list {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li {
+    margin-right: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.footer-meta {
+    display: flex;
+}
+
+.footer-meta span {
+    margin-right: 10px;
+}
+
+.footer-copy {
+    margin-left: auto;
+}

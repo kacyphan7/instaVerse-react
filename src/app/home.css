@@ -1,0 +1,151 @@
+.home-feed {
+    display: flex;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.user-avatars {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: lightgray;
+}
+
+.card.post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.post-header {
+    margin-bottom: 1rem;
+}
+
+.post-avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+
+.post-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.post-caption {
+    margin-top: 1rem;
+}
+
+.suggestions {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    /* Adjust the width as needed */
+    height: 100%;
+    /* Adjust the height as needed */
+    background-color: #fff;
+    padding: 1rem;
+}
+
+.suggestions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestions li {
+    margin-bottom: 0.5rem;
+}
+
+.suggestions a {
+    color: #000;
+    text-decoration: none;
+}
+
+.suggestions a:hover {
+    text-decoration: underline;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+li p:first-child {
+    margin-right: 10px;
+}
+
+.suggested-users {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.follow-link {
+    margin-left: 120px;
+}
+
+.stories {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stories h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.story-users {
+    display: flex;
+}
+
+.story-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.story-avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+
+.story-user p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}

@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import '../../signup.css';
 
 const NewUser = () => {
 
@@ -81,31 +82,91 @@ const NewUser = () => {
     }
 
     return (
-        <div className="row mt-4">
-            <div className="col-md-7 offset-md-3">
-                <div className="card card-body">
-                    <h2 className="py-2">Sign Up</h2>
-                    <form onSubmit={handleSubmit}>
-                        <p className="text-muted">Create an account below to get started</p>
-                        <div className="form-group">
-                            <input type="text" name="fullName" value={fullName} onChange={handleFullName} className="form-control" placeholder='Full Name' required />
-                        </div>
-                        <div className="form-group">
-                            <input type="text" name="username" value={username} onChange={handleUsername} className="form-control" placeholder='Username' required />
-                        </div>
-                        <div className="form-group">
-                            <input type="email" name="email" value={email} onChange={handleEmail} className="form-control" placeholder='Email' required />
-                        </div>
-                        <div className="form-group">
-                            {/* <span className="input-group-addon"><i className="fa fa-lock"></i></span> */}
-                            <input type="password" name="password" value={password} onChange={handlePassword} className="form-control" placeholder='Password' required />
-                        </div>
-                        <button type="submit" className="btn btn-primary float-right" onClick={handleCancel}>Cancel</button>
-                        <button type="submit" className="btn btn-primary float-right">Submit</button>
-                    </form>
+        <main className="d-flex justify-content-center align-items-center vh-100">
+            <div className="row mt-4">
+                <div className="col-md-6 offset-md-3">
+                    <div className="card card-body">
+                        <h2 className="py-2 instaverse-heading">InstaVerse</h2>
+                        <form className="form-container" onSubmit={handleSubmit}>
+                            {/* Sign-up form content */}
+                            <p className="text-muted instaverse-description">
+                                Sign up to see photos and videos from your friends.
+                            </p>
+                            {/* Full Name input */}
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    value={fullName}
+                                    onChange={handleFullName}
+                                    className="form-control"
+                                    placeholder="Full Name"
+                                    required
+                                />
+                            </div>
+                            {/* Username input */}
+                            <div className="form-group">
+                                <input
+                                    type="text"
+                                    name="username"
+                                    value={username}
+                                    onChange={handleUsername}
+                                    className="form-control"
+                                    placeholder="Username"
+                                    required
+                                />
+                            </div>
+                            {/* Email input */}
+                            <div className="form-group">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={handleEmail}
+                                    className="form-control"
+                                    placeholder="Email"
+                                    required
+                                />
+                            </div>
+                            {/* Password input */}
+                            <div className="form-group">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={password}
+                                    onChange={handlePassword}
+                                    className="form-control"
+                                    placeholder="Password"
+                                    required
+                                />
+                            </div>
+                            {/* Sign-up agreement */}
+                            <p className="text-muted small-font">
+                                People who use our service may have uploaded your contact information to InstaVerse.{" "}
+                                <a href="/learn-more">Learn More</a>
+                                <br />
+                                <br />
+                                By signing up, you agree to our <a href="/terms">Terms</a>,{" "}
+                                <a href="/privacy-policy">Privacy Policy</a>, and <a href="/cookies-policy">Cookies Policy</a>.
+                            </p>
+                            {/* Sign-up button */}
+                            <div className="d-flex justify-content-between">
+                                <button type="submit" className="btn btn-primary center-button">
+                                    Sign Up
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {/* Login card */}
+                <div className="card card-body card-login">
+                    <p className="text-muted mb-0">
+                        Have an account? <a href="/users/login">Login</a>
+                    </p>
                 </div>
             </div>
-        </div>
+        </main>
+
     );
 };
 
