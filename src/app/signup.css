@@ -1,12 +1,12 @@
 .instaverse-heading {
-    font-size: 3.5rem;
+    font-size: 8rem;
     text-align: center;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
 .instaverse-description {
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-align: center;
 
 }
@@ -17,8 +17,8 @@
 }
 
 .card {
-    width: 500px;
-    max-width: 600px;
+    width: 800px;
+    max-width: 800px;
     margin-top: auto;
     padding: 2rem;
     background-color: #fff;
@@ -35,7 +35,7 @@
 
 .form-control {
     width: 100%;
-    padding: 1rem 8rem;
+    padding: 2rem 15rem;
     border: 1px solid #ddd;
     border-radius: 0.25rem;
 }
@@ -92,16 +92,16 @@
 }
 
 .card-login {
-    width: 100px;
-    max-width: 500px;
-    padding: 1rem;
+    width: 800px;
+    max-width: 800px;
+    padding: 2rem;
     margin-top: 10px;
-    margin-left: 295px;
+    margin-left: 350px;
     background-color: #fff;
     border-radius: 0.5rem;
     border: 1px solid #ddd;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
+    font-size: 20px;
 }
