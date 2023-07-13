@@ -182,16 +182,16 @@ img {
     margin-right: 2.2rem;
 }
 
-.gallery-container{
-    display:flex;
+.gallery-container {
+    display: flex;
     position: relative;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
 }
 
-.gallery-stuff{
-    position:absolute;
+.gallery-stuff {
+    position: absolute;
     display: none;
 }
 
