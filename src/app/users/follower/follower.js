@@ -16,7 +16,7 @@ export default function Follower({ follower }) {
 
     if (redirect) { router.push('/followers'); }
 
-    // add cloudinary for user's images 
+    // add cloudinary for user's images or faker.image.avatar()
 
     return (
         <main>

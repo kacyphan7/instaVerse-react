@@ -45,6 +45,7 @@ export default function Homepage() {
             setData(response.data.users);
             setLoading(false);
           } else {
+
             router.push('/users/login');
           }
         })
