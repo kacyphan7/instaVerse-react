@@ -71,7 +71,7 @@ export default function Sidebar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-link text-white">
+                    <a href="/posts" className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faPlusSquare} className="me-2" />
                         Create
