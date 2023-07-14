@@ -36,14 +36,14 @@ export default function Sidebar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-link text-white">
+                    <a href="/search" className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faSearch} className="me-2" />
                         Search
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-link text-white">
+                    <a href="/explore" className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faCompass} className="me-2" />
                         Explore

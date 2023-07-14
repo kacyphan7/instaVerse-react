@@ -15,6 +15,8 @@ import { faker } from "@faker-js/faker";
 import jwtDecode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
+import Explore from './explore/page';
+import Search from './search/page';
 
 export default function Homepage() {
 
