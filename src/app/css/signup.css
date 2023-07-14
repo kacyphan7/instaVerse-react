@@ -1,12 +1,12 @@
 .instaverse-heading {
-    font-size: 8rem;
+    font-size: 4.5rem;
     text-align: center;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
 .instaverse-description {
-    font-size: 2rem;
+    font-size: 1.4rem;
     text-align: center;
 
 }
@@ -17,8 +17,8 @@
 }
 
 .card {
-    width: 800px;
-    max-width: 800px;
+    width: 600px;
+    max-width: 600px;
     margin-top: auto;
     padding: 2rem;
     background-color: #fff;
@@ -30,14 +30,36 @@
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 .form-control {
-    width: 100%;
-    padding: 2rem 15rem;
+    width: 25rem;
+    /* Set the desired width */
+    padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 0.25rem;
+}
+
+/* Adjust the width of the input and placeholder text */
+.form-control::placeholder {
+    width: 15rem;
+    /* Set the desired width */
+}
+
+.form-control::-ms-input-placeholder {
+    width: 15rem;
+    /* Set the desired width */
+}
+
+.form-control::-moz-placeholder {
+    width: 15rem;
+    /* Set the desired width */
+}
+
+.form-control:-ms-input-placeholder {
+    width: 15rem;
+    /* Set the desired width */
 }
 
 .btn-primary {
@@ -69,7 +91,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 500px;
+    max-width: 400px;
     /* Adjust the width as needed */
     margin: 0 auto;
     justify-content: center;
@@ -92,11 +114,11 @@
 }
 
 .card-login {
-    width: 800px;
-    max-width: 800px;
-    padding: 2rem;
+    width: 600px;
+    max-width: 600px;
+    padding: 1rem;
     margin-top: 10px;
-    margin-left: 350px;
+    margin-left: 250px;
     background-color: #fff;
     border-radius: 0.5rem;
     border: 1px solid #ddd;

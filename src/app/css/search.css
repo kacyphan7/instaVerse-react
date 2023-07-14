@@ -1,3 +1,33 @@
+.main {
+    background-color: white;
+}
+
+.search-page {
+    margin-bottom: 20px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.image-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.image-item {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.image-item:hover {
+    transform: scale(1.05);
+}
+
 .search-bar {
     display: flex;
     align-items: center;
@@ -12,4 +42,5 @@
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    cursor: pointer;
 }
