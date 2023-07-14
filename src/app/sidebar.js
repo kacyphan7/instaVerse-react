@@ -29,7 +29,7 @@ export default function Sidebar() {
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
                 <li className="nav-item">
-                    <a href="#" className="nav-link active" aria-current="page">
+                    <a href="/" className="nav-link active" aria-current="page">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faHome} className="me-2" />
                         Home

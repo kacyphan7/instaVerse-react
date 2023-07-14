@@ -73,7 +73,7 @@ export default function Profile() {
                 <div className="profile">
                     <div className="profile-image">
                         <img
-                            src={data.profilePicture}
+                            src={data.profilePicture || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
                             alt=""
                         />
                     </div>
@@ -81,7 +81,9 @@ export default function Profile() {
                     <div className="profile-user-settings">
                         <h1 className="profile-user-name">{data.username}</h1>
 
-                        <button className="btn profile-edit-btn">Edit Profile</button>
+                        <a href="/users/:id">
+                            <button className="btn profile-edit-btn">Edit Profile</button>
+                        </a>
 
                         <button
                             className="btn profile-settings-btn"
