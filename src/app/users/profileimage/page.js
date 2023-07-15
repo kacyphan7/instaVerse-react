@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import setAuthToken from '@/app/utils/setAuthToken';
 
-const ProfileImage = () => {
+const ProfileImage = ({ editProfileImage }) => {
     const [profileImage, setProfileImage] = useState(undefined);
 
 
@@ -33,8 +33,11 @@ const ProfileImage = () => {
         const formData = new FormData();
         formData.append('file', profileImage);
         formData.append('upload_preset', 'instaverse');
-        axios.post('https://api.cloudinary.com/v1_1/dtnostfrb/image/upload', formData)
+        console.log('file', profileImage);
+        console.log('formData', formData);
+        axios.post('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', formData)
             .then(response => {
+
                 const secureUrl = response.data.secure_url;
                 // setImageURL(secureUrl);
                 const newUser = { profilePicture: secureUrl };

@@ -5,7 +5,7 @@ import '../../css/profile.css';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import setAuthToken from '@/app/utils/setAuthToken';
-import UploadProfileImage from '../profileimage/page';
+import UploadProfileImage from '../profileimage/uploadProfile';
 
 export default function EditProfile() {
 
@@ -96,7 +96,6 @@ export default function EditProfile() {
             });
     };
 
-
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No data shown...</p>;
 
@@ -110,7 +109,7 @@ export default function EditProfile() {
                             <form className="edit-profile-form" onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <div className="avatar">
-                                        <img src={data.profilePicture || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
+                                        <img src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"}
                                             width='100px' alt="User Avatar" className="avatar-img" />
                                     </div>
                                     <label for='profilePicture' class="custom-file-upload">Change Profile Image</label>
@@ -120,8 +119,10 @@ export default function EditProfile() {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="fullName">Name</label>
+
                                     <input
                                         type="text" id="fullName" name="fullName" value={data.fullName} onChange={handleChange} className="form-control" placeholder='Name' />
+
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="username">Username</label>
@@ -130,6 +131,7 @@ export default function EditProfile() {
                                 <div className="form-group">
                                     <label htmlFor="pronouns">Pronouns</label>
                                     <input type="text" id="pronouns" name="pronouns" value={data.pronouns} onChange={handleChange} className="form-control" placeholder='Pronouns' />
+
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="bio">Bio</label>
