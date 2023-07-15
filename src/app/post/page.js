@@ -12,10 +12,6 @@ import moment from 'moment';
 import '../css/post.css';
 import PostTable from './PostTable';
 
-
-
-
-
 export default function FilterablePostTable() {
     // state is what the data is representing in realtime
     const [data, setData] = useState(null);
