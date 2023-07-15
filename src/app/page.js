@@ -15,6 +15,7 @@ import { faker } from "@faker-js/faker";
 import jwtDecode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
+import handleLogout from './utils/handleLogout';
 import Explore from './explore/page';
 import Search from './search/page';
 
@@ -29,20 +30,21 @@ export default function Homepage() {
   //   alert('Session has ended. Please login to continue.');
   //   router.push('/users/login');
   // }
-  if (typeof window !== 'undefined') {
-    const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
-    let currentTime = Date.now();
-    console.log(expirationTime, localStorage);
 
-    // make a condition that compares exp and current time
-    if (currentTime >= expirationTime) {
-      handleLogout();
-      alert('Session has ended. Please login to continue.');
-      router.push('/users/login');
-    }
-  }
+  // if (typeof window !== 'undefined') {
+  //   const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+  //   let currentTime = Date.now();
+  //   console.log(expirationTime, localStorage);
 
-  setAuthToken(localStorage.getItem('jwtToken'));
+  //   // make a condition that compares exp and current time
+  //   if (currentTime >= expirationTime) {
+  //     handleLogout();
+  //     alert('Session has ended. Please login to continue.');
+  //     router.push('/users/login');
+  //   }
+  // }
+
+  // setAuthToken(localStorage.getItem('jwtToken'));
   const router = useRouter();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -242,7 +244,7 @@ export default function Homepage() {
                       <div className="user-block ">
                         <br></br>
 
-                        <img src={faker.image.avatar()} />
+                        <img src={user.profilePicture || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="} />
                         <span className="username">
                           <a href="#" data-abc="true">{user.username}</a>
                         </span>
@@ -289,7 +291,7 @@ export default function Homepage() {
                       <form action="#" method="post">
                         <img className="img-responsive img-circle img-sm" src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} alt="Alt Text" />
                         <div className="img-push">
-                          <input type="text" className="form-control input-sm" placeholder="Press enter to post comment" />
+                          <input type="text" className="form-control input-sm" name='enterComment' placeholder="Press enter to post comment" />
                         </div>
                       </form>
                     </div>

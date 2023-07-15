@@ -1,27 +1,32 @@
 'use client';
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import Comment from '../comment/new/page';
+import { faker } from '@faker-js/faker';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from '@/app/utils/setAuthToken';
+import moment from 'moment';
+import '../css/post.css';
 import PostTable from './PostTable';
 
-export default function FilterableUserTable() {
+
+
+
+
+export default function FilterablePostTable() {
     // state is what the data is representing in realtime
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
 
-    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-    let currentTime = Date.now();
-
-    // make a condition that compares exp and current time
-    if (currentTime >= expirationTime) {
-        handleLogout();
-        alert('Session has ended. Please login to continue.');
-        router.push('/users/login');
-    }
-
     useEffect(() => {
-        fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/posts')
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${localStorage.getItem('username')}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log('--- data ---', data);
+                // data is an object
+                console.log('--- posts ---', data);
                 setData(data);
                 setLoading(false);
             });
@@ -31,8 +36,8 @@ export default function FilterableUserTable() {
     if (!data) return <p>No data shown...</p>;
 
     return (
-        <main>
-            <PostTable users={data.posts} />
+        <main className='post-center'>
+            <PostTable posts={data.posts} />
         </main>
     );
 }
