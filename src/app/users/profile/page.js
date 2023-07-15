@@ -82,15 +82,16 @@ export default function Profile() {
                         <h1 className="profile-user-name">{data.username}</h1>
 
                         <a href="/users/edit">
-                            <button className="btn profile-edit-btn">Edit Profile</button>
-                        </a>
+                            <a href="/users/edit">
+                                <button className="btn profile-edit-btn">Edit Profile</button>
+                            </a>
 
-                        <button
-                            className="btn profile-settings-btn"
-                            aria-label="profile settings"
-                        >
-                            <FontAwesomeIcon icon={faCog} className="me-2" />
-                        </button>
+                            <button
+                                className="btn profile-settings-btn"
+                                aria-label="profile settings"
+                            >
+                                <FontAwesomeIcon icon={faCog} className="me-2" />
+                            </button>
                     </div>
 
                     <div className="profile-stats">
@@ -121,10 +122,7 @@ export default function Profile() {
                         {posts.map((post) => {
                             return (
                                 <div key={data._id} className='gallery-container'>
-                                    <img
-                                        src={post.photo}
-                                        className="gallery-image"
-                                        alt="" />
+                                    <img src={post.photo} className="gallery-image" alt="" />
                                     <div className='gallery-stuff'>
                                         <ul>
                                             <li className="gallery-item-likes">
