@@ -1,3 +1,7 @@
+.main {
+    background-color: white;
+}
+
 .following-page {
     width: 100%;
     max-width: 600px;
@@ -18,6 +22,8 @@ h1 {
 .following-list li {
     display: flex;
     align-items: center;
+    justify-content: center;
+    /* Changed */
     margin-bottom: 10px;
 }
 
@@ -33,17 +39,16 @@ h1 {
 }
 
 .following-list li button {
-    margin-left: auto;
     font-size: 14px;
-    background-color: #ffffff;
-    color: #3897f0;
-    border: 1px solid #3897f0;
+    background-color: #f2f2f2;
+    color: #000000;
+    border: 1px solid #f2f2f2;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
 }
 
 .following-list li button:hover {
-    background-color: #3897f0;
+    background-color: #444444;
     color: #ffffff;
 }

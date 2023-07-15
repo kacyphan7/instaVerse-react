@@ -1,35 +1,23 @@
+import React from 'react';
 import Following from './Following';
+import '../../css/following.css';
 
-export default function FollowerTable({ followings }) {
-    const rows = [];
-
-    followings.forEach((following) => {
-        rows.push(
-            <Following
-                following={following}
-                key={follower._id} />
-        );
-    });
-
-    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-    let currentTime = Date.now();
-
-    // make a condition that compares exp and current time
-    if (currentTime >= expirationTime) {
-        handleLogout();
-        alert('Session has ended. Please login to continue.');
-        router.push('/users/login');
+const FollowingTable = ({ followings }) => {
+    if (!followings || followings.length === 0) {
+        return <p>No followings found.</p>;
     }
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Following</th>
-                    { /* <th>Comments</th> */}
-                </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </table>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <table>
+                <tbody>
+                    {followings.map((following) => (
+                        <Following key={following._id} following={following} />
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
-}
+};
+
+export default FollowingTable;
