@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import '../../css/profile.css';
+import '../../css/edit-profile.css';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import setAuthToken from '@/app/utils/setAuthToken';

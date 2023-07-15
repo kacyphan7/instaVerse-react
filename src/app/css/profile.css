@@ -87,6 +87,8 @@ input[type="file"] {
 
 .profile-image img {
     border-radius: 50%;
+    max-width: 250px;
+    height: 200px;
 }
 
 .profile-user-settings,

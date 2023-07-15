@@ -42,7 +42,10 @@ export default function Homepage() {
     }
   }
 
-  setAuthToken(localStorage.getItem('jwtToken'));
+  if (typeof window !== 'undefined') {
+    // Accessing localStorage only in the browser context
+    setAuthToken(localStorage.getItem('jwtToken'));
+  }
   const router = useRouter();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
