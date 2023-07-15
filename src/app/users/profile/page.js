@@ -74,14 +74,14 @@ export default function Profile() {
                     <div className="profile-image">
                         <img
                             src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"}
-                            alt=""
+                            alt="Profile Image"
                         />
                     </div>
 
                     <div className="profile-user-settings">
                         <h1 className="profile-user-name">{data.username}</h1>
 
-                        <a href="/users/:id">
+                        <a href="/users/edit">
                             <button className="btn profile-edit-btn">Edit Profile</button>
                         </a>
 
