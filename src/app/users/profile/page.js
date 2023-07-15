@@ -82,16 +82,15 @@ export default function Profile() {
                         <h1 className="profile-user-name">{data.username}</h1>
 
                         <a href="/users/edit">
-                            <a href="/users/edit">
-                                <button className="btn profile-edit-btn">Edit Profile</button>
-                            </a>
+                            <button className="btn profile-edit-btn">Edit Profile</button>
+                        </a>
 
-                            <button
-                                className="btn profile-settings-btn"
-                                aria-label="profile settings"
-                            >
-                                <FontAwesomeIcon icon={faCog} className="me-2" />
-                            </button>
+                        <button
+                            className="btn profile-settings-btn"
+                            aria-label="profile settings"
+                        >
+                            <FontAwesomeIcon icon={faCog} className="me-2" />
+                        </button>
                     </div>
 
                     <div className="profile-stats">
