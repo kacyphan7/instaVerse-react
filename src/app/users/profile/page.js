@@ -18,6 +18,7 @@ export default function Profile() {
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [posts, setPosts] = useState(null);
+    const [orderOneComplete, setOrderOneComplete] = useState(false);
 
     // const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
     // let currentTime = Date.now();
@@ -30,40 +31,59 @@ export default function Profile() {
     // }
 
     useEffect(() => {
-        setAuthToken(localStorage.getItem('jwtToken'));
-        if (localStorage.getItem('jwtToken')) {
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
-                .then((response) => {
-                    // data is an object
-                    let userData = jwtDecode(localStorage.getItem('jwtToken'));
-                    if (userData.email === localStorage.getItem('email')) {
-                        setData(response.data.user);
-                        setLoading(false);
-                    } else {
-                        router.push('/users/login');
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    router.push('/users/login');
-                });
-        } else {
-            router.push('/users/login');
-        }
-    }, [router]);
 
-    useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${localStorage.getItem('username')}`)
             .then((postsData) => {
                 // data is an object
                 console.log(postsData.data.posts);
+                setOrderOneComplete(true);
                 setPosts(postsData.data.posts);
             })
             .catch((error) => {
                 console.log(error);
             });
+
     }, []);
 
+    useEffect(() => {
+        setAuthToken(localStorage.getItem('jwtToken'));
+        if (localStorage.getItem('jwtToken')) {
+            if (orderOneComplete) {
+                axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
+                    .then((response) => {
+                        // data is an object
+                        let userData = jwtDecode(localStorage.getItem('jwtToken'));
+                        if (userData.email === localStorage.getItem('email')) {
+                            setData(response.data.user);
+
+                            setLoading(false);
+                        } else {
+                            setTimeout(() => {
+                                router.push('/users/login');
+                            }, 0);
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setTimeout(() => {
+                            router.push('/users/login');
+                        }, 0);
+                    });
+            }
+        } else {
+            setTimeout(() => {
+                router.push('/users/login');
+            }, 0);
+        }
+    }, [router, orderOneComplete]);
+
+
+
+
+    const goToPost = () => {
+        localStorage.setItem('username', data.username);
+        router.push('/post');
+    };
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No data shown...</p>;
 
@@ -120,130 +140,32 @@ export default function Profile() {
                     <div className="gallery-item" tabIndex="0">
                         {posts.map((post) => {
                             return (
-                                <div key={data._id} className='gallery-container'>
-                                    <img src={post.photo} className="gallery-image" alt="" />
-                                    <div className='gallery-stuff'>
-                                        <ul>
-                                            <li className="gallery-item-likes">
-                                                <span className="visually-hidden">Likes:</span>
-                                                <FontAwesomeIcon icon={faHeart} className="me-2" />{post.likes}
-                                                &nbsp;
-                                                <span className="visually-hidden">Comments:</span>
-                                                <FontAwesomeIcon icon={faComment} className="me-2" />2
-                                            </li>
-                                        </ul>
+                                <a onClick={goToPost} key={data._id}>
+                                    <div className='gallery-container'>
+                                        <img src={post.photo} className="gallery-image" alt="" onClick={goToPost} />
+
+                                        <div className='gallery-stuff'>
+                                            <ul>
+                                                <li className="gallery-item-likes">
+                                                    <span className="visually-hidden">Likes:</span>
+                                                    <FontAwesomeIcon icon={faHeart} className="me-2" />{post.likes}
+                                                    &nbsp;
+                                                    <span className="visually-hidden">Comments:</span>
+                                                    <FontAwesomeIcon icon={faComment} className="me-2" />2
+                                                </li>
+
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             );
                         })}
                     </div>
 
-                    {/* <div className="gallery-item" tabIndex="0">
-                        <img
-                            src="https://plus.unsplash.com/premium_photo-1686878940830-9031355ec98c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            className="gallery-image"
-                            alt=""
-                        />
 
-                        <div className="gallery-item-info">
-                            <ul>
-                                <li className="gallery-item-likes">
-                                    <span className="visually-hidden">Likes:</span>
-                                    <FontAwesomeIcon icon={faHeart} className="me-2" />89
-                                </li>
-                                <li className="gallery-item-comments">
-                                    <span className="visually-hidden">Comments:</span>
-                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item" tabIndex="0">
-                        <img
-                            src="https://plus.unsplash.com/premium_photo-1682390303366-7463dcbec281?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyODR8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            className="gallery-image"
-                            alt=""
-                        />
-
-                        <div className="gallery-item-info">
-                            <ul>
-                                <li className="gallery-item-likes">
-                                    <span className="visually-hidden">Likes:</span>
-                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
-                                </li>
-                                <li className="gallery-item-comments">
-                                    <span className="visually-hidden">Comments:</span>
-                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item" tabIndex="0">
-                        <img
-                            src="https://images.unsplash.com/photo-1688876100196-23fe0b1efb84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNTB8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            className="gallery-image"
-                            alt=""
-                        />
-
-                        <div className="gallery-item-info">
-                            <ul>
-                                <li className="gallery-item-likes">
-                                    <span className="visually-hidden">Likes:</span>
-                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
-                                </li>
-                                <li className="gallery-item-comments">
-                                    <span className="visually-hidden">Comments:</span>
-                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="gallery-item" tabIndex="0">
-                        <img
-                            src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop"
-                            className="gallery-image"
-                            alt=""
-                        />
-
-                        <div className="gallery-item-info">
-                            <ul>
-                                <li className="gallery-item-likes">
-                                    <span className="visually-hidden">Likes:</span>
-                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 56
-                                </li>
-                                <li className="gallery-item-comments">
-                                    <span className="visually-hidden">Comments:</span>
-                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 2
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="gallery-item" tabIndex="0">
-                        <img
-                            src="https://images.unsplash.com/photo-1688380303885-c45db2972da7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMDh8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=400&q=60w=500&h=500&fit=crop"
-                            className="gallery-image"
-                            alt=""
-                        />
-
-                        <div className="gallery-item-info">
-                            <ul>
-                                <li className="gallery-item-likes">
-                                    <span className="visually-hidden">Likes:</span>
-                                    <FontAwesomeIcon icon={faHeart} className="me-2" /> 89
-                                </li>
-                                <li className="gallery-item-comments">
-                                    <span className="visually-hidden">Comments:</span>
-                                    <FontAwesomeIcon icon={faComment} className="me-2" /> 5
-                                </li>
-                            </ul>
-                        </div>
-                    </div> */}
                 </div>
             </div>
             <div className="loader"></div>
-        </main>
+        </main >
     );
 }
