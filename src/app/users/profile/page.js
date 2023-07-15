@@ -96,7 +96,7 @@ export default function Profile() {
                     <div className="profile-stats">
                         <ul>
                             <li>
-                                <span className="profile-stat-count">{posts.length || '0'}</span> posts
+                                <span className="profile-stat-count">{posts && posts.length ? posts.length : '0'}</span> posts
                             </li>
                             <li>
                                 <span className="profile-stat-count">188</span> followers
@@ -118,7 +118,7 @@ export default function Profile() {
             <div className="container">
                 <div className="gallery">
                     <div className="gallery-item" tabIndex="0">
-                        {posts.map((post) => {
+                        {posts && posts.map((post) => {
                             return (
                                 <div key={data._id} className='gallery-container'>
                                     <img src={post.photo} className="gallery-image" alt="" />
