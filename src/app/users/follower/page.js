@@ -1,6 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
 import FollowerTable from './FollowerTable';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { faker } from '@faker-js/faker';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from '@/app/utils/setAuthToken';
+import handleLogout from '@/app/utils/handleLogout';
+import '../../css/follower.css';
 
 export default function FilterableFollowerTable() {
     // state is what the data is representing in realtime
@@ -18,7 +25,7 @@ export default function FilterableFollowerTable() {
     }
 
     useEffect(() => {
-        fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/follower')
+        fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/followers')
             .then((res) => res.json())
             .then((data) => {
                 console.log('--- data ---', data);
@@ -32,7 +39,7 @@ export default function FilterableFollowerTable() {
 
     return (
         <main>
-            <FollowerTable followers={follower.username} />
+            <FollowerTable followers={data.followers} />
         </main>
     );
 }
