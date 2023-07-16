@@ -4,12 +4,13 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import Comment from '../comment/new/page';
+
+import Comment from '../../comment/Comment';
 import { faker } from '@faker-js/faker';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import moment from 'moment';
-import '../css/post.css';
+import '../../css/post.css';
 import Post from './Post';
 
 export default function PostTable({ posts }) {

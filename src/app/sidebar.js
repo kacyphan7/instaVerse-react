@@ -20,6 +20,8 @@ import Link from 'next/link';
 import handleLogout from './utils/handleLogout';
 
 export default function Sidebar() {
+
+    const username = localStorage.getItem('username');
     return (
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">
             < a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
@@ -80,7 +82,7 @@ export default function Sidebar() {
 
                 <li>
 
-                    <a href={'/users/profile'} className="nav-link text-white">
+                    <a href={'/users/profile/' + username} className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faUserCircle} className="me-2" />
                         Profile

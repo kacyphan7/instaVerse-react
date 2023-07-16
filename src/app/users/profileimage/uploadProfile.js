@@ -19,8 +19,6 @@ export default function UploadProfileImage({ profileImage }) {
         const formData = new FormData();
         formData.append('file', image);
         formData.append('upload_preset', 'instaverse');
-
-
         axios.post('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', formData)
             .then((response) => {
                 const secureUrl = response.data.secure_url;

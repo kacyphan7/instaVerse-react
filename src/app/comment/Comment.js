@@ -10,9 +10,10 @@ export default function Comment({ comment }) {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${comment.username}`)
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${comment.username}`)
             .then((response) => {
                 // data is an object
+                console.log('response.data', response.data.user);
                 setUserData(response.data.user);
             })
             .catch((error) => {
@@ -29,12 +30,14 @@ export default function Comment({ comment }) {
 
                 <div className="comment-text">
                     <p>
-                        <img src={userData.profilePicture} />
-                        <strong>{comment.username}</strong>
+                        <img src={"https://freesvg.org/img/abstract-user-flat-4.png" || userData.profilePicture} />
+                        <strong>&nbsp;{comment.username}</strong>
                         <br />
-                        {comment.comment}
+                        &nbsp;{comment.comment}
                         <br />
-                        {comment.likes}
+                        <div>
+                            {comment.likes}
+                        </div>
                     </p>
 
                 </div>
