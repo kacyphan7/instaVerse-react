@@ -44,9 +44,65 @@ InstaVerse is a photo social media application. The app allows users to view oth
 - CSS
 - Cloudinary
 
+# How To Install
+Setup requirements: 
+`Node.js`, `Mongodb` 
+
+1. `Fork` and `Clone` this respository to your local machine
+2. Run `npm install` to install dependencies.
+3. Run `npm run dev` or `npm start` to start server.
+4. Open `http://localhost:3000` the web browser. 
+
+# Additional Installations:
+
+Faker
+```
+npm install --save-dev @faker-js/faker
+```
+
+Font Awesome
+```
+npm install @fortawesome/fontawesome-svg-core \
+            @fortawesome/free-solid-svg-icons \
+            @fortawesome/react-fontawesome
+```
+
 # **How does InstaVerse work?**
+InstaVerse allows users to sign up for an account and log in. Once logged in, users can:
+
+- View the home feed, which displays photos from other users.
+- Upload and share their own photos.
+- Like and comment on posts.
+- Explore photos and profiles of other users.
+- Customize their profile and settings.
 
 # **Features of InstaVerse**
+- User authentication and authorization.
+- Home feed displaying photos from other users.
+- Uploading and sharing photos.
+- Liking and commenting on posts.
+- User profiles with customization options.
+- Explore feature to discover new content.
+
+# **Screenshots**
+## Login
+<img src="src/app/assets/login.png">
+
+## Signup
+<img src="src/app/assets/signup.png">
+
+## Profile
+
+## Post
+
+## Profile Setting
+<img src="src/app/assets/profile-setting.png">
+
+## Followers
+<img src="src/app/assets/follower.png">
+
+## Feeds
+<img src="src/app/assets/home.png">
 
 # **ERD**
 
@@ -57,17 +113,18 @@ InstaVerse is a photo social media application. The app allows users to view oth
 <img src="src/app/assets/instaVerse-wireframe.png">
 <img src="src/app/assets/app-wireframe.png">
 
-# **Screenshots**
-
 # **Future Enhancements**
 
-- Messages
-- Explore
-- Reels
-- Messages
-- Follow
+- Private messaging feature.
+- Explore feature with hashtags.
+- Search functionality for users and content.
+- Reels feature for short videos.
+- Notifications for likes and comments.
 
-# **Attribution**
+# **Sources**
+- [Faker](https://fakerjs.dev/guide/) - A library for generating fake data.
+- [Font Awesome](https://fontawesome.com/v4/get-started/) - An iconic font and CSS toolkit.
+- [Cloudinary](https://cloudinary.com/documentation/upload_images) - A cloud-based image and video management platform that provides image and video upload, storage, optimization, and delivery services.
 
 # **License**
 
