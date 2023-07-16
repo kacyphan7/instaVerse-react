@@ -273,7 +273,7 @@ export default function Homepage() {
                     </div>
                     <div className="box-body">
                       <img className="img-responsive pad" src={faker.image.url()} alt="Photo" />
-                      <p>Look at the beach photo I clicked</p>
+                      <p>{faker.lorem.sentence()}</p>
                       <button type="button" className="btn btn-default btn-xs">
                         <FontAwesomeIcon icon={faHeart} />
                       </button>
