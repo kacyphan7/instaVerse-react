@@ -17,6 +17,7 @@ import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
 import handleLogout from './utils/handleLogout';
 import Explore from './explore/page';
+import Link from 'next/link';
 import Search from './search/page';
 
 export default function Homepage() {
@@ -89,6 +90,11 @@ export default function Homepage() {
         console.log(error);
       });
   }, []);
+
+  const goToPost = () => {
+    localStorage.setItem('username', data.username);
+    router.push('/post');
+  };
 
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No data shown...</p>;
@@ -247,9 +253,9 @@ export default function Homepage() {
                       <div className="user-block ">
                         <br></br>
 
-                        <img src={user.profilePicture || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="} />
+                        <img src={user.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
                         <span className="username">
-                          <a href="#" data-abc="true">{user.username}</a>
+                          <Link href={"/users/profile/" + user.username} data-abc="true">{user.username}</Link>
                         </span>
                         <span className="description">Public - 7:30 PM Today</span>
                       </div>
