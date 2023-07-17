@@ -261,7 +261,7 @@ export default function Homepage() {
                     </div>
                     <div className="box-body">
                       <img className="img-responsive pad" src={faker.image.url()} alt="Photo" />
-                      <p>Look at the beach photo I clicked</p>
+                      <p>{faker.lorem.sentence()}</p>
                       <button type="button" className="btn btn-default btn-xs">
                         <FontAwesomeIcon icon={faHeart} />
                       </button>
@@ -280,7 +280,7 @@ export default function Homepage() {
                           <span className="username">
                             {user.username}<span className="text-muted pull-right">8:03 PM Today</span>
                           </span>
-                          For what reason would it be advisable for me to think about business content?
+                          {faker.lorem.sentence()}
                         </div>
                       </div>
                     </div>
