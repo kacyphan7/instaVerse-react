@@ -79,18 +79,6 @@ export default function Homepage() {
     }
   }, [router]);
 
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${localStorage.getItem('username')}`)
-      .then((postsData) => {
-        // data is an object
-        console.log(postsData.data.posts);
-        setPosts(postsData.data.posts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
   const goToPost = () => {
     localStorage.setItem('username', data.username);
     router.push('/post');

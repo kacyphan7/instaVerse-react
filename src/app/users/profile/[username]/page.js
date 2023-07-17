@@ -1,10 +1,11 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import '../../../css/profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import jwtDecode from 'jwt-decode';
 import { useRouter, useParams } from 'next/navigation';
@@ -13,42 +14,62 @@ import Link from 'next/link';
 import axios from 'axios';
 import setAuthToken from '@/app/utils/setAuthToken';
 import Modal from 'react-modal';
+import Comment from '@/app/comment/Comment';
+import { use } from 'passport';
+import moment from 'moment';
+
 
 export default function FilterablePostTable() {
+
+    // Modal.setAppElement('el');
+
     const [data, setData] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [isLoading, setLoading] = useState(true);
-    const [orderOneComplete, setOrderOneComplete] = useState(false);
+    const [orderOneComplete, setOrderOneComplete] = useState(true);
     const [orderTwoComplete, setOrderTwoComplete] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPostId, setSelectedPostId] = useState(null);
-    const [singlePost, setSinglePost] = useState(null);
     const router = useRouter();
     const { username } = useParams();
+    const [singlePost, setSinglePost] = useState(null);
+    const [comments, setComments] = useState(0);
+    const [commentBody, setCommentBody] = useState('');
+    const [loggedInUser, setLoggedInUser] = useState(null);
+
+
 
     const customStyles = {
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.6)'
         },
         content: {
+            width: '1800px',
+            height: '100%',
             top: '50%',
             left: '50%',
             right: 'auto',
-            bottom: 'auto',
+            bottom: '-30%',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)'
         }
     };
 
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/username/${username}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data);
-                setLoading(false);
-                setOrderOneComplete(true);
-            });
-    }, [username]);
+    const commentRows = [];
+
+
+    if (comments.length) {
+        comments.forEach((comment) => {
+            commentRows.push(<Comment comment={comment} userInfo={loggedInUser} key={comment._id} />);
+        });
+    } else {
+        commentRows.push([]);
+    }
+
+
+    const handleCommentBody = (e) => {
+        setCommentBody(e.target.value);
+    };
 
     useEffect(() => {
         setAuthToken(localStorage.getItem('jwtToken'));
@@ -57,11 +78,13 @@ export default function FilterablePostTable() {
                 axios
                     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
                     .then((response) => {
+                        setLoggedInUser(response.data.user);
                         let userData = jwtDecode(localStorage.getItem('jwtToken'));
                         if (userData.email === localStorage.getItem('email')) {
                             axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}`)
                                 .then((response) => {
                                     setUserInfo(response.data.user);
+                                    setLoading(false);
                                     setOrderTwoComplete(true);
                                 });
                         } else {
@@ -84,18 +107,23 @@ export default function FilterablePostTable() {
         }
     }, [router, username, orderOneComplete]);
 
-    useEffect(() => {
-        if (selectedPostId) {
-            axios
-                .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/id/${selectedPostId}`)
-                .then((response) => {
-                    setSinglePost(response.data.post);
-                });
-        }
-    }, [selectedPostId]);
+    // useEffect(() => {
+    //     if (selectedPostId) {
+    //         axios
+    //             .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}/posts/id/${selectedPostId}`)
+    //             .then((response) => {
+    //                 setSinglePost(response.data.post);
+    //             });
+    //     }
+    // }, [selectedPostId, username]);
 
     const handleOpenModal = (postId) => {
         setSelectedPostId(postId);
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}/posts/id/${postId}`)
+            .then((response) => {
+                setSinglePost(response.data.post);
+                setComments(response.data.post.comments);
+            });
         setIsOpen(true);
     };
 
@@ -104,8 +132,25 @@ export default function FilterablePostTable() {
         setIsOpen(false);
     };
 
+    const handleCommentSubmit = (e) => {
+        e.preventDefault();
+        if (commentBody) {
+            const newComment = { username: loggedInUser.username, comment: commentBody };
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}/posts/${selectedPostId}/comments/new`, newComment)
+                .then(response => {
+                    setCommentBody('');
+                    setSinglePost(response.data.post);
+                    setComments(response.data.post.comments);
+
+                })
+                .catch(error => console.log('===> Error in Adding comment', error));
+        } else {
+            console.log('need to input something');
+        }
+    };
+
     if (isLoading) return <p>Loading...</p>;
-    if (!data) return <p>No data shown...</p>;
+    if (!userInfo) return <p>No data shown...</p>;
 
     return (
         <main className="post-center">
@@ -144,7 +189,7 @@ export default function FilterablePostTable() {
                                 <ul>
                                     <li>
                                         <span className="profile-stat-count">
-                                            {data.posts && data.posts.length ? data.posts.length : '0'}
+                                            {userInfo.posts && userInfo.posts.length ? userInfo.posts.length : '0'}
                                         </span>
                                         posts
                                     </li>
@@ -167,21 +212,21 @@ export default function FilterablePostTable() {
 
                     <div className="container">
                         <div className="gallery">
-                            {data.posts.map((post) => (
+                            {userInfo.posts.map((post) => (
                                 <div key={post._id}>
                                     <button onClick={() => handleOpenModal(post._id)}>
                                         <div className="gallery-container">
                                             <img src={post.photo} className="gallery-image" alt="" />
                                             <div className="gallery-stuff">
                                                 <ul>
-                                                    <li className="gallery-item-likes">
-                                                        <span className="visually-hidden">Likes:</span>
+                                                    <li className="gallery-item-likes white-icon">
+                                                        <span className="visually-hidden" >Likes:</span>
                                                         <FontAwesomeIcon icon={faHeart} className="me-2" />
-                                                        {post.likes}
-                                                        &nbsp;
+                                                        {post.likes > 0 ? post.likes : 0}
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <span className="visually-hidden">Comments:</span>
-                                                        <FontAwesomeIcon icon={faComment} className="me-2" />
-                                                        {post.comments.length}
+                                                        <FontAwesomeIcon icon={faComment} className="me-2n" />
+                                                        &nbsp;{post.comments.length}
                                                     </li>
                                                 </ul>
                                             </div>
@@ -192,26 +237,62 @@ export default function FilterablePostTable() {
                         </div>
                     </div>
 
-                    <Modal isOpen={isOpen} onRequestClose={handleCloseModal} style={customStyles}>
+                    <Modal ariaHideApp={false} isOpen={isOpen} onRequestClose={handleCloseModal} style={customStyles}>
                         {singlePost && (
-                            <div className="box-body">
-                                <img className="img-responsive pad" src={singlePost.photo} alt="Photo" />
-                                <p className="caption">{singlePost.caption}</p>
-                                <button type="button" className="btn btn-default btn-xs">
-                                    <FontAwesomeIcon icon={faHeart} />
-                                </button>
-                                <button type="button" className="btn btn-default btn-xs">
-                                    <FontAwesomeIcon icon={faComment} />
-                                </button>
-                                <button type="button" className="btn btn-default btn-xs">
-                                    {/* <FontAwesomeIcon icon={faPaperPlane} /> */}
-                                </button>
-                                <span className="pull-right text-muted">
-                                    {singlePost.likes} likes - {singlePost.comments.length} comments
-                                </span>
+                            <div style={{ display: 'inline-flex', fontSize: '15px' }}>
+                                <div style={{ display: 'flex', width: '1300px' }}>
+                                    <img className="img-responsive pad" src={singlePost.photo} alt="Photo" style={{ width: '100%' }} />
+                                </div>
+                                &nbsp;
+                                &nbsp;
+                                <hr />
+                                <div className="box-body" style={{ position: 'absolute', right: '0', width: '25%' }}>
+                                    <div style={{ display: 'inline-flex' }}>
+                                        <img src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
+                                            alt="Profile Image"
+                                            style={{ width: '30px' }} />&nbsp;
+                                        <a href={'/users/profile/' + singlePost.username} >{singlePost.username}</a>
+                                    </div>
+                                    <hr />
+                                    <div style={{ display: 'inline-flex' }}>
+                                        {singlePost.caption}
+                                    </div>
+                                    <hr />
+                                    {/* {singlePostDateTimeAgo} */}
+
+                                    <div>
+                                        {commentRows}
+                                    </div>
+                                    <div>
+                                        <hr />
+                                        <button type="button" className="btn btn-default btn-xs">
+                                            <FontAwesomeIcon icon={faHeart} />
+                                        </button>
+                                        &nbsp;
+                                        <button type="button" className="btn btn-default btn-xs">
+                                            <FontAwesomeIcon icon={faComment} />
+                                        </button>
+                                        &nbsp;
+                                        <button type="button" className="btn btn-default btn-xs">
+                                            <FontAwesomeIcon icon={faPaperPlane} />
+                                        </button>
+                                        &nbsp;
+                                        <span className="pull-right text-muted">
+                                            {singlePost.likes} likes - {singlePost.comments.length} comments
+                                        </span>
+                                        <hr />
+                                        <form onSubmit={handleCommentSubmit}>
+                                            <div className='form-group'>
+                                                <textarea type="text" name="body" value={commentBody} onChange={handleCommentBody} className="input is-link form-control textarea" placeholder='Add a comment...' />
+                                            </div>
+                                            <button type="submit" className='button'>post comment</button>
+                                        </form>
+                                    </div>
+                                </div>
+
                             </div>
                         )}
-                        <button onClick={handleCloseModal}>Close Modal</button>
+                        <button onClick={handleCloseModal}></button>
                     </Modal>
                 </div>
             )}
