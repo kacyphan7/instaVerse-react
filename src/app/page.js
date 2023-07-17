@@ -292,7 +292,7 @@ export default function Homepage() {
                           <span className="username">
                             {user.username}<span className="text-muted pull-right">8:03 PM Today</span>
                           </span>
-                          For what reason would it be advisable for me to think about business content?
+                          {faker.lorem.sentence()}
                         </div>
                       </div>
                     </div>

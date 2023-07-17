@@ -15,8 +15,6 @@ import Post from './Post';
 
 export default function PostTable({ posts }) {
 
-
-
     const rows = [];
 
     posts.forEach((post) => {
