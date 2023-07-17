@@ -21,17 +21,35 @@ export default function CreatePost() {
         setPhoto(e.target.files[0]);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Perform the necessary actions to upload the photo and caption to the server
-        // For example, you can use Axios or the Fetch API to send a POST request to your server endpoint
+        // Create a new FormData object
+        const formData = new FormData();
 
-        // Reset the form fields
-        setCaption('');
-        setPhoto(null);
+        // Append the caption and photo to the FormData object
+        formData.append('caption', caption);
+        formData.append('photo', photo);
+
+        try {
+            // Send a POST request to the server endpoint to upload the post
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            // Reset the form fields
+            setCaption('');
+            setPhoto(null);
+
+            // Redirect the user to their profile page
+            const username = localStorage.getItem('username');
+            router.push(`/users/profile/${username}`);
+        } catch (error) {
+            console.log('Error uploading post:', error);
+        }
     };
-
     return (
         <div className="container">
             <div className="add-post">
