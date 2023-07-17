@@ -17,11 +17,16 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import handleLogout from './utils/handleLogout';
 
-export default function Sidebar() {
+export default function Sidebar({ }) {
+    //const router = useRouter();
+    let username = '';
 
-    const username = localStorage.getItem('username');
+    if (typeof window !== 'undefined') {
+        username = localStorage.getItem('username');
+    }
     return (
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">
             < a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
@@ -73,7 +78,7 @@ export default function Sidebar() {
                     </a>
                 </li>
                 <li>
-                    <a href="/post" className="nav-link text-white">
+                    <a href={`/post/${username}/single`} className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faPlusSquare} className="me-2" />
                         Create
