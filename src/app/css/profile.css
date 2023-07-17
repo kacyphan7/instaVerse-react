@@ -204,6 +204,10 @@ input[type="file"] {
     align-items: center;
 }
 
+.white-icon{
+    color: white;
+}
+
 .gallery-stuff {
     position: absolute;
     display: none;
@@ -226,6 +230,11 @@ input[type="file"] {
     width: 300px;
     height: 300px;
     object-fit: cover;
+}
+
+.vl {
+    border-left: 6px solid green;
+    height: 500px;
 }
 
 /* Spinner Animation */
