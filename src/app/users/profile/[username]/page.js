@@ -21,8 +21,6 @@ import moment from 'moment';
 
 export default function FilterablePostTable() {
 
-    // Modal.setAppElement('el');
-
     const [data, setData] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [isLoading, setLoading] = useState(true);
@@ -36,8 +34,6 @@ export default function FilterablePostTable() {
     const [comments, setComments] = useState(0);
     const [commentBody, setCommentBody] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
-
-
 
     const customStyles = {
         overlay: {
@@ -57,7 +53,6 @@ export default function FilterablePostTable() {
 
     const commentRows = [];
 
-
     if (comments.length) {
         comments.forEach((comment) => {
             commentRows.push(<Comment comment={comment} userInfo={loggedInUser} key={comment._id} />);
@@ -65,7 +60,6 @@ export default function FilterablePostTable() {
     } else {
         commentRows.push([]);
     }
-
 
     const handleCommentBody = (e) => {
         setCommentBody(e.target.value);
@@ -106,16 +100,6 @@ export default function FilterablePostTable() {
             }
         }
     }, [router, username, orderOneComplete]);
-
-    // useEffect(() => {
-    //     if (selectedPostId) {
-    //         axios
-    //             .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}/posts/id/${selectedPostId}`)
-    //             .then((response) => {
-    //                 setSinglePost(response.data.post);
-    //             });
-    //     }
-    // }, [selectedPostId, username]);
 
     const handleOpenModal = (postId) => {
         setSelectedPostId(postId);
