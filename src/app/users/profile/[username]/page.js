@@ -35,6 +35,7 @@ export default function FilterablePostTable() {
     const [commentBody, setCommentBody] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
 
+
     const customStyles = {
         overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.6)'
