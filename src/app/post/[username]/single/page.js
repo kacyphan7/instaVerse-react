@@ -33,7 +33,7 @@ export default function CreatePost() {
 
         try {
             // Send a POST request to the server endpoint to upload the post
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts`, formData, {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${localStorage.getItem('username')}/posts/new`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
