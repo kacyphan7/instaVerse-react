@@ -16,14 +16,36 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import handleLogout from './utils/handleLogout';
+import ModalComponent from './post/new/modalComponent';
 
-export default function Sidebar({ }) {
+export default function Sidebar({ openModal }) {
     //const router = useRouter();
 
     const username = localStorage.getItem('username');
+    // const handleOpenModal = (postId) => {
+
+
+    //     setIsOpen(true);
+    // };
+
+    // const handleCloseModal = () => {
+    //     setSelectedPostId(null);
+    //     setIsOpen(false);
+    // };
+    // const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    // const handleOpenModal = () => {
+    //     setModalIsOpen(true);
+    // };
+
+    // const handleCloseModal = () => {
+    //     setModalIsOpen(false);
+    // };
+
 
     return (
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">
@@ -76,15 +98,15 @@ export default function Sidebar({ }) {
                     </a>
                 </li>
                 <li>
-                    <a href="" className="nav-link text-white">
-                        <svg className="bi me-2" width="16" height="16"></svg>
-                        <FontAwesomeIcon icon={faPlusSquare} className="me-2" />
-                        Create
+                    <a className="nav-link text-white">
+                        <button onClick={openModal} >
+                            <svg className="bi me-2" width="16" height="16"></svg>
+                            <FontAwesomeIcon icon={faPlusSquare} className="me-2" />
+                            Create
+                        </button>
                     </a>
                 </li>
-
                 <li>
-
                     <a href={'/users/profile/' + username} className="nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faUserCircle} className="me-2" />
