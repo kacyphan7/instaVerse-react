@@ -49,7 +49,7 @@ export default function EditProfile() {
         }
         catch (error) {
             console.log(error);
-            router.push('/users/profile');
+            router.push('/users/profile/' + localStorage.getItem('username'));
         };
         // const fetchData = async () => {
         //     try {
@@ -113,7 +113,7 @@ export default function EditProfile() {
                                         <img src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"}
                                             width='100px' alt="User Avatar" className="avatar-img" />
                                     </div>
-                                    <label for='profilePicture' class="custom-file-upload">Change Profile Image</label>
+                                    <label htmlFor='profilePicture' className="custom-file-upload">Change Profile Image</label>
                                     <input type="file" id="profilePicture" name="profilePicture" className="form-control-file" accept='.png, .jpg, .jpeg' onChange={handleFileOpen} step={{ display: 'none' }} />
                                     {mainProfileImage && <UploadProfileImage profileImage={mainProfileImage} />}
 
