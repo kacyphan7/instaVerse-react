@@ -20,7 +20,7 @@ body {
     flex: 1 1 auto
 }
 
-.post-center{
+.post-center {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -240,7 +240,7 @@ p {
 }
 
 .caption {
-    color:black
+    color: black
 }
 
 .img-sm,

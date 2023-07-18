@@ -55,6 +55,16 @@ Setup requirements:
 
 # Additional Installations:
 
+Modal
+```
+npm install react-modal
+```
+
+Moment
+```
+npm install moment
+```
+
 Faker
 ```
 npm install --save-dev @faker-js/faker
@@ -76,6 +86,36 @@ InstaVerse allows users to sign up for an account and log in. Once logged in, us
 - Explore photos and profiles of other users.
 - Customize their profile and settings.
 
+### Upload Profile Image Using Cloudinary 
+This code uses Cloudinary's API to upload a user's profile image to the Cloudinary cloud. The image is then stored in Cloudinary's database and a secure URL is generated for the image. The secure URL is then used to update the user's profile information on the server.
+```
+const handle = (image) => {
+        console.log('This is happening');
+        const formData = new FormData();
+        formData.append('file', image);
+        formData.append('upload_preset', 'instaverse');
+        axios.post('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', formData)
+            .then((response) => {
+                const secureUrl = response.data.secure_url;
+                const newUser = { profilePicture: secureUrl };
+
+                axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, newUser)
+                    .then((response) => {
+                        console.log('response.data', response.data);
+                        // setRedirect(true);
+                        setLoading(false);
+                    })
+                    .catch((error) => console.log('Error in Signup1', error));
+            })
+            .catch((error) => console.log('Error in Signup2', error));
+    };
+```
+When called, the function logs a message to indicate that the function is being executed. A new FormData object is created to store the image data. The image is appended to the FormData object using the append method, and the upload preset (named 'instaverse') is also appended. 
+
+Then, an HTTP POST request is made to the Cloudinary API endpoint for image upload using the axios.post method. The FormData object is passed as the request payload. If the upload is successful, the response data is retrieved. The secure URL of the uploaded image is extracted from the response and stored in a variable called secureUrl. A new user object is created with the profilePicture field set to the secureUrl value. 
+
+Another HTTP PUT request is made to the server API endpoint to update the user's profile information. The request includes the updated user object and the user's ID retrieved from the local storage. If the update is successful, the response data is logged and the loading state is set to false, indicating that the upload process is complete. In case there are any errors during the image upload or profile update, appropriate error messages are logged in the console.
+
 # **Features of InstaVerse**
 - User authentication and authorization.
 - Home feed displaying photos from other users.
@@ -91,9 +131,14 @@ InstaVerse allows users to sign up for an account and log in. Once logged in, us
 ## Signup
 <img src="src/app/assets/signup.png">
 
+## Feeds
+<img src="src/app/assets/home.png">
+
 ## Profile
+<img src="src/app/assets/profile.png">
 
 ## Post
+<img src="src/app/assets/profile-post.png">
 
 ## Profile Setting
 <img src="src/app/assets/profile-setting.png">
@@ -101,10 +146,12 @@ InstaVerse allows users to sign up for an account and log in. Once logged in, us
 ## Followers
 <img src="src/app/assets/follower.png">
 
-## Feeds
-<img src="src/app/assets/home.png">
-
 # **ERD**
+The User entity has a one-to-many relationship with the Follow entity, meaning that a user can follow many other users, but each user can only be followed by one user. 
+
+The User entity also has a one-to-many relationship with the Post entity, meaning that a user can create many posts, but each post can only be created by one user. 
+
+The Post entity has a many-to-many relationship with the Comment entity, meaning that a post can have many comments, and each comment can be associated with many posts.
 
 <img src="src/app/assets/ERD.png">
 

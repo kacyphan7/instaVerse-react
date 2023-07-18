@@ -84,7 +84,6 @@ export default function EditProfile() {
     };
     // fetchData();
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)

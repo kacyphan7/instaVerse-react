@@ -38,17 +38,18 @@ export default function FilterablePostTable() {
 
     const customStyles = {
         overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.6)'
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            overflowY: 'hidden'
         },
         content: {
-            width: '1800px',
-            height: '100%',
+            width: '1200px',
+            height: '75%',
             top: '50%',
             left: '50%',
             right: 'auto',
-            bottom: '-30%',
             marginRight: '-50%',
-            transform: 'translate(-50%, -50%)'
+            transform: 'translate(-50%, -50%)',
+            overflow: 'hidden'
         }
     };
 
@@ -225,7 +226,7 @@ export default function FilterablePostTable() {
                     <Modal ariaHideApp={false} isOpen={isOpen} onRequestClose={handleCloseModal} style={customStyles}>
                         {singlePost && (
                             <div style={{ display: 'inline-flex', fontSize: '15px' }}>
-                                <div style={{ display: 'flex', width: '1300px' }}>
+                                <div style={{ display: 'flex', width: '850px' }}>
                                     <img className="img-responsive pad" src={singlePost.photo} alt="Photo" style={{ width: '100%' }} />
                                 </div>
                                 &nbsp;
@@ -239,16 +240,16 @@ export default function FilterablePostTable() {
                                         <a href={'/users/profile/' + singlePost.username} >{singlePost.username}</a>
                                     </div>
                                     <hr />
-                                    <div style={{ display: 'inline-flex' }}>
+                                    <div style={{ display: 'inline-flex', width: '100%' }}>
                                         {singlePost.caption}
                                     </div>
                                     <hr />
                                     {/* {singlePostDateTimeAgo} */}
 
-                                    <div>
+                                    <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
                                         {commentRows}
                                     </div>
-                                    <div>
+                                    <div className="instagram-post-actions">
                                         <hr />
                                         <button type="button" className="btn btn-default btn-xs">
                                             <FontAwesomeIcon icon={faHeart} />
@@ -268,9 +269,19 @@ export default function FilterablePostTable() {
                                         <hr />
                                         <form onSubmit={handleCommentSubmit}>
                                             <div className='form-group'>
-                                                <textarea type="text" name="body" value={commentBody} onChange={handleCommentBody} className="input is-link form-control textarea" placeholder='Add a comment...' />
+                                                <textarea
+                                                    type="text"
+                                                    name="body"
+                                                    value={commentBody}
+                                                    onChange={handleCommentBody}
+                                                    className="input is-link form-control textarea"
+                                                    placeholder='Add a comment...'
+                                                    style={{ width: '100%' }}
+                                                />
                                             </div>
-                                            <button type="submit" className='button'>post comment</button>
+                                            <button type="submit" className="button btn btn-primary">
+                                                Post
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
