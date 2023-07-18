@@ -89,7 +89,7 @@ export default function EditProfile() {
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
             .then((response) => {
                 console.log(response);
-                router.push('/users/profile');
+                router.push(`/users/profile/${data.username}`);
             })
             .catch((error) => {
                 console.log('error when editing user', error);

@@ -1,29 +1,50 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import modal from 'react-modal';
+import { useRouter, useParams } from 'next/navigation';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import Comment from '../comment/new/page';
+import Comment from '../../comment/Comment';
 import { faker } from '@faker-js/faker';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import moment from 'moment';
-import '../css/post.css';
+import Link from 'next/link';
+import '../../css/post.css';
 
 export default function Post({ post }) {
     const dateTimeAgo = moment(new Date(post.updatedAt)).fromNow();
     const router = useRouter();
-    const [userData, setUserData] = useState(null);
+    const { username } = useParams();
+    const [comments, setComments] = useState(post.comments);
+    const [commentBody, setCommentBody] = useState('');
+    const [currentUserData, setCurrentUserData] = useState(null);
     const [isLoading, setLoading] = useState(true);
 
+
     const commentRows = [];
-    if (post.comments.length) {
-        post.comments.forEach((comment) => {
+    if (comments.length) {
+        comments.forEach((comment) => {
             commentRows.push(<Comment comment={comment} key={comment._id} />);
         });
     } else { }
 
+    const handleCommentBody = (e) => {
+        setCommentBody(e.target.value);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('comment', comments, 'username', username);
+        const newComment = { username, comment: commentBody };
+        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${post._id}/comments/new`, newComment)
+            .then(response => {
+                setCommentBody('');
+                setComments(response.data.post.comments);
+            });
+
+    };
     useEffect(() => {
         setAuthToken(localStorage.getItem('jwtToken'));
         if (localStorage.getItem('jwtToken')) {
@@ -33,8 +54,14 @@ export default function Post({ post }) {
                     // data is an object
                     let userData = jwtDecode(localStorage.getItem('jwtToken'));
                     if (userData.email === localStorage.getItem('email')) {
-                        setUserData(response.data.user);
-                        setLoading(false);
+                        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}`)
+                            .then((response) => {
+                                // data is an object
+                                setCurrentUserData(response.data.user);
+                                setLoading(false);
+                            });
+                        // setCurrentUserData(response.data.user);
+                        // setLoading(false);
                     } else {
                         console.log('error1', error);
                         router.push('/users/login');
@@ -53,10 +80,10 @@ export default function Post({ post }) {
             router.push('/users/login');
 
         }
-    }, [router]);
+    }, [router, username]);
 
     if (isLoading) return <p>Loading...</p>;
-    if (!userData) return <p>No data shown...</p>;
+    if (!currentUserData) return <p>No data shown...</p>;
 
     // setAuthToken(localStorage.getItem('jwtToken'));
     return (
@@ -69,13 +96,13 @@ export default function Post({ post }) {
                 <div className="box-header with-border ">
                     <div className="user-block">
                         <br />
-                        <img src={userData.profilePicture} />
+                        <img src={currentUserData.profilePicture} />
                         <span className="username">
-                            <a href="#" data-abc="true">
-                                {/* {user.username} */}
-                            </a>
+                            <Link href={"/users/profile/" + currentUserData.username} >
+                                {currentUserData.username}
+                            </Link>
                         </span>
-                        <span className="description">Public - {dateTimeAgo}</span>
+                        <span className="description">{dateTimeAgo}</span>
                     </div>
                     <div className="box-tools">
                         <button type="button" className="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
@@ -106,16 +133,17 @@ export default function Post({ post }) {
                 {commentRows}
 
                 <div className="box-footer">
-                    <form action="#" method="post">
-                        <img
-                            className="img-responsive img-circle img-sm"
-                            src={userData.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
-                            alt="Alt Text"
-                        />
+
+                    <form onSubmit={handleSubmit}>
+                        <img className="img-responsive img-circle img-sm"
+                            src={currentUserData.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
+                            alt="Alt Text" />
                         <div className="img-push">
-                            <input type="text" className="form-control input-sm" placeholder="Press enter to post comment" />
+                            <input type="text" name='comment' value={commentBody} onChange={handleCommentBody} className="form-control input-sm" placeholder="Add a comment..." />
                         </div>
                     </form>
+
+
                 </div>
             </div>
 

@@ -17,6 +17,7 @@ import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
 import handleLogout from './utils/handleLogout';
 import Explore from './explore/page';
+import Link from 'next/link';
 import Search from './search/page';
 
 export default function Homepage() {
@@ -78,17 +79,10 @@ export default function Homepage() {
     }
   }, [router]);
 
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${localStorage.getItem('username')}`)
-      .then((postsData) => {
-        // data is an object
-        console.log(postsData.data.posts);
-        setPosts(postsData.data.posts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const goToPost = () => {
+    localStorage.setItem('username', data.username);
+    router.push('/post');
+  };
 
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No data shown...</p>;
@@ -247,9 +241,9 @@ export default function Homepage() {
                       <div className="user-block ">
                         <br></br>
 
-                        <img src={user.profilePicture || "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="} />
+                        <img src={user.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
                         <span className="username">
-                          <a href="#" data-abc="true">{user.username}</a>
+                          <Link href={"/users/profile/" + user.username} data-abc="true">{user.username}</Link>
                         </span>
                         <span className="description">Public - 7:30 PM Today</span>
                       </div>
@@ -267,7 +261,7 @@ export default function Homepage() {
                     </div>
                     <div className="box-body">
                       <img className="img-responsive pad" src={faker.image.url()} alt="Photo" />
-                      <p>Look at the beach photo I clicked</p>
+                      <p>{faker.lorem.sentence()}</p>
                       <button type="button" className="btn btn-default btn-xs">
                         <FontAwesomeIcon icon={faHeart} />
                       </button>
@@ -286,7 +280,7 @@ export default function Homepage() {
                           <span className="username">
                             {user.username}<span className="text-muted pull-right">8:03 PM Today</span>
                           </span>
-                          For what reason would it be advisable for me to think about business content?
+                          {faker.lorem.sentence()}
                         </div>
                       </div>
                     </div>

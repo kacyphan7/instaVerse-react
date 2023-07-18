@@ -1,0 +1,39 @@
+.add-post {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-post__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.add-post__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-post__label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.add-post__input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.add-post__button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+}
