@@ -30,7 +30,7 @@ export default function FilterableUserTable() {
     if (!data) return <p>No data shown...</p>;
 
     return (
-        <main>
+        <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
             <UserTable users={data.users} />
         </main>
     );

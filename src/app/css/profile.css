@@ -204,7 +204,7 @@ input[type="file"] {
     align-items: center;
 }
 
-.white-icon{
+.white-icon {
     color: white;
 }
 
@@ -237,11 +237,11 @@ input[type="file"] {
     transition: opacity 500ms ease-in-out;
 }
 
-.ReactModal__Overlay--after-open{
+.ReactModal__Overlay--after-open {
     opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
+.ReactModal__Overlay--before-close {
     opacity: 0;
 }
 
@@ -315,4 +315,8 @@ input[type="file"] {
             margin-right: 1rem;
         }
     }
+}
+
+.instagram-post-actions {
+    margin: 10px 0;
 }
