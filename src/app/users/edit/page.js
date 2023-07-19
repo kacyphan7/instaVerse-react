@@ -42,16 +42,20 @@ export default function EditProfile() {
     });
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`);
+            if (typeof window !== undefined) {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`);
 
-            setData(response.data.user);
-            setLoading(false);
+                setData(response.data.user);
+                setLoading(false);
+            }
 
         }
         catch (error) {
             console.log(error);
-            router.push('/users/profile/' + localStorage.getItem('username'));
-        };
+            if (typeof window !== undefined) {
+                router.push('/users/profile/' + localStorage.getItem('username'));
+            };
+        }
         // const fetchData = async () => {
         //     try {
         //         const token = localStorage.getItem('jwtToken');
@@ -87,14 +91,16 @@ export default function EditProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
-            .then((response) => {
-                console.log(response);
-                router.push(`/users/profile/${data.username}`);
-            })
-            .catch((error) => {
-                console.log('error when editing user', error);
-            });
+        if (typeof window !== undefined) {
+            axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
+                .then((response) => {
+                    console.log(response);
+                    router.push(`/users/profile/${data.username}`);
+                })
+                .catch((error) => {
+                    console.log('error when editing user', error);
+                });
+        }
     };
 
     const deleteUser = (userId) => {
@@ -106,27 +112,29 @@ export default function EditProfile() {
         setIsDeleting(true);
 
         // Make an API request to delete the user
-        setAuthToken(localStorage.getItem('jwtToken'));
-        axios
-            .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`) // Replace ':id' with the actual ID of the user
-            .then(response => {
-                // Once the deletion is complete, you can perform additional actions if needed 
-                // handle log 
-                handleLogout();
-                // such as redirecting the user or displaying a success message
+        if (typeof window !== undefined) {
+            setAuthToken(localStorage.getItem('jwtToken'));
+            axios
+                .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`) // Replace ':id' with the actual ID of the user
+                .then(response => {
+                    // Once the deletion is complete, you can perform additional actions if needed 
+                    // handle log 
+                    handleLogout();
+                    // such as redirecting the user or displaying a success message
 
-                // Reset the isDeleting state to false to remove the loading indicator
-                setIsDeleting(true);
-            })
-            .catch(error => {
-                // Handle errors if the deletion process fails
+                    // Reset the isDeleting state to false to remove the loading indicator
+                    setIsDeleting(true);
+                })
+                .catch(error => {
+                    // Handle errors if the deletion process fails
 
-                // Display an error message to the user
-                console.log(error.response.data.message);
-                handleLogout();
-                // Reset the isDeleting state to false to remove the loading indicator
-                setIsDeleting(false);
-            });
+                    // Display an error message to the user
+                    console.log(error.response.data.message);
+                    handleLogout();
+                    // Reset the isDeleting state to false to remove the loading indicator
+                    setIsDeleting(false);
+                });
+        }
     };
 
 
