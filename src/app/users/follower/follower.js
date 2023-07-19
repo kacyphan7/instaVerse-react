@@ -9,9 +9,10 @@ const FollowerPage = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (typeof window !== undefined) {
-            if (localStorage.getItem('jwtToken')) {
-                setAuthToken(localStorage.getItem('jwtToken'));
+        if (typeof window !== 'undefined') {
+            const jwtToken = localStorage.getItem('jwtToken');
+            if (jwtToken) {
+                setAuthToken(jwtToken);
                 axios
                     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers`)
                     .then((response) => {
@@ -19,9 +20,11 @@ const FollowerPage = () => {
                         setIsLoading(false);
                     })
                     .catch((error) => {
-                        console.log('Error:', error);
+                        console.log('Error fetching followers:', error);
                         setIsLoading(false);
                     });
+            } else {
+                setIsLoading(false);
             }
         }
     }, []);

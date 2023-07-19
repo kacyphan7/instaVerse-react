@@ -27,30 +27,40 @@ const ProfileImage = ({ editProfileImage }) => {
     };
 
     const handleSubmit = (e) => {
-
         e.preventDefault(); // at the beginning of a submit function
 
-        const formData = new FormData();
-        formData.append('file', profileImage);
-        formData.append('upload_preset', 'instaverse');
-        console.log('file', profileImage);
-        console.log('formData', formData);
-        axios.post('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', formData)
-            .then(response => {
-
-                const secureUrl = response.data.secure_url;
-                // setImageURL(secureUrl);
-                const newUser = { profilePicture: secureUrl };
-                // console.log(newUser);
-                axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, newUser)
-                    .then(response => {
-                        console.log(response.data);
-                        // sessionStorage.setItem('userId', user._id);
-                        setRedirect(true);
-                    })
-                    .catch(error => console.log('===> Error in Signup1', error));
-            })
-            .catch(error => console.log('===> Error in Signup2', error));
+        if (typeof window !== 'undefined') {
+            const formData = new FormData();
+            formData.append('file', profileImage);
+            formData.append('upload_preset', 'instaverse');
+            console.log('file', profileImage);
+            console.log('formData', formData);
+            axios
+                .post(
+                    'https://api.cloudinary.com/v1_1/instaversecloud/image/upload',
+                    formData
+                )
+                .then((response) => {
+                    const secureUrl = response.data.secure_url;
+                    // setImageURL(secureUrl);
+                    const newUser = { profilePicture: secureUrl };
+                    // console.log(newUser);
+                    axios
+                        .put(
+                            `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem(
+                                'userId'
+                            )}`,
+                            newUser
+                        )
+                        .then((response) => {
+                            console.log(response.data);
+                            // sessionStorage.setItem('userId', user._id);
+                            setRedirect(true);
+                        })
+                        .catch((error) => console.log('===> Error in Signup1', error));
+                })
+                .catch((error) => console.log('===> Error in Signup2', error));
+        }
     };
 
     const handleNo = (e) => {

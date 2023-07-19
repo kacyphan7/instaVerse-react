@@ -29,14 +29,16 @@ export default function Login() {
 
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`, { email, password })
             .then(response => {
-                localStorage.setItem('jwtToken', response.data.token);
-                localStorage.setItem('email', response.data.userData.email);
-                localStorage.setItem('expiration', response.data.userData.exp);
-                localStorage.setItem('userId', response.data.userData.id);
-                localStorage.setItem('username', response.data.userData.username);
-                setAuthToken(response.data.token);
-                let decoded = jwtDecode(response.data.token);
-                setRedirect(true);
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('jwtToken', response.data.token);
+                    localStorage.setItem('email', response.data.userData.email);
+                    localStorage.setItem('expiration', response.data.userData.exp);
+                    localStorage.setItem('userId', response.data.userData.id);
+                    localStorage.setItem('username', response.data.userData.username);
+                    setAuthToken(response.data.token);
+                    let decoded = jwtDecode(response.data.token);
+                    setRedirect(true);
+                }
             })
             .catch(error => {
                 if (error.response.data.message === 'User not found') {

@@ -68,37 +68,39 @@ export default function FilterablePostTable() {
     };
 
     useEffect(() => {
-        setAuthToken(localStorage.getItem('jwtToken'));
+        //setAuthToken(localStorage.getItem('jwtToken'));
         if (orderOneComplete) {
-            if (localStorage.getItem('jwtToken')) {
-                axios
-                    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
-                    .then((response) => {
-                        setLoggedInUser(response.data.user);
-                        let userData = jwtDecode(localStorage.getItem('jwtToken'));
-                        if (userData.email === localStorage.getItem('email')) {
-                            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}`)
-                                .then((response) => {
-                                    setUserInfo(response.data.user);
-                                    setLoading(false);
-                                    setOrderTwoComplete(true);
-                                });
-                        } else {
+            if (typeof window !== 'undefined') {
+                if (localStorage.getItem('jwtToken')) {
+                    axios
+                        .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
+                        .then((response) => {
+                            setLoggedInUser(response.data.user);
+                            let userData = jwtDecode(localStorage.getItem('jwtToken'));
+                            if (userData.email === localStorage.getItem('email')) {
+                                axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}`)
+                                    .then((response) => {
+                                        setUserInfo(response.data.user);
+                                        setLoading(false);
+                                        setOrderTwoComplete(true);
+                                    });
+                            } else {
+                                setTimeout(() => {
+                                    router.push('/users/login');
+                                }, 0);
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
                             setTimeout(() => {
                                 router.push('/users/login');
                             }, 0);
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setTimeout(() => {
-                            router.push('/users/login');
-                        }, 0);
-                    });
-            } else {
-                setTimeout(() => {
-                    router.push('/users/login');
-                }, 0);
+                        });
+                } else {
+                    setTimeout(() => {
+                        router.push('/users/login');
+                    }, 0);
+                }
             }
         }
     }, [router, username, orderOneComplete]);

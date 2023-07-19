@@ -10,6 +10,7 @@ export default function FilterableUserTable() {
         const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
         let currentTime = Date.now();
 
+
         // make a condition that compares exp and current time
         if (currentTime >= expirationTime) {
             handleLogout();
@@ -19,14 +20,16 @@ export default function FilterableUserTable() {
     }
 
     useEffect(() => {
-        fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/users')
+        fetch('http://localhost:8000/users')
             .then((res) => res.json())
             .then((data) => {
+                // data is an object
                 console.log('--- data ---', data);
                 setData(data);
                 setLoading(false);
             });
     }, []);
+
 
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No data shown...</p>;

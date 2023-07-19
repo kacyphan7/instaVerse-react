@@ -46,8 +46,10 @@ const NewUser = () => {
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
             .then(response => {
                 console.log('response', response.data);
-                localStorage.setItem('username', response.data.user.username);
-                localStorage.setItem('userId', response.data.user._id);
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('username', response.data.user.username);
+                    localStorage.setItem('userId', response.data.user._id);
+                }
                 setRedirect(true);
             })
             .catch(error => {
@@ -56,7 +58,6 @@ const NewUser = () => {
                     setError(true);
                 }
             });
-
     };
     const handleCancel = (e) => {
         e.preventDefault();

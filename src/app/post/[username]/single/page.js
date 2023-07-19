@@ -31,25 +31,39 @@ export default function CreatePost() {
         formData.append('caption', caption);
         formData.append('photo', photo);
 
+        // Declare the 'username' variable outside the 'if' block
+        let username;
+
+        if (typeof window !== 'undefined') {
+            // Get the 'username' from localStorage
+            username = localStorage.getItem('username');
+        }
+
         try {
             // Send a POST request to the server endpoint to upload the post
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${localStorage.getItem('username')}/posts/new`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}/posts/new`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
 
             // Reset the form fields
             setCaption('');
             setPhoto(null);
 
             // Redirect the user to their profile page
-            const username = localStorage.getItem('username');
-            router.push(`/users/profile/${username}`);
+            if (username) {
+                router.push(`/users/profile/${username}`);
+            }
         } catch (error) {
             console.log('Error uploading post:', error);
         }
     };
+
     return (
         <div className="container">
             <div className="add-post">
