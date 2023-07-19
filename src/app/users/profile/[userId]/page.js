@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faCamera } from '@fortawesome/free-solid-svg-icons';
+// import { fa-circle-camera } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import jwtDecode from 'jwt-decode';
 import { useRouter, useParams } from 'next/navigation';
@@ -17,11 +18,12 @@ import Modal from 'react-modal';
 import Comment from '@/app/comment/Comment';
 import { use } from 'passport';
 import moment from 'moment';
+import ModalManager from '@/app/post/new/modalManager';
 
 
-export default function FilterablePostTable() {
+export default function FilterablePostTable({ openModal }) {
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [userInfo, setUserInfo] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [orderOneComplete, setOrderOneComplete] = useState(true);
@@ -29,7 +31,7 @@ export default function FilterablePostTable() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedPostId, setSelectedPostId] = useState(null);
     const router = useRouter();
-    const { username } = useParams();
+    const { userId } = useParams();
     const [singlePost, setSinglePost] = useState(null);
     const [comments, setComments] = useState(0);
     const [commentBody, setCommentBody] = useState('');
@@ -53,6 +55,12 @@ export default function FilterablePostTable() {
         }
     };
 
+    const [isModalManagerOpen, setModalManagerOpen] = useState(false);
+    const handleOpenModalManager = () => {
+        setModalManagerOpen(true);
+    };
+
+
     const commentRows = [];
 
     if (comments.length) {
@@ -71,17 +79,30 @@ export default function FilterablePostTable() {
         setAuthToken(localStorage.getItem('jwtToken'));
         if (orderOneComplete) {
             if (localStorage.getItem('jwtToken')) {
-                axios
-                    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
+                axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
                     .then((response) => {
                         setLoggedInUser(response.data.user);
                         let userData = jwtDecode(localStorage.getItem('jwtToken'));
                         if (userData.email === localStorage.getItem('email')) {
-                            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}`)
+                            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${userId}`)
                                 .then((response) => {
                                     setUserInfo(response.data.user);
                                     setLoading(false);
                                     setOrderTwoComplete(true);
+                                    const userInfoId = response.data.user._id;
+                                    axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${userInfoId}`)
+                                        .then((response) => {
+                                            // console.log('response.data.posts', response.data.posts);
+                                            setData(response.data.posts.reverse());
+                                            setOrderOneComplete(false);
+                                        }
+                                        )
+                                        .catch((error) => {
+                                            console.log(error);
+                                            setTimeout(() => {
+                                                router.push('/users/login');
+                                            }, 0);
+                                        });
                                 });
                         } else {
                             setTimeout(() => {
@@ -101,12 +122,13 @@ export default function FilterablePostTable() {
                 }, 0);
             }
         }
-    }, [router, username, orderOneComplete]);
+    }, [router, userId, orderOneComplete]);
 
     const handleOpenModal = (postId) => {
         setSelectedPostId(postId);
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}/posts/id/${postId}`)
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
             .then((response) => {
+                // console.log('response.data.post', response.data.post);
                 setSinglePost(response.data.post);
                 setComments(response.data.post.comments);
             });
@@ -121,9 +143,10 @@ export default function FilterablePostTable() {
     const handleCommentSubmit = (e) => {
         e.preventDefault();
         if (commentBody) {
-            const newComment = { username: loggedInUser.username, comment: commentBody };
-            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${username}/posts/${selectedPostId}/comments/new`, newComment)
+            const newComment = { createdBy: loggedInUser._id, comment: commentBody };
+            axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${selectedPostId}/comments/new`, newComment)
                 .then(response => {
+                    // console.log('response.data.post', response.data.post);
                     setCommentBody('');
                     setSinglePost(response.data.post);
                     setComments(response.data.post.comments);
@@ -152,9 +175,9 @@ export default function FilterablePostTable() {
                             </div>
 
                             <div className="profile-user-settings">
-                                {localStorage.getItem('username') === username ? (
+                                {localStorage.getItem('userId') === userId ? (
                                     <div>
-                                        <h1 className="profile-user-name">{username}</h1>
+                                        <h1 className="profile-user-name">{userInfo.username}</h1>
                                         <a href="/users/edit">
                                             <button className="btn profile-edit-btn">Edit Profile</button>
                                         </a>
@@ -165,7 +188,7 @@ export default function FilterablePostTable() {
                                 ) : (
                                     <div>
                                         <div className="profile-user-settings">
-                                            <h1 className="profile-user-name">{username}</h1>
+                                            <h1 className="profile-user-name">{userInfo.username}</h1>
                                         </div>
                                     </div>
                                 )}
@@ -175,9 +198,9 @@ export default function FilterablePostTable() {
                                 <ul>
                                     <li>
                                         <span className="profile-stat-count">
-                                            {userInfo.posts && userInfo.posts.length ? userInfo.posts.length : '0'}
+                                            {data && data.length ? data.length : '0'}
                                         </span>
-                                        posts
+                                        &nbsp;posts
                                     </li>
                                     <li>
                                         <span className="profile-stat-count">188</span> followers
@@ -197,8 +220,10 @@ export default function FilterablePostTable() {
                     </div>
 
                     <div className="container">
+                        <hr />
+                        <br />
                         <div className="gallery">
-                            {userInfo.posts.map((post) => (
+                            {data.length ? data.map((post) => (
                                 <div key={post._id}>
                                     <button onClick={() => handleOpenModal(post._id)}>
                                         <div className="gallery-container">
@@ -219,7 +244,26 @@ export default function FilterablePostTable() {
                                         </div>
                                     </button>
                                 </div>
-                            ))}
+                            )) :
+
+
+                                <div className="gallery-container nopost-title">
+                                    {/* <img src={post.photo} className="gallery-image" alt="" /> */}
+                                    <FontAwesomeIcon icon={faCamera} flip size="xl" />
+                                    <div>
+                                        Share Photos
+                                    </div>
+                                    <div className='nopost-sub-title'>
+                                        when you share photos, they will appear on your profile.
+                                    </div>
+                                    <div >
+                                        <a className='nopost-share' onClick={handleOpenModalManager}>
+                                            <div className="nopost-sub-title">Share your first photo</div>
+                                        </a>
+                                    </div>
+                                    <ModalManager isOpen={isModalManagerOpen} onClose={() => setModalManagerOpen(false)} />
+                                </div>
+                            }
                         </div>
                     </div>
 

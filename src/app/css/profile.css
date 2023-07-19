@@ -213,6 +213,22 @@ input[type="file"] {
     display: none;
 }
 
+.nopost-title{
+    margin-top: 25%;
+    text-align: center;
+    flex-direction: column;
+    /* justify-content:center ; */
+}
+
+.nopost-share{
+    cursor: pointer;
+}
+
+.nopost-sub-title{
+    width: 300px;
+    font-size: 1.5rem;
+}
+
 .gallery-item-type {
     position: absolute;
     top: 1rem;
