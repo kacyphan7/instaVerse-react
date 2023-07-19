@@ -41,55 +41,41 @@ export default function EditProfile() {
     });
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`);
+            const token = localStorage.getItem('jwtToken');
+            if (!token) {
+                // Redirect to login if JWT token is missing
+                router.push('/users/profile' + localStorage.getItem('userId'));
+                return;
+            }
+            setAuthToken(token);
 
-            setData(response.data.user);
-            setLoading(false);
-
-        }
-        catch (error) {
+            const response = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`
+            );
+            // console.log('user data', response.data.user);
+            // Decode the token to get user data
+            const userData = jwtDecode(token);
+            if (userData.email === localStorage.getItem('email')) {
+                setData(response.data.user);
+            } else {
+                // Redirect to login if user data doesn't match the token
+                router.push('/users/profile' + localStorage.getItem('userId'));
+            }
+        } catch (error) {
             console.log(error);
-            router.push('/users/profile/' + localStorage.getItem('username'));
-        };
-        // const fetchData = async () => {
-        //     try {
-        //         const token = localStorage.getItem('jwtToken');
-        //         if (!token) {
-        //             // Redirect to login if JWT token is missing
-        //             router.push('/users/profile');
-        //             return;
-        //         }
-        //         setAuthToken(token);
-
-        //         const response = await axios.get(
-        //             `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`
-        //         );
-        //         console.log('user data', response.data.user);
-        //         // Decode the token to get user data
-        //         const userData = jwtDecode(token);
-        //         if (userData.email === localStorage.getItem('email')) {
-        //             setData(response.data.user);
-        //         } else {
-        //             // Redirect to login if user data doesn't match the token
-        //             router.push('/users/profile');
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //         // Redirect to login if there's an error fetching user data
-        //         router.push('/users/profile');
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // };
+            // Redirect to login if there's an error fetching user data
+            router.push('/users/profile' + localStorage.getItem('userId'));
+        } finally {
+            setLoading(false);
+        }
     };
-    // fetchData();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
             .then((response) => {
                 console.log(response);
-                router.push(`/users/profile/${data.username}`);
+                router.push(`/users/profile/${data._id}`);
             })
             .catch((error) => {
                 console.log('error when editing user', error);
