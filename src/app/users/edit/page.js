@@ -42,65 +42,45 @@ export default function EditProfile() {
     });
     const fetchData = async () => {
         try {
-            if (typeof window !== undefined) {
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`);
-
-                setData(response.data.user);
-                setLoading(false);
+            const token = localStorage.getItem('jwtToken');
+            if (!token) {
+                // Redirect to login if JWT token is missing
+                router.push('/users/profile' + localStorage.getItem('userId'));
+                return;
             }
+            setAuthToken(token);
 
-        }
-        catch (error) {
+            const response = await axios.get(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`
+            );
+            // console.log('user data', response.data.user);
+            // Decode the token to get user data
+            const userData = jwtDecode(token);
+            if (userData.email === localStorage.getItem('email')) {
+                setData(response.data.user);
+            } else {
+                // Redirect to login if user data doesn't match the token
+                router.push('/users/profile' + localStorage.getItem('userId'));
+            }
+        } catch (error) {
             console.log(error);
-            if (typeof window !== undefined) {
-                router.push('/users/profile/' + localStorage.getItem('username'));
-            };
+            // Redirect to login if there's an error fetching user data
+            router.push('/users/profile' + localStorage.getItem('userId'));
+        } finally {
+            setLoading(false);
         }
-        // const fetchData = async () => {
-        //     try {
-        //         const token = localStorage.getItem('jwtToken');
-        //         if (!token) {
-        //             // Redirect to login if JWT token is missing
-        //             router.push('/users/profile');
-        //             return;
-        //         }
-        //         setAuthToken(token);
-
-        //         const response = await axios.get(
-        //             `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`
-        //         );
-        //         console.log('user data', response.data.user);
-        //         // Decode the token to get user data
-        //         const userData = jwtDecode(token);
-        //         if (userData.email === localStorage.getItem('email')) {
-        //             setData(response.data.user);
-        //         } else {
-        //             // Redirect to login if user data doesn't match the token
-        //             router.push('/users/profile');
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //         // Redirect to login if there's an error fetching user data
-        //         router.push('/users/profile');
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // };
     };
-    // fetchData();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (typeof window !== undefined) {
-            axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
-                .then((response) => {
-                    console.log(response);
-                    router.push(`/users/profile/${data.username}`);
-                })
-                .catch((error) => {
-                    console.log('error when editing user', error);
-                });
-        }
+        axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
+            .then((response) => {
+                console.log(response);
+                router.push(`/users/profile/${data._id}`);
+            })
+            .catch((error) => {
+                console.log('error when editing user', error);
+            });
     };
 
     const deleteUser = (userId) => {

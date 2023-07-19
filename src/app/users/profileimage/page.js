@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import UploadProfileImage from './uploadProfile';
 import setAuthToken from '@/app/utils/setAuthToken';
 
 const ProfileImage = ({ editProfileImage }) => {
@@ -28,39 +29,7 @@ const ProfileImage = ({ editProfileImage }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); // at the beginning of a submit function
-
-        if (typeof window !== 'undefined') {
-            const formData = new FormData();
-            formData.append('file', profileImage);
-            formData.append('upload_preset', 'instaverse');
-            console.log('file', profileImage);
-            console.log('formData', formData);
-            axios
-                .post(
-                    'https://api.cloudinary.com/v1_1/instaversecloud/image/upload',
-                    formData
-                )
-                .then((response) => {
-                    const secureUrl = response.data.secure_url;
-                    // setImageURL(secureUrl);
-                    const newUser = { profilePicture: secureUrl };
-                    // console.log(newUser);
-                    axios
-                        .put(
-                            `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem(
-                                'userId'
-                            )}`,
-                            newUser
-                        )
-                        .then((response) => {
-                            console.log(response.data);
-                            // sessionStorage.setItem('userId', user._id);
-                            setRedirect(true);
-                        })
-                        .catch((error) => console.log('===> Error in Signup1', error));
-                })
-                .catch((error) => console.log('===> Error in Signup2', error));
-        }
+        setRedirect(true);
     };
 
     const handleNo = (e) => {
@@ -81,6 +50,7 @@ const ProfileImage = ({ editProfileImage }) => {
                         </div>
                         <button type="submit" className="btn btn-primary float-right" onClick={handleSubmit}>Upload</button>
                         <button type="button" className="btn btn-primary float-right" onClick={handleNo}>Skip</button>
+                        {profileImage && <UploadProfileImage profileImage={profileImage} />}
                     </form>
                 </div>
             </div>

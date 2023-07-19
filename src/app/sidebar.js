@@ -17,38 +17,35 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect } from "react";
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import handleLogout from './utils/handleLogout';
-import ModalComponent from './post/new/modalComponent';
+
 
 export default function Sidebar({ openModal }) {
-    //const router = useRouter();
-    const [username, setUsername] = useState(null);
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setUsername(localStorage.getItem('username'));
+    const router = useRouter();
+
+    let username;
+    if (typeof window !== undefined) {
+        username = localStorage.getItem('username');
+    }
+
+    if (typeof window !== 'undefined') {
+        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+        let currentTime = Date.now();
+        // console.log(expirationTime, localStorage);
+
+        // make a condition that compares exp and current time
+        if (currentTime >= expirationTime) {
+            handleLogout();
+            alert('Session has ended. Please login to continue.');
+            router.push('/users/login');
         }
-    }, []);
-    // const handleOpenModal = (postId) => {
+    }
+
+    const userId = localStorage.getItem('userId');
 
 
-    //     setIsOpen(true);
-    // };
 
-    // const handleCloseModal = () => {
-    //     setSelectedPostId(null);
-    //     setIsOpen(false);
-    // };
-    // const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    // const handleOpenModal = () => {
-    //     setModalIsOpen(true);
-    // };
-
-    // const handleCloseModal = () => {
-    //     setModalIsOpen(false);
-    // };
 
     return (
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">
@@ -58,50 +55,51 @@ export default function Sidebar({ openModal }) {
             </a >
             <hr />
             <ul className="nav nav-pills flex-column mb-auto">
-                <li className="nav-item">
-                    <a href="/" className="nav-link active" aria-current="page">
+                <li className="list-display-block nav-item" >
+                    <a href="/" className="hover nav-link text-white" aria-current="page">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faHome} className="me-2" />
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="/search" className="nav-link text-white">
+                <li className="list-display-block nav-item" >
+                    <a href="/search" className="hover nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faSearch} className="me-2" />
                         Search
+
                     </a>
                 </li>
-                <li>
-                    <a href="/explore" className="nav-link text-white">
+                <li className="list-display-block nav-item" >
+                    <a href="/explore" className="hover nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faCompass} className="me-2" />
                         Explore
                     </a>
                 </li>
-                <li>
-                    <a href="#" className="nav-link text-white">
+                <li className="list-display-block nav-item" >
+                    <a href="#" className="hover nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faPlayCircle} className="me-2" />
                         Reels
                     </a>
                 </li>
-                <li>
-                    <a href="#" className="nav-link text-white">
+                <li className="list-display-block nav-item" >
+                    <a href="#" className="hover nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faComment} className="me-2" />
                         Messages
                     </a>
                 </li>
-                <li>
-                    <a href="#" className="nav-link text-white">
+                <li className="list-display-block nav-item" >
+                    <a href="#" className="hover nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faHeart} className="me-2" />
                         Notifications
                     </a>
                 </li>
-                <li>
-                    <a className="nav-link text-white">
+                <li className="list-display-block nav-item" >
+                    <a className="hover nav-link text-white">
                         <button onClick={openModal} >
                             <svg className="bi me-2" width="16" height="16"></svg>
                             <FontAwesomeIcon icon={faPlusSquare} className="me-2" />
@@ -109,8 +107,8 @@ export default function Sidebar({ openModal }) {
                         </button>
                     </a>
                 </li>
-                <li>
-                    <a href={'/users/profile/' + username} className="nav-link text-white">
+                <li className="list-display-block nav-item" >
+                    <a href={'/users/profile/' + userId} className="hover itemsCenter nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faUserCircle} className="me-2" />
                         Profile

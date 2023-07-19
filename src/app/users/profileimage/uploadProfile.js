@@ -15,24 +15,28 @@ export default function UploadProfileImage({ profileImage }) {
     const [isLoading, setLoading] = useState(true);
 
     const handle = (image) => {
-        console.log('This is happening');
-        if (typeof window !== 'undefined') {
-            const formData = new FormData();
-            formData.append('file', image);
-            formData.append('upload_preset', 'instaverse');
-            axios.post('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', formData)
-                .then((response) => {
-                    const secureUrl = response.data.secure_url;
-                    const newUser = { profilePicture: secureUrl };
-                    axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, newUser)
-                        .then((response) => {
-                            console.log('response.data', response.data);
-                            setLoading(false);
-                        })
-                        .catch((error) => console.log('Error in Signup1', error));
-                })
-                .catch((error) => console.log('Error in Signup2', error));
-        }
+        // console.log('This is happening');
+        const formData = new FormData();
+        formData.append('file', image);
+        formData.append('upload_preset', 'instaverse');
+        fetch('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', {
+            method: 'POST',
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // console.log(data);
+                const secureUrl = data.secure_url;
+                const newUser = { profilePicture: secureUrl };
+                axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, newUser)
+                    .then((response) => {
+                        // console.log('response.data', response.data);
+                        // setRedirect(true);
+                        setLoading(false);
+                    })
+                    .catch((error) => console.log('Error', error));
+            })
+            .catch((error) => console.log('Error', error));
     };
 
     // Call the handle function when the component mounts

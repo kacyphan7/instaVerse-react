@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import ModalManager from './post/new/modalManager';
 import React, { useState } from 'react';
 
+
 const inter = Inter({ subsets: ['latin'] });
 
 // export const metadata = {
