@@ -3,12 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { faker } from '@faker-js/faker';
+// import { faker } from '@faker-js/faker';
 import jwtDecode from 'jwt-decode';
 import '../../css/create-post.css';
-import ModalComponent from './modalComponent';
+// import ModalComponent from './modalComponent';
 import setAuthToken from '@/app/utils/setAuthToken';
-import { use } from 'passport';
 
 
 export default function ModalManager({ isOpen, onClose }) {
@@ -39,43 +38,53 @@ export default function ModalManager({ isOpen, onClose }) {
         },
     };
     const [caption, setCaption] = useState('');
-    const [photo, setPhoto] = useState(null);
+    // const [fileName, setFileName] = useState("");
+
+    const [imgFromCloud, setImgFromCloud] = useState({
+        data: { secure_url: "" },
+    });
+
     const [image, setImage] = useState(null);
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
 
-    const handleCaptionChange = (e) => {
+    const handleCaptionUpload = (e) => {
         setCaption(e.target.value);
     };
 
-    const handlePhotoChange = (e) => {
-        setPhoto(e.target.files[0]);
+    async function handlePhotoUpload(e) {
+        const file = e.target.files[0];
         setImage(URL.createObjectURL(e.target.files[0]));
-    };
+        if (file) {
+            const data = new FormData();
+            console.log('file', file);
+            data.append('file', file);
+            data.append('upload_preset', 'instaverse');
+            await fetch('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', {
+                method: 'POST',
+                body: data,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    setImgFromCloud(data);
+                })
+                .catch((error) => console.log('Error', error));
+        };
+    }
 
     const handleSubmit = (e) => {
 
         e.preventDefault(); // at the beginning of a submit function
-
-        const formData = new FormData();
-        formData.append('file', photo);
-        formData.append('upload_preset', 'instaverse');
-        axios.post('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', formData)
+        const newPost = { createdBy: localStorage.getItem('userId'), caption: caption, photo: imgFromCloud.secure_url };
+        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/new`, newPost)
             .then(response => {
 
-                const secureUrl = response.data.secure_url;
-                const newPost = { username: localStorage.getItem('username'), caption: caption, photo: secureUrl, likes: 0 };
-                console.log('newPost', newPost);
-                axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/username/${localStorage.getItem('username')}/posts/new`, newPost)
-                    .then(response => {
-                        console.log(response.data);
-                        // sessionStorage.setItem('userId', user._id);
-                        setRedirect(true);
-                    })
-                    .catch(error => console.log('===> Error in Signup1', error));
+                onClose();
+                // router.push('/users/profile/' + localStorage.getItem('userId'));
+                setRedirect(true);
             })
-            .catch(error => console.log('===> Error in Signup2', error));
+            .catch(error => console.log('===> Error', error));
     };
 
 
@@ -86,7 +95,7 @@ export default function ModalManager({ isOpen, onClose }) {
         setRedirect(true);
     };
 
-    // if (redirect) { router.push('/users/profile/' + localStorage.getItem('username')); }loxl
+    if (redirect) { router.push('/users/profile/' + localStorage.getItem('userId')); }
     if (!isOpen) return null;
     return (
         <div className="modal-overlay" style={styles.modalOverlay} onClick={onClose}>
@@ -99,7 +108,7 @@ export default function ModalManager({ isOpen, onClose }) {
                             <div className="form-group">
                                 <label htmlFor="photo" className="add-post__label">Select a Photo From Computer</label>
                                 <input type="file" id="photo" className="form-control add-post__input"
-                                    onChange={handlePhotoChange} />
+                                    onChange={handlePhotoUpload} />
                             </div>
                             <br />
 
@@ -113,12 +122,12 @@ export default function ModalManager({ isOpen, onClose }) {
                             <hr />
                             <br />
                             <input type="text" id="caption" className="form-control add-post__input"
-                                value={caption} onChange={handleCaptionChange} placeholder='Write a caption' />
+                                value={caption} onChange={handleCaptionUpload} placeholder='Write a caption' />
                             <button type="submit" className="add-post__button" >Share</button>
                         </div>
                     </form>
                 </div>
-                <ModalComponent onClose={onClose} />
+                {/* <ModalComponent onClose={onClose} /> */}
 
             </div>
         </div>
