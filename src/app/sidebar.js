@@ -24,8 +24,10 @@ import ModalComponent from './post/new/modalComponent';
 
 export default function Sidebar({ openModal }) {
     //const router = useRouter();
-
-    const username = localStorage.getItem('username');
+    let username;
+    if (typeof window !== undefined) {
+        username = localStorage.getItem('username');
+    }
     // const handleOpenModal = (postId) => {
 
 
@@ -45,7 +47,6 @@ export default function Sidebar({ openModal }) {
     // const handleCloseModal = () => {
     //     setModalIsOpen(false);
     // };
-
 
     return (
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">

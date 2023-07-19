@@ -2,22 +2,28 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/follower.css';
 import { faker } from '@faker-js/faker';
+import setAuthToken from '@/app/utils/setAuthToken';
 
 const FollowerPage = () => {
     const [followers, setFollowers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        axios
-            .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers`)
-            .then((response) => {
-                setFollowers(response.data.followers);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log('Error:', error);
-                setIsLoading(false);
-            });
+        if (typeof window !== undefined) {
+            if (localStorage.getItem('jwtToken')) {
+                setAuthToken(localStorage.getItem('jwtToken'));
+                axios
+                    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers`)
+                    .then((response) => {
+                        setFollowers(response.data.followers);
+                        setIsLoading(false);
+                    })
+                    .catch((error) => {
+                        console.log('Error:', error);
+                        setIsLoading(false);
+                    });
+            }
+        }
     }, []);
 
     if (isLoading) {
