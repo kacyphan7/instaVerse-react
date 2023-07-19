@@ -1,10 +1,14 @@
+//import { deleteUser } from './users/edit/page';
+
 const handleLogout = () => {
-  if (localStorage.getItem('jwtToken')) {
-    // remove token for localStorage
-    localStorage.removeItem('jwtToken');
-    localStorage.removeItem('email');
-    localStorage.removeItem('expiration');
-    localStorage.removeItem('userId');
+  if (typeof window !== undefined) {
+    if (localStorage.getItem('jwtToken')) {
+      // remove token for localStorage
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('email');
+      localStorage.removeItem('expiration');
+      localStorage.removeItem('userId');
+    }
   }
 };
 

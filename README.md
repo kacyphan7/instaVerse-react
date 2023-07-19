@@ -7,6 +7,10 @@
 <h2 align="center">InstaVerse (React)</h2>
 
 <!-- TABLE OF CONTENTS -->
+# **About InstaVerse App**
+
+InstaVerse is a photo social media application. The app allows users to view other users photos, upload/share their own photos. InstaVerse also allows users to view other users profile, like and comment on posts.
+
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>
@@ -14,8 +18,10 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
-        <li><a href="#built-with">How does InstaVerse work?</a></li>
         <li><a href="#built-with">Features of InstaVerse</a></li>
+        <li><a href="#built-with">How to Install</a></li>
+         <li><a href="#built-with">Preview Screen</a></li>
+        <li><a href="#built-with">How does InstaVerse work?</a></li>
       </ul>
     </li>
     <li>
@@ -31,20 +37,30 @@
   </ol>
 </details>
 
+## **Built With**
+![Cloudinary](https://cdn.worldvectorlogo.com/logos/cloudinary-1.svg)
+
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![NODE.JS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
 <!-- ABOUT THE PROJECT -->
 
-# **About InstaVerse App**
+## **Features of InstaVerse**
+- User authentication and authorization.
+- Home feed displaying photos from other users.
+- Uploading and sharing photos.
+- Liking and commenting on posts.
+- User profiles with customization options.
+- Explore feature to discover new content.
 
-InstaVerse is a photo social media application. The app allows users to view other users photos, upload/share their own photos. InstaVerse also allows users to view other users profile, like and comment on posts.
-
-# **Built With**
-
-- MERN Stack (MongoDB, Express, React, NodeJs)
-- NextJS
-- CSS
-- Cloudinary
-
-# How To Install
+## **How To Install**
 Setup requirements: 
 `Node.js`, `Mongodb` 
 
@@ -53,7 +69,7 @@ Setup requirements:
 3. Run `npm run dev` or `npm start` to start server.
 4. Open `http://localhost:3000` the web browser. 
 
-# Additional Installations:
+## **Additional Installations:**
 
 Modal
 ```
@@ -76,6 +92,27 @@ npm install @fortawesome/fontawesome-svg-core \
             @fortawesome/free-solid-svg-icons \
             @fortawesome/react-fontawesome
 ```
+# **Preview Screen**
+## Sign Up
+![Sign Up](src/app/assets/signup.png)
+
+## Login
+![Login](src/app/assets/login.png)
+
+## Home Feed
+![Home](src/app/assets/home.png)
+
+## Profile
+![Profile](src/app/assets/profile.png)
+
+## Profile Post
+![Profile Post](src/app/assets/profile-post.png)
+
+## Follower
+![Follow](src/app/assets/follower.png)
+
+## Profile Setting
+![Edit Profile](src/app/assets/edit-profile.png)
 
 # **How does InstaVerse work?**
 InstaVerse allows users to sign up for an account and log in. Once logged in, users can:
@@ -115,36 +152,6 @@ When called, the function logs a message to indicate that the function is being 
 Then, an HTTP POST request is made to the Cloudinary API endpoint for image upload using the axios.post method. The FormData object is passed as the request payload. If the upload is successful, the response data is retrieved. The secure URL of the uploaded image is extracted from the response and stored in a variable called secureUrl. A new user object is created with the profilePicture field set to the secureUrl value. 
 
 Another HTTP PUT request is made to the server API endpoint to update the user's profile information. The request includes the updated user object and the user's ID retrieved from the local storage. If the update is successful, the response data is logged and the loading state is set to false, indicating that the upload process is complete. In case there are any errors during the image upload or profile update, appropriate error messages are logged in the console.
-
-# **Features of InstaVerse**
-- User authentication and authorization.
-- Home feed displaying photos from other users.
-- Uploading and sharing photos.
-- Liking and commenting on posts.
-- User profiles with customization options.
-- Explore feature to discover new content.
-
-# **Screenshots**
-## Login
-<img src="src/app/assets/login.png">
-
-## Signup
-<img src="src/app/assets/signup.png">
-
-## Feeds
-<img src="src/app/assets/home.png">
-
-## Profile
-<img src="src/app/assets/profile.png">
-
-## Post
-<img src="src/app/assets/profile-post.png">
-
-## Profile Setting
-<img src="src/app/assets/profile-setting.png">
-
-## Followers
-<img src="src/app/assets/follower.png">
 
 # **ERD**
 The User entity has a one-to-many relationship with the Follow entity, meaning that a user can follow many other users, but each user can only be followed by one user. 

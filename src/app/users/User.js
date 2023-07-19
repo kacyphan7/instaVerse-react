@@ -6,26 +6,34 @@ export default function User({ user }) {
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+            const currentTime = Date.now();
+
+            // make a condition that compares exp and current time
+            if (currentTime >= expirationTime) {
+                handleLogout(); // Assuming you have defined this function somewhere
+                alert('Session has ended. Please login to continue.');
+                router.push('/users/login');
+            }
+        }
+    }, [router]);
+
     function addUserData() {
-        // add email to localStorage 
-        localStorage.setItem('email', user.email);
-        localStorage.setItem('userId', user._id);
-        localStorage.setItem('username', user.username);
-        // set redirect to true 
-        setRedirect(true);
+        // add email to localStorage
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('email', user.email);
+            localStorage.setItem('userId', user._id);
+            localStorage.setItem('username', user.username);
+            // set redirect to true
+            setRedirect(true);
+        }
     }
 
-    const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-    let currentTime = Date.now();
-
-    // make a condition that compares exp and current time
-    if (currentTime >= expirationTime) {
-        handleLogout();
-        alert('Session has ended. Please login to continue.');
-        router.push('/users/login');
+    if (redirect) {
+        router.push('/users/profile');
     }
-
-    if (redirect) { router.push('/users/profile'); }
 
     return (
         <tr>

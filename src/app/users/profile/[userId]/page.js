@@ -76,7 +76,7 @@ export default function FilterablePostTable({ openModal }) {
     };
 
     useEffect(() => {
-        setAuthToken(localStorage.getItem('jwtToken'));
+        //setAuthToken(localStorage.getItem('jwtToken'));
         if (orderOneComplete) {
             if (localStorage.getItem('jwtToken')) {
                 axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
@@ -109,12 +109,6 @@ export default function FilterablePostTable({ openModal }) {
                                 router.push('/users/login');
                             }, 0);
                         }
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setTimeout(() => {
-                            router.push('/users/login');
-                        }, 0);
                     });
             } else {
                 setTimeout(() => {

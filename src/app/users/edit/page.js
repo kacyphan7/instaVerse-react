@@ -7,13 +7,14 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import setAuthToken from '@/app/utils/setAuthToken';
 import UploadProfileImage from '../profileimage/uploadProfile';
+import handleLogout from '@/app/utils/handleLogout';
 
 export default function EditProfile() {
 
     const router = useRouter();
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
-
+    const [isDeleting, setIsDeleting] = useState(false);
     const [mainProfileImage, setMainProfileImage] = useState(null);
 
     const handleChange = (e) => {
@@ -82,8 +83,44 @@ export default function EditProfile() {
             });
     };
 
+    const deleteUser = (userId) => {
+        return axios.delete(`/users/${userId}`);
+    };
+
+    const handleDeleteAccount = () => {
+        // Set the isDeleting state to true to show a loading indicator
+        setIsDeleting(true);
+
+        // Make an API request to delete the user
+        if (typeof window !== undefined) {
+            setAuthToken(localStorage.getItem('jwtToken'));
+            axios
+                .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`) // Replace ':id' with the actual ID of the user
+                .then(response => {
+                    // Once the deletion is complete, you can perform additional actions if needed 
+                    // handle log 
+                    handleLogout();
+                    // such as redirecting the user or displaying a success message
+
+                    // Reset the isDeleting state to false to remove the loading indicator
+                    setIsDeleting(true);
+                })
+                .catch(error => {
+                    // Handle errors if the deletion process fails
+
+                    // Display an error message to the user
+                    console.log(error.response.data.message);
+                    handleLogout();
+                    // Reset the isDeleting state to false to remove the loading indicator
+                    setIsDeleting(false);
+                });
+        }
+    };
+
+
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No data shown...</p>;
+    if (isDeleting) router.push('/users/login');
 
     return (
         <main className="d-flex justify-content-center align-items-center vh-100">
@@ -105,10 +142,8 @@ export default function EditProfile() {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="fullName">Name</label>
-
                                     <input
                                         type="text" id="fullName" name="fullName" value={data.fullName} onChange={handleChange} className="form-control" placeholder='Name' />
-
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="username">Username</label>
@@ -128,7 +163,10 @@ export default function EditProfile() {
                                     <input type="text" id="gender" name="gender" value={data.gender} onChange={handleChange} className="form-control" placeholder='Gender' />
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <button type="submit" className="btn btn-primary">Done</button>
+                                    <button type="submit" class="btn btn-primary">Done</button>
+                                    <button type="button" class="btn btn-delete" onClick={handleDeleteAccount} >
+                                        Delete Account
+                                    </button>
                                 </div>
                             </form>
                         </div>

@@ -28,7 +28,6 @@ const ProfileImage = ({ editProfileImage }) => {
     };
 
     const handleSubmit = (e) => {
-
         e.preventDefault(); // at the beginning of a submit function
         setRedirect(true);
     };

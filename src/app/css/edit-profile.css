@@ -58,17 +58,36 @@
 }
 
 .btn-primary {
-    background-color: #3897f0;
-    border-color: #3897f0;
-    color: #fff;
+    color: black;
     padding: 2px;
-    width: 80px;
+    width: 100px;
+    height: 40px;
     border-radius: 1rem;
+    font-size: 20px;
 }
 
 .btn-primary:hover {
     background-color: #2680d0;
     border-color: #2680d0;
+}
+
+.btn-delete {
+    color: black;
+    padding: 1px;
+    width: 150px;
+    height: 40px;
+    border-radius: 1rem;
+    font-size: 20px;
+}
+
+.btn-delete:hover {
+    background-color: #cc0000;
+    border-color: #cc0000;
+    color: #fff;
+}
+
+.btn {
+    margin-right: 10px;
 }
 
 .d-flex {

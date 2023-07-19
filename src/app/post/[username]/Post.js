@@ -46,9 +46,10 @@ export default function Post({ post }) {
 
     };
     useEffect(() => {
-        setAuthToken(localStorage.getItem('jwtToken'));
-        if (localStorage.getItem('jwtToken')) {
-
+        if (typeof window !== undefined) {
+            if (localStorage.getItem('jwtToken')) {
+                setAuthToken(localStorage.getItem('jwtToken'));
+            }
             axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
                 .then((response) => {
                     // data is an object

@@ -29,18 +29,20 @@ export default function Login() {
 
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`, { email, password })
             .then(response => {
-                localStorage.setItem('jwtToken', response.data.token);
-                localStorage.setItem('email', response.data.userData.email);
-                localStorage.setItem('expiration', response.data.userData.exp);
-                localStorage.setItem('userId', response.data.userData.id);
-                localStorage.setItem('username', response.data.userData.username);
-                setAuthToken(response.data.token);
-                let decoded = jwtDecode(response.data.token);
-                setRedirect(true);
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('jwtToken', response.data.token);
+                    localStorage.setItem('email', response.data.userData.email);
+                    localStorage.setItem('expiration', response.data.userData.exp);
+                    localStorage.setItem('userId', response.data.userData.id);
+                    localStorage.setItem('username', response.data.userData.username);
+                    setAuthToken(response.data.token);
+                    let decoded = jwtDecode(response.data.token);
+                    setRedirect(true);
+                }
             })
             .catch(error => {
-                if (error.response.data.message === 'Email already exists') {
-                    console.log('===> Error in Signup', error.response.data.message);
+                if (error.response.data.message === 'User not found') {
+                    console.log('===> Error in Login', error.response.data.message);
                     setError(true);
                 }
             });
@@ -54,7 +56,7 @@ export default function Login() {
                 <div className="card text-white bg-primary py-5 d-md-down-none" style={{ width: "44%" }}>
                     <div className="card-body text-center">
                         <div>
-                            <p>Email already exists</p>
+                            <p>Email or password is incorrect.</p>
                             <br />
                             <h2>Login</h2>
                             <p>Sign In to your account</p>
