@@ -24,10 +24,12 @@ import ModalComponent from './post/new/modalComponent';
 
 export default function Sidebar({ openModal }) {
     //const router = useRouter();
-    let username;
-    if (typeof window !== undefined) {
-        username = localStorage.getItem('username');
-    }
+    const [username, setUsername] = useState(null);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setUsername(localStorage.getItem('username'));
+        }
+    }, []);
     // const handleOpenModal = (postId) => {
 
 
