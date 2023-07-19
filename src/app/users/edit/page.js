@@ -154,10 +154,8 @@ export default function EditProfile() {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="fullName">Name</label>
-
                                     <input
                                         type="text" id="fullName" name="fullName" value={data.fullName} onChange={handleChange} className="form-control" placeholder='Name' />
-
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="username">Username</label>
