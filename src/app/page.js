@@ -22,15 +22,15 @@ import Search from './search/page';
 
 export default function Homepage() {
 
-  // const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-  // let currentTime = Date.now();
+  const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+  let currentTime = Date.now();
 
-  // // make a condition that compares exp and current time
-  // if (currentTime >= expirationTime) {
-  //   handleLogout();
-  //   alert('Session has ended. Please login to continue.');
-  //   router.push('/users/login');
-  // }
+  // make a condition that compares exp and current time
+  if (currentTime >= expirationTime) {
+    handleLogout();
+    alert('Session has ended. Please login to continue.');
+    router.push('/users/login');
+  }
 
   // if (typeof window !== 'undefined') {
   //   const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
@@ -60,7 +60,7 @@ export default function Homepage() {
       axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`)
         .then((response) => {
           // data is an object
-          console.log('response', response.data);
+          // console.log('response', response.data);
           let userData = jwtDecode(localStorage.getItem('jwtToken'));
           if (userData.email === localStorage.getItem('email')) {
             setData(response.data.users);
@@ -243,7 +243,7 @@ export default function Homepage() {
 
                         <img src={user.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
                         <span className="username">
-                          <Link href={"/users/profile/" + user.username} data-abc="true">{user.username}</Link>
+                          <Link href={"/users/profile/" + user._id} data-abc="true">{user.username}</Link>
                         </span>
                         <span className="description">Public - 7:30 PM Today</span>
                       </div>
