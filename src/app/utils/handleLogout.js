@@ -1,3 +1,5 @@
+//import { deleteUser } from './users/edit/page';
+
 const handleLogout = () => {
   if (localStorage.getItem('jwtToken')) {
     // remove token for localStorage

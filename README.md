@@ -124,28 +124,6 @@ Another HTTP PUT request is made to the server API endpoint to update the user's
 - User profiles with customization options.
 - Explore feature to discover new content.
 
-# **Screenshots**
-## Login
-<img src="src/app/assets/login.png">
-
-## Signup
-<img src="src/app/assets/signup.png">
-
-## Feeds
-<img src="src/app/assets/home.png">
-
-## Profile
-<img src="src/app/assets/profile.png">
-
-## Post
-<img src="src/app/assets/profile-post.png">
-
-## Profile Setting
-<img src="src/app/assets/profile-setting.png">
-
-## Followers
-<img src="src/app/assets/follower.png">
-
 # **ERD**
 The User entity has a one-to-many relationship with the Follow entity, meaning that a user can follow many other users, but each user can only be followed by one user. 
 

@@ -39,8 +39,8 @@ export default function Login() {
                 setRedirect(true);
             })
             .catch(error => {
-                if (error.response.data.message === 'Email already exists') {
-                    console.log('===> Error in Signup', error.response.data.message);
+                if (error.response.data.message === 'User not found') {
+                    console.log('===> Error in Login', error.response.data.message);
                     setError(true);
                 }
             });
@@ -54,7 +54,7 @@ export default function Login() {
                 <div className="card text-white bg-primary py-5 d-md-down-none" style={{ width: "44%" }}>
                     <div className="card-body text-center">
                         <div>
-                            <p>Email already exists</p>
+                            <p>Email or password is incorrect.</p>
                             <br />
                             <h2>Login</h2>
                             <p>Sign In to your account</p>
