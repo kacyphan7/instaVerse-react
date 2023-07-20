@@ -108,9 +108,6 @@ npm install @fortawesome/fontawesome-svg-core \
 ## Profile Post
 ![Profile Post](src/app/assets/profile-post.png)
 
-## Follower
-![Follow](src/app/assets/follower.png)
-
 ## Profile Setting
 ![Edit Profile](src/app/assets/edit-profile.png)
 
@@ -174,6 +171,10 @@ The Post entity has a many-to-many relationship with the Comment entity, meaning
 - Search functionality for users and content.
 - Reels feature for short videos.
 - Notifications for likes and comments.
+- Add follower and following to users. 
+
+### Follower
+![Follow](src/app/assets/follower.png)
 
 # **Sources**
 - [Faker](https://fakerjs.dev/guide/) - A library for generating fake data.
