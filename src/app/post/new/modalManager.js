@@ -8,6 +8,7 @@ import jwtDecode from 'jwt-decode';
 import '../../css/create-post.css';
 // import ModalComponent from './modalComponent';
 import setAuthToken from '@/app/utils/setAuthToken';
+import '../../css/modal.css';
 
 
 export default function ModalManager({ isOpen, onClose }) {
@@ -35,6 +36,8 @@ export default function ModalManager({ isOpen, onClose }) {
             padding: '20px',
             borderRadius: '5px',
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+            // display: 'flex',
+            // alignItems: 'center',
         },
     };
     const [caption, setCaption] = useState('');
@@ -67,6 +70,7 @@ export default function ModalManager({ isOpen, onClose }) {
             })
                 .then((response) => response.json())
                 .then((data) => {
+                    console.log('data', data);
                     setImgFromCloud(data);
                 })
                 .catch((error) => console.log('Error', error));
@@ -100,28 +104,28 @@ export default function ModalManager({ isOpen, onClose }) {
     return (
         <div className="modal-overlay" style={styles.modalOverlay} onClick={onClose}>
             <div className="modal-content" style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                <div className="container">
+                <div className="">
 
                     <form onSubmit={handleSubmit} className="add-post">
                         <div>
                             <h1 className="add-post__title">Create a Post</h1>
                             <div className="form-group">
                                 <label htmlFor="photo" className="add-post__label">Select a Photo From Computer</label>
-                                <input type="file" id="photo" className="form-control add-post__input"
+                                <input type="file" id="photo" className="hide-file-input"
                                     onChange={handlePhotoUpload} />
                             </div>
                             <br />
 
                         </div>
                         <div className='add-post__image'>
-                            {image && <img alt="preview image" src={image} />}
+                            {image && <img alt="preview image" src={image} className='preview-image' />}
                         </div>
                         <br />
 
                         <div className="form-group">
                             <hr />
                             <br />
-                            <input type="text" id="caption" className="form-control add-post__input"
+                            <input type="text" id="caption" className="caption-input  add-post__input"
                                 value={caption} onChange={handleCaptionUpload} placeholder='Write a caption' />
                             <button type="submit" className="add-post__button" >Share</button>
                         </div>
