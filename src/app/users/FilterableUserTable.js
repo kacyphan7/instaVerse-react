@@ -20,7 +20,7 @@ export default function FilterableUserTable() {
     // }
 
     useEffect(() => {
-        fetch('http://localhost:8000/users')
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`)
             .then((res) => res.json())
             .then((data) => {
                 // data is an object
