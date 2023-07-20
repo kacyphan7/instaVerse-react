@@ -45,7 +45,7 @@ const NewUser = () => {
         // console.log(newUser);
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
             .then(response => {
-                console.log('response', response.data);
+                // console.log('response', response.data);
                 if (typeof window !== 'undefined') {
                     localStorage.setItem('username', response.data.user.username);
                     localStorage.setItem('userId', response.data.user._id);
