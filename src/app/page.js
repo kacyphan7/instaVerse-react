@@ -22,27 +22,25 @@ import Search from './search/page';
 
 export default function Homepage() {
 
-  const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-  let currentTime = Date.now();
-
-  // make a condition that compares exp and current time
-  if (!expirationTime) {
-    router.push('/users/login');
-  } else if (currentTime >= expirationTime) {
-    // handleLogout();
-    // alert('Session has ended. Please login to continue.');
-
-  }
-
-  if (typeof window !== 'undefined') {
-    // Accessing localStorage only in the browser context
-    setAuthToken(localStorage.getItem('jwtToken'));
-  }
   const router = useRouter();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const [selectedUserId, setSelectedUserId] = useState(null);
-  const [posts, setPosts] = useState(null);
+
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+      let currentTime = Date.now();
+
+      setAuthToken(localStorage.getItem('jwtToken'));
+      // make a condition that compares exp and current time
+      if (currentTime >= expirationTime) {
+        handleLogout();
+        alert('Session has ended. Please login to continue.');
+        router.push('/users/login');
+      }
+    }
+  }, [router]);
 
   useEffect(() => {
     setAuthToken(localStorage.getItem('jwtToken'));

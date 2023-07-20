@@ -8,6 +8,7 @@ const handleLogout = () => {
       localStorage.removeItem('email');
       localStorage.removeItem('expiration');
       localStorage.removeItem('userId');
+      localStorage.removeItem('username');
     }
   }
 };

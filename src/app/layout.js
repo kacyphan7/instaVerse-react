@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 import Sidebar from './sidebar';
 import { usePathname } from 'next/navigation';
 import ModalManager from './post/new/modalManager';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -18,6 +18,13 @@ const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [userId, setUserId] = useState(null); // Initialize userId state to null
+
+  useEffect(() => {
+    // Fetch the userId from localStorage when the component mounts
+    const storedUserId = localStorage.getItem('userId');
+    setUserId(storedUserId);
+  }, []);
 
   const handleOpenModal = () => {
     setModalIsOpen(true);
@@ -31,7 +38,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        {showHeader && <Sidebar openModal={handleOpenModal} />}
+        {showHeader && <Sidebar openModal={handleOpenModal} userId={userId} />}
         <section className="main">
           {children}
         </section>
