@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import '../../css/profile.css';
 import '../../css/edit-profile.css';
@@ -16,7 +16,9 @@ export default function EditProfile() {
     const [isLoading, setLoading] = useState(true);
     const [isDeleting, setIsDeleting] = useState(false);
     const [mainProfileImage, setMainProfileImage] = useState(null);
-
+    const updateUserData = (newUserData) => {
+        setData(newUserData);
+    };
     const handleChange = (e) => {
         setData(prevState => ({ ...data, [e.target.name]: e.target.value }));
     };
@@ -24,58 +26,61 @@ export default function EditProfile() {
     const handleFileOpen = (event) => {
         const file = event.target.files[0];
         if (file) {
-            // Perform your upload logic here
-            console.log('File opened:', file);
-
             setMainProfileImage(file);
-            // You can initiate an upload process or perform any other necessary actions with the file
         }
     };
 
     useEffect(() => {
-        fetchData();
-        const interval = setInterval(fetchData, 2000); // Fetch data every 5 seconds
+        const fetchData = async () => {
+            try {
+                const token = localStorage.getItem('jwtToken');
+                if (!token) {
+                    // Redirect to login if JWT token is missing
+                    router.push('/users/profile' + localStorage.getItem('userId'));
+                    return;
+                }
+                setAuthToken(token);
 
-        return () => {
-            clearInterval(interval); // Clean up the interval on component unmount
+                const response = await axios.get(
+                    `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`
+                );
+                // console.log('user data', response.data.user);
+                // Decode the token to get user data
+                const userData = jwtDecode(token);
+                if (userData.email === localStorage.getItem('email')) {
+                    setData(response.data.user);
+                } else {
+                    // Redirect to login if user data doesn't match the token
+                    router.push('/users/profile' + localStorage.getItem('userId'));
+                }
+            } catch (error) {
+                console.log(error);
+                // Redirect to login if there's an error fetching user data
+                router.push('/users/profile' + localStorage.getItem('userId'));
+            } finally {
+                setLoading(false);
+            }
         };
-    });
-    const fetchData = async () => {
-        try {
-            const token = localStorage.getItem('jwtToken');
-            if (!token) {
-                // Redirect to login if JWT token is missing
-                router.push('/users/profile' + localStorage.getItem('userId'));
-                return;
-            }
-            setAuthToken(token);
 
-            const response = await axios.get(
-                `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`
-            );
-            // console.log('user data', response.data.user);
-            // Decode the token to get user data
-            const userData = jwtDecode(token);
-            if (userData.email === localStorage.getItem('email')) {
-                setData(response.data.user);
-            } else {
-                // Redirect to login if user data doesn't match the token
-                router.push('/users/profile' + localStorage.getItem('userId'));
-            }
-        } catch (error) {
-            console.log(error);
-            // Redirect to login if there's an error fetching user data
-            router.push('/users/profile' + localStorage.getItem('userId'));
-        } finally {
-            setLoading(false);
-        }
-    };
+        fetchData();
+    }, [router]);
+    // useEffect(() => {
+    //     fetchData();
+    //     // const interval = setInterval(fetchData, 2000); // Fetch data every 5 seconds
+
+    //     // return () => {
+    //     //     clearInterval(interval); // Clean up the interval on component unmount
+    //     // };
+    // }, [fetchData]);
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
             .then((response) => {
                 console.log(response);
+                // setData(response.data.user);
                 router.push(`/users/profile/${data._id}`);
             })
             .catch((error) => {
@@ -137,7 +142,7 @@ export default function EditProfile() {
                                     </div>
                                     <label htmlFor='profilePicture' className="custom-file-upload">Change Profile Image</label>
                                     <input type="file" id="profilePicture" name="profilePicture" className="form-control-file" accept='.png, .jpg, .jpeg' onChange={handleFileOpen} step={{ display: 'none' }} />
-                                    {mainProfileImage && <UploadProfileImage profileImage={mainProfileImage} />}
+                                    {mainProfileImage && <UploadProfileImage profileImage={mainProfileImage} updateUserData={updateUserData} />}
 
                                 </div>
                                 <div className="form-group">
@@ -163,8 +168,8 @@ export default function EditProfile() {
                                     <input type="text" id="gender" name="gender" value={data.gender} onChange={handleChange} className="form-control" placeholder='Gender' />
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary">Done</button>
-                                    <button type="button" class="btn btn-delete" onClick={handleDeleteAccount} >
+                                    <button type="submit" className="btn btn-primary">Done</button>
+                                    <button type="button" className="btn btn-delete" onClick={handleDeleteAccount} >
                                         Delete Account
                                     </button>
                                 </div>

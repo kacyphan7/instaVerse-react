@@ -21,7 +21,7 @@ import moment from 'moment';
 import ModalManager from '@/app/post/new/modalManager';
 
 
-export default function FilterablePostTable({ openModal }) {
+export default function FilterablePostTable() {
 
     const [data, setData] = useState([]);
     const [userInfo, setUserInfo] = useState(null);
@@ -36,6 +36,7 @@ export default function FilterablePostTable({ openModal }) {
     const [comments, setComments] = useState(0);
     const [commentBody, setCommentBody] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
+    const [photoUploaded, setPhotoUploaded] = useState(false);
 
 
     const customStyles = {
@@ -76,7 +77,7 @@ export default function FilterablePostTable({ openModal }) {
     };
 
     useEffect(() => {
-        //setAuthToken(localStorage.getItem('jwtToken'));
+        setAuthToken(localStorage.getItem('jwtToken'));
         if (orderOneComplete) {
             if (localStorage.getItem('jwtToken')) {
                 axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`)
@@ -133,6 +134,15 @@ export default function FilterablePostTable({ openModal }) {
         setSelectedPostId(null);
         setIsOpen(false);
     };
+
+    // const handleAddLike = (postId, userId) => {
+    //     axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${postId}/likes/new`, { userId })
+    //         .then(response => {
+    //             // console.log('response.data.post', response.data.post);
+    //             setSinglePost(response.data.post);
+    //         })
+    //         .catch(error => console.log('===> Error in Adding like', error));
+    // };
 
     const handleCommentSubmit = (e) => {
         e.preventDefault();
@@ -270,57 +280,63 @@ export default function FilterablePostTable({ openModal }) {
                                 &nbsp;
                                 &nbsp;
                                 <hr />
-                                <div className="box-body" style={{ position: 'absolute', right: '0', width: '25%' }}>
-                                    <div style={{ display: 'inline-flex' }}>
-                                        <img src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
-                                            alt="Profile Image"
-                                            style={{ width: '30px' }} />&nbsp;
-                                        <a href={'/users/profile/' + singlePost.username} >{singlePost.username}</a>
-                                    </div>
-                                    <hr />
-                                    <div style={{ display: 'inline-flex', width: '100%' }}>
-                                        {singlePost.caption}
-                                    </div>
-                                    <hr />
-                                    {/* {singlePostDateTimeAgo} */}
+                                <div className="box-body" style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column', height: '100%', position: 'absolute', right: '0', width: '25%' }}>
+                                    <div>
+                                        <div style={{ display: 'inline-flex' }}>
+                                            <img src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
+                                                alt="Profile Image"
+                                                style={{ width: '30px' }} />&nbsp;
+                                            <a href={'/users/profile/' + userInfo._id} >{userInfo.username}</a>
+                                        </div>
+                                        <hr />
+                                        <div style={{ display: 'inline-flex', width: '100%' }}>
+                                            {singlePost.caption}
+                                        </div>
+                                        <hr />
+                                        {/* {singlePostDateTimeAgo} */}
 
-                                    <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                                        {commentRows}
+                                        <div style={{ maxHeight: '800px', overflowY: 'auto' }}>
+                                            {commentRows}
+                                        </div>
                                     </div>
-                                    <div className="instagram-post-actions">
-                                        <hr />
-                                        <button type="button" className="btn btn-default btn-xs">
-                                            <FontAwesomeIcon icon={faHeart} />
-                                        </button>
-                                        &nbsp;
-                                        <button type="button" className="btn btn-default btn-xs">
-                                            <FontAwesomeIcon icon={faComment} />
-                                        </button>
-                                        &nbsp;
-                                        <button type="button" className="btn btn-default btn-xs">
-                                            <FontAwesomeIcon icon={faPaperPlane} />
-                                        </button>
-                                        &nbsp;
-                                        <span className="pull-right text-muted">
-                                            {singlePost.likes} likes - {singlePost.comments.length} comments
-                                        </span>
-                                        <hr />
-                                        <form onSubmit={handleCommentSubmit}>
-                                            <div className='form-group'>
-                                                <textarea
-                                                    type="text"
-                                                    name="body"
-                                                    value={commentBody}
-                                                    onChange={handleCommentBody}
-                                                    className="input is-link form-control textarea"
-                                                    placeholder='Add a comment...'
-                                                    style={{ width: '100%' }}
-                                                />
-                                            </div>
-                                            <button type="submit" className="button btn btn-primary">
-                                                Post
+                                    <div>
+                                        <div className="instagram-post-actions">
+                                            <hr />
+                                            {/* <button type="button" onClick={() => handleAddLike(singlePost._id, userInfo._id)} className="btn btn-default btn-xs"> */}
+                                            <button type="button" className="btn btn-default btn-xs">
+                                                <FontAwesomeIcon icon={faHeart} />
                                             </button>
-                                        </form>
+                                            &nbsp;
+                                            <button type="button" className="btn btn-default btn-xs">
+                                                <FontAwesomeIcon icon={faComment} />
+                                            </button>
+                                            &nbsp;
+                                            <button type="button" className="btn btn-default btn-xs">
+                                                <FontAwesomeIcon icon={faPaperPlane} />
+                                            </button>
+                                            &nbsp;
+                                            <span className="pull-right text-muted">
+                                                {singlePost.likes} likes - {singlePost.comments.length} comments
+                                            </span>
+                                            <hr />
+                                            <form onSubmit={handleCommentSubmit}>
+                                                <div className='form-group'>
+                                                    <textarea
+                                                        type="text"
+                                                        name="body"
+                                                        value={commentBody}
+                                                        onChange={handleCommentBody}
+                                                        className="input is-link form-control textarea"
+                                                        placeholder='Add a comment...'
+                                                        style={{ width: '100%' }}
+                                                    />
+                                                </div>
+                                                <button type="submit" className="button btn btn-primary">
+                                                    Post
+                                                </button>
+                                            </form>
+                                            <br />
+                                        </div>
                                     </div>
                                 </div>
 

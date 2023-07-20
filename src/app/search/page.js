@@ -3,7 +3,12 @@ import { faker } from "@faker-js/faker";
 import '../css/explore.css';
 import '../css/search.css';
 
-export default function Explore() {
+export default function Search() {
+
+
+
+
+
     return (
         <main>
             <div className="explore-page">

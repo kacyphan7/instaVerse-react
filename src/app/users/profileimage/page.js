@@ -40,21 +40,30 @@ const ProfileImage = ({ editProfileImage }) => {
     if (redirect) { router.push('/users/login'); }
 
     return (
-        <div className="row mt-4">
-            <div className="col-md-7 offset-md-3">
-                <div >
-                    <h2 className="py-2">Load Profile Image</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <input type="file" name="profileImage" onChange={handleProfileImage} />
+        <main className="d-flex justify-content-center align-items-center vh-100">
+            <div className="row mt-4">
+                <div className="col-md-6">
+                    <div className="card card-body">
+                        <div >
+                            <h2 className="py-2">Load Profile Image</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group">
+                                    <input type="file" name="profileImage" onChange={handleProfileImage} />
+
+                                </div>
+
+                                <button type="submit" className="btn btn-primary " onClick={handleSubmit}>Upload</button>
+                                <button type="button" className="btn btn-primary " onClick={handleNo}>Skip</button>
+                                {profileImage && <UploadProfileImage profileImage={profileImage} />}
+                            </form>
                         </div>
-                        <button type="submit" className="btn btn-primary float-right" onClick={handleSubmit}>Upload</button>
-                        <button type="button" className="btn btn-primary float-right" onClick={handleNo}>Skip</button>
-                        {profileImage && <UploadProfileImage profileImage={profileImage} />}
-                    </form>
+                    </div>
+
                 </div>
             </div>
-        </div>
+        </main>
+
+
     );
 };
 
