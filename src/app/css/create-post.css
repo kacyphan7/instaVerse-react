@@ -15,6 +15,7 @@
 .add-post__image{
     display: flex;
     justify-content: center;
+    max-height: 60%
 }
 
 .add-post__title {
