@@ -26,24 +26,13 @@ export default function Homepage() {
   let currentTime = Date.now();
 
   // make a condition that compares exp and current time
-  if (currentTime >= expirationTime) {
-    handleLogout();
-    alert('Session has ended. Please login to continue.');
+  if (!expirationTime) {
     router.push('/users/login');
+  } else if (currentTime >= expirationTime) {
+    // handleLogout();
+    // alert('Session has ended. Please login to continue.');
+
   }
-
-  // if (typeof window !== 'undefined') {
-  //   const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
-  //   let currentTime = Date.now();
-  //   console.log(expirationTime, localStorage);
-
-  //   // make a condition that compares exp and current time
-  //   if (currentTime >= expirationTime) {
-  //     handleLogout();
-  //     alert('Session has ended. Please login to continue.');
-  //     router.push('/users/login');
-  //   }
-  // }
 
   if (typeof window !== 'undefined') {
     // Accessing localStorage only in the browser context
@@ -52,6 +41,7 @@ export default function Homepage() {
   const router = useRouter();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const [posts, setPosts] = useState(null);
 
   useEffect(() => {
@@ -78,11 +68,6 @@ export default function Homepage() {
       router.push('/users/login');
     }
   }, [router]);
-
-  const goToPost = () => {
-    localStorage.setItem('username', data.username);
-    router.push('/post');
-  };
 
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No data shown...</p>;
@@ -244,6 +229,7 @@ export default function Homepage() {
                         <img src={user.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
                         <span className="username">
                           <Link href={"/users/profile/" + user._id} data-abc="true">{user.username}</Link>
+
                         </span>
                         <span className="description">Public - 7:30 PM Today</span>
                       </div>

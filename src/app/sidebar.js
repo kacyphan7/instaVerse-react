@@ -29,23 +29,20 @@ export default function Sidebar({ openModal }) {
         username = localStorage.getItem('username');
     }
 
-    if (typeof window !== 'undefined') {
-        const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
-        let currentTime = Date.now();
-        // console.log(expirationTime, localStorage);
+    // if (typeof window !== 'undefined') {
+    //     const expirationTime = new Date(localStorage.getItem('expiration') * 1000);
+    //     let currentTime = Date.now();
+    //     // console.log(expirationTime, localStorage);
 
-        // make a condition that compares exp and current time
-        if (currentTime >= expirationTime) {
-            handleLogout();
-            alert('Session has ended. Please login to continue.');
-            router.push('/users/login');
-        }
-    }
+    //     // make a condition that compares exp and current time
+    //     if (currentTime >= expirationTime) {
+    //         handleLogout();
+    //         alert('Session has ended. Please login to continue.');
+    //         router.push('/users/login');
+    //     }
+    // }
 
     const userId = localStorage.getItem('userId');
-
-
-
 
     return (
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">
