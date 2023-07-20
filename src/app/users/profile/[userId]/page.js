@@ -90,6 +90,7 @@ export default function FilterablePostTable() {
                                     setUserInfo(response.data.user);
                                     setLoading(false);
                                     setOrderTwoComplete(true);
+                                    // console.log('response.data.user', response.data.user);
                                     const userInfoId = response.data.user._id;
                                     axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${userInfoId}`)
                                         .then((response) => {

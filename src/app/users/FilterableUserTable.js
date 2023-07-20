@@ -6,18 +6,18 @@ export default function FilterableUserTable() {
     // state is what the data is representing in realtime
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(true);
-    if (typeof window !== undefined) {
-        const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-        let currentTime = Date.now();
+    // if (typeof window !== undefined) {
+    //     const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
+    //     let currentTime = Date.now();
 
 
-        // make a condition that compares exp and current time
-        if (currentTime >= expirationTime) {
-            handleLogout();
-            alert('Session has ended. Please login to continue.');
-            router.push('/users/login');
-        }
-    }
+    //     // make a condition that compares exp and current time
+    //     if (currentTime >= expirationTime) {
+    //         handleLogout();
+    //         alert('Session has ended. Please login to continue.');
+    //         router.push('/users/login');
+    //     }
+    // }
 
     useEffect(() => {
         fetch('http://localhost:8000/users')
