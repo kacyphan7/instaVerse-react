@@ -64,7 +64,7 @@ const NewUser = () => {
         setRedirect(true);
     };
 
-    if (redirect) { router.push('/users/profileimage'); }
+    if (redirect) { router.push('/users/login'); }
     if (error) {
         return (
             <div>

@@ -3,10 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-// import { faker } from '@faker-js/faker';
-import jwtDecode from 'jwt-decode';
 import '../../css/create-post.css';
-// import ModalComponent from './modalComponent';
 import setAuthToken from '@/app/utils/setAuthToken';
 import '../../css/modal.css';
 

@@ -98,14 +98,32 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     margin-right: 3rem;
+    
 }
 
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.modal-comment-style{
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column ;
+    height: 100%;
+    position:absolute;
+    right: 0;
+    width: 25%;
+}
 /* make profile pic from square to circle */
 
 .profile-image img {
     border-radius: 50%;
     max-width: 250px;
-    height: 200px;
+    height: 250px;
 }
 
 .profile-user-settings,

@@ -97,7 +97,7 @@ export default function Login() {
                         </form>
                     </div>
                     <br />
-                    <div className="card card-body ">
+                    <div className="no-account-card  ">
                         <p className="text-muted mb-0">Do not have an account? <a href="/users/signup" className="btn btn-primary center-button login-button">Sign up</a></p>
                     </div>
                 </div>

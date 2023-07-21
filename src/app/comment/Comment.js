@@ -26,7 +26,7 @@ export default function Comment({ comment, userInfo }) {
                     <div className="comment-text" style={{ display: 'inline-flex' }}>
                         <div>
                             <a href={'/users/profile/' + comment.createdBy} className="nav-link text-white">
-                                <img src={"https://freesvg.org/img/abstract-user-flat-4.png" || userInfo.profilePicture} style={{ width: '30px' }} />
+                                <img src={userInfo.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} style={{ width: '30px', height: '30px' }} />
                             </a>
                         </div>
                         <div>

@@ -175,7 +175,7 @@ export default function FilterablePostTable() {
                             <div className="profile-image">
                                 <img
                                     src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
-                                    alt="Profile Image"
+                                    alt="Profile Image" className='avatar-img'
                                 />
                             </div>
 
@@ -278,12 +278,12 @@ export default function FilterablePostTable() {
                                 &nbsp;
                                 &nbsp;
                                 <hr />
-                                <div className="box-body" style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column', height: '100%', position: 'absolute', right: '0', width: '25%' }}>
+                                <div className="modal-comment-style box-body" >
                                     <div>
                                         <div style={{ display: 'inline-flex' }}>
                                             <img src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
                                                 alt="Profile Image"
-                                                style={{ width: '30px' }} />&nbsp;
+                                                style={{ width: '30px', height: '30px' }} />&nbsp;
                                             <a href={'/users/profile/' + userInfo._id} >{userInfo.username}</a>
                                         </div>
                                         <hr />
