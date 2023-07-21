@@ -45,7 +45,7 @@ const NewUser = () => {
         // console.log(newUser);
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
             .then(response => {
-                console.log('response', response.data);
+                // console.log('response', response.data);
                 if (typeof window !== 'undefined') {
                     localStorage.setItem('username', response.data.user.username);
                     localStorage.setItem('userId', response.data.user._id);
@@ -64,7 +64,7 @@ const NewUser = () => {
         setRedirect(true);
     };
 
-    if (redirect) { router.push('/users/profileimage'); }
+    if (redirect) { router.push('/users/login'); }
     if (error) {
         return (
             <div>
@@ -87,8 +87,8 @@ const NewUser = () => {
 
     return (
         <main className="d-flex justify-content-center align-items-center vh-100">
-            <div className="row mt-4">
-                <div className="col-md-6 offset-md-3">
+            <div >
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div className="card card-body">
                         <h2 className="py-2 instaverse-heading">InstaVerse</h2>
                         <form className="form-container" onSubmit={handleSubmit}>

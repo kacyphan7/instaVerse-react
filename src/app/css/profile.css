@@ -10,13 +10,13 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     font-family: "Open Sans", Arial, sans-serif;
     min-height: 100vh;
     background-color: #fafafa;
     color: #262626;
     padding-bottom: 3rem;
-}
+} */
 
 img {
     display: block;
@@ -34,10 +34,27 @@ input[type="file"] {
     font-size: 10px;
 }
 
-.container {
+.container-profile {
     max-width: 93.5rem;
     margin: 0 auto;
     padding: 0 2rem;
+}
+
+.container-post {
+    max-width: 93.5rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.profile-center {
+    /* display: flex; */
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: "Open Sans", Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #fafafa;
+    color: #262626;
+    padding-bottom: 3rem;
 }
 
 .btn {
@@ -81,14 +98,32 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     margin-right: 3rem;
+    
 }
 
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.modal-comment-style{
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column ;
+    height: 100%;
+    position:absolute;
+    right: 0;
+    width: 25%;
+}
 /* make profile pic from square to circle */
 
 .profile-image img {
     border-radius: 50%;
     max-width: 250px;
-    height: 200px;
+    height: 250px;
 }
 
 .profile-user-settings,
@@ -152,11 +187,12 @@ input[type="file"] {
 
 /* images */
 
-.gallery {
+.profile-gallery {
     display: flex;
     flex-wrap: wrap;
     margin: -1rem -1rem;
     padding-bottom: 3rem;
+    justify-content: center ;
 }
 
 .gallery-item {
@@ -218,15 +254,13 @@ input[type="file"] {
     text-align: center;
     flex-direction: column;
     /* justify-content:center ; */
-}
-
-.nopost-share{
-    cursor: pointer;
+    grid-column: 2;
 }
 
 .nopost-sub-title{
     width: 300px;
     font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .gallery-item-type {
@@ -259,7 +293,7 @@ input[type="file"] {
 
 .ReactModal__Overlay--before-close {
     opacity: 0;
-}
+}   
 
 /* Spinner Animation */
 
@@ -272,7 +306,7 @@ input[type="file"] {
 @supports (display: grid) {
     .profile {
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 2fr 2fr;
         grid-template-rows: repeat(3, auto);
         grid-column-gap: 3rem;
         align-items: center;
@@ -282,9 +316,10 @@ input[type="file"] {
         grid-row: 1 / -1;
     }
 
-    .gallery {
+    .profile-gallery {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+        /* grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); */
+        grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 2rem;
     }
 
@@ -293,7 +328,7 @@ input[type="file"] {
     .profile-stats,
     .profile-bio,
     .gallery-item,
-    .gallery {
+    .profile-gallery {
         width: auto;
         margin: 0;
     }

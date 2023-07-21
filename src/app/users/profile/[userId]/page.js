@@ -167,15 +167,15 @@ export default function FilterablePostTable() {
     if (!userInfo) return <p>No data shown...</p>;
 
     return (
-        <main className="post-center">
+        <main className="profile-center">
             {orderTwoComplete && (
                 <div>
-                    <div className="container">
+                    <div className="container-profile">
                         <div className="profile">
                             <div className="profile-image">
                                 <img
                                     src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
-                                    alt="Profile Image"
+                                    alt="Profile Image" className='avatar-img'
                                 />
                             </div>
 
@@ -200,7 +200,7 @@ export default function FilterablePostTable() {
                             </div>
 
                             <div className="profile-stats">
-                                <ul>
+                                <ul style={{ padding: '0' }}>
                                     <li>
                                         <span className="profile-stat-count">
                                             {data && data.length ? data.length : '0'}
@@ -224,10 +224,10 @@ export default function FilterablePostTable() {
                         </div>
                     </div>
 
-                    <div className="container">
+                    <div className="container-post">
                         <hr />
                         <br />
-                        <div className="gallery">
+                        <div className="profile-gallery">
                             {data.length ? data.map((post) => (
                                 <div key={post._id}>
                                     <button onClick={() => handleOpenModal(post._id)}>
@@ -250,10 +250,7 @@ export default function FilterablePostTable() {
                                     </button>
                                 </div>
                             )) :
-
-
                                 <div className="gallery-container nopost-title">
-                                    {/* <img src={post.photo} className="gallery-image" alt="" /> */}
                                     <FontAwesomeIcon icon={faCamera} flip size="xl" />
                                     <div>
                                         Share Photos
@@ -262,7 +259,7 @@ export default function FilterablePostTable() {
                                         when you share photos, they will appear on your profile.
                                     </div>
                                     <div >
-                                        <a className='nopost-share' onClick={handleOpenModalManager}>
+                                        <a onClick={handleOpenModalManager}>
                                             <div className="nopost-sub-title">Share your first photo</div>
                                         </a>
                                     </div>
@@ -281,12 +278,12 @@ export default function FilterablePostTable() {
                                 &nbsp;
                                 &nbsp;
                                 <hr />
-                                <div className="box-body" style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column', height: '100%', position: 'absolute', right: '0', width: '25%' }}>
+                                <div className="modal-comment-style box-body" >
                                     <div>
                                         <div style={{ display: 'inline-flex' }}>
                                             <img src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
                                                 alt="Profile Image"
-                                                style={{ width: '30px' }} />&nbsp;
+                                                style={{ width: '30px', height: '30px' }} />&nbsp;
                                             <a href={'/users/profile/' + userInfo._id} >{userInfo.username}</a>
                                         </div>
                                         <hr />

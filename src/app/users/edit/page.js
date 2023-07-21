@@ -130,12 +130,12 @@ export default function EditProfile() {
     return (
         <main className="d-flex justify-content-center align-items-center vh-100">
             <div className="row mt-4">
-                <div className="offset-md-3">
+                <div >
                     <div className="card card-body">
                         <div className="edit-profile">
                             <h1 className="edit-profile-heading">Edit Profile</h1>
                             <form className="edit-profile-form" onSubmit={handleSubmit}>
-                                <div className="form-group">
+                                <div className="form-group center-profile-pic">
                                     <div className="avatar">
                                         <img src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"}
                                             width='100px' alt="User Avatar" className="avatar-img" />

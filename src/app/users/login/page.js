@@ -55,13 +55,11 @@ export default function Login() {
             <main className="d-flex justify-content-center align-items-center vh-100">
                 <div className="row ">
                     <div className="col-md-6 ">
-                        <div className="card card-body" >
+                        <div className="card card-body wrong-password" >
                             <h2 className="py-2 instaverse-heading">InstaVerse</h2>
                             <div>
                                 <p>Please verify your email or password is correct.</p>
                                 <br />
-
-                                {/* <p>Log In or Sign up</p> */}
                                 <div className='align'>
                                     <a href="/users/login" type="button" className="btn btn-primary active mt-3">Login</a>
                                     <span> &nbsp; Or &nbsp;</span>
@@ -99,8 +97,8 @@ export default function Login() {
                         </form>
                     </div>
                     <br />
-                    <div className="card card-body ">
-                        <p className="text-muted mb-0">Do not have an account? <a href="/users/signup">Sign up</a></p>
+                    <div className="no-account-card  ">
+                        <p className="text-muted mb-0">Do not have an account? <a href="/users/signup" className="btn btn-primary center-button login-button">Sign up</a></p>
                     </div>
                 </div>
             </div>
