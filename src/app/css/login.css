@@ -3,6 +3,7 @@
     text-align: center;
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
+    color: black;
 }
 
 .row {
@@ -105,6 +106,11 @@
 .forgot-password {
     margin-top: 5px;
     font-size: 1.5rem;
+    color:black;
+}
+
+.wrong-password {
+    color: black;
 }
 
 .card-signup {

@@ -87,8 +87,8 @@ const NewUser = () => {
 
     return (
         <main className="d-flex justify-content-center align-items-center vh-100">
-            <div className="row mt-4">
-                <div className="col-md-6 offset-md-3">
+            <div >
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div className="card card-body">
                         <h2 className="py-2 instaverse-heading">InstaVerse</h2>
                         <form className="form-container" onSubmit={handleSubmit}>
