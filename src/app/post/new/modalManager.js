@@ -10,7 +10,6 @@ import '../../css/modal.css';
 
 export default function ModalManager({ isOpen, onClose }) {
 
-
     const styles = {
         modalOverlay: {
             position: 'fixed',
@@ -33,21 +32,17 @@ export default function ModalManager({ isOpen, onClose }) {
             padding: '20px',
             borderRadius: '5px',
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-            // display: 'flex',
-            // alignItems: 'center',
         },
     };
+
     const [caption, setCaption] = useState('');
-    // const [fileName, setFileName] = useState("");
-
-    const [imgFromCloud, setImgFromCloud] = useState({
-        data: { secure_url: "" },
-    });
-
     const [image, setImage] = useState(null);
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
+    const [imgFromCloud, setImgFromCloud] = useState({
+        data: { secure_url: "" },
+    });
 
     const handleCaptionUpload = (e) => {
         setCaption(e.target.value);
@@ -58,7 +53,6 @@ export default function ModalManager({ isOpen, onClose }) {
         setImage(URL.createObjectURL(e.target.files[0]));
         if (file) {
             const data = new FormData();
-            console.log('file', file);
             data.append('file', file);
             data.append('upload_preset', 'instaverse');
             await fetch('https://api.cloudinary.com/v1_1/instaversecloud/image/upload', {
@@ -67,7 +61,6 @@ export default function ModalManager({ isOpen, onClose }) {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log('data', data);
                     setImgFromCloud(data);
                 })
                 .catch((error) => console.log('Error', error));
@@ -75,25 +68,14 @@ export default function ModalManager({ isOpen, onClose }) {
     }
 
     const handleSubmit = (e) => {
-
-        e.preventDefault(); // at the beginning of a submit function
+        e.preventDefault();
         const newPost = { createdBy: localStorage.getItem('userId'), caption: caption, photo: imgFromCloud.secure_url };
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/new`, newPost)
             .then(response => {
-
                 onClose();
-                // router.push('/users/profile/' + localStorage.getItem('userId'));
                 setRedirect(true);
             })
             .catch(error => console.log('===> Error', error));
-    };
-
-
-
-
-    const handleNo = (e) => {
-        e.preventDefault();
-        setRedirect(true);
     };
 
     if (redirect) { router.push('/users/profile/' + localStorage.getItem('userId')); }
@@ -102,7 +84,6 @@ export default function ModalManager({ isOpen, onClose }) {
         <div className="modal-overlay" style={styles.modalOverlay} onClick={onClose}>
             <div className="modal-content" style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
                 <div className="">
-
                     <form onSubmit={handleSubmit} className="add-post">
                         <div>
                             <h1 className="add-post__title">Create a Post</h1>
@@ -112,13 +93,11 @@ export default function ModalManager({ isOpen, onClose }) {
                                     onChange={handlePhotoUpload} />
                             </div>
                             <br />
-
                         </div>
                         <div className='add-post__image'>
                             {image && <img alt="preview image" src={image} className='preview-image' />}
                         </div>
                         <br />
-
                         <div className="form-group">
                             <hr />
                             <br />
@@ -128,7 +107,6 @@ export default function ModalManager({ isOpen, onClose }) {
                         </div>
                     </form>
                 </div>
-                {/* <ModalComponent onClose={onClose} /> */}
 
             </div>
         </div>

@@ -7,7 +7,7 @@ import { faker } from '@faker-js/faker';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
-import '../../css/following.css';
+import '../../../css/following.css';
 
 export default function FilterableFollowingTable() {
     //const router = useRouter();
@@ -26,7 +26,6 @@ export default function FilterableFollowingTable() {
             router.push('/users/login');
         }
     }
-
     useEffect(() => {
         if (typeof window !== 'undefined' && localStorage.getItem('jwtToken')) {
             const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);

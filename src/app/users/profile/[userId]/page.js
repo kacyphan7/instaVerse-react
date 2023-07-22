@@ -4,8 +4,10 @@ import '../../../css/profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
+import { faComment as regularComment } from '@fortawesome/free-regular-svg-icons';
+import { faPaperPlane as regularPlane } from '@fortawesome/free-regular-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { faPaperPlane, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 // import { fa-circle-camera } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import jwtDecode from 'jwt-decode';
@@ -19,6 +21,7 @@ import Comment from '@/app/comment/Comment';
 import { use } from 'passport';
 import moment from 'moment';
 import ModalManager from '@/app/post/new/modalManager';
+import LikeButton from './postLikes';
 import DropdownSelect from 'react-dropdown-select';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -65,7 +68,7 @@ export default function FilterablePostTable() {
         // Make an API request to delete the post
         if (typeof window !== 'undefined') {
             setAuthToken(localStorage.getItem('jwtToken'));
-            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
+            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${postId}`)
                 .then((response) => {
                     // Handle the post deletion, for example, remove the deleted post from the data array.
                     posts = posts.filter((post) => post._id !== postId); // Use postId here
@@ -85,7 +88,7 @@ export default function FilterablePostTable() {
     // Define deletePostMenuOptions here
     const deletePost = (postId) => {
         // Make an API request to delete the post
-        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
+        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${postId}`)
             .then((response) => {
                 // Handle the post deletion, for example, remove the deleted post from the data array.
                 posts = posts.filter((post) => post._id !== postId); // Use postId here
@@ -115,18 +118,18 @@ export default function FilterablePostTable() {
             overflow: 'hidden'
         }
     };
-
+    const [followingData, setFollowingData] = useState([]);
+    const [followerData, setFollowerData] = useState([]);
     const [isModalManagerOpen, setModalManagerOpen] = useState(false);
     const handleOpenModalManager = () => {
         setModalManagerOpen(true);
     };
 
-
     const commentRows = [];
 
     if (comments.length) {
         comments.forEach((comment) => {
-            commentRows.push(<Comment comment={comment} userInfo={loggedInUser} key={comment._id} />);
+            commentRows.push(<Comment postId={singlePost._id} comment={comment} userInfo={loggedInUser} key={comment._id} />);
         });
     } else {
         commentRows.push([]);
@@ -154,7 +157,6 @@ export default function FilterablePostTable() {
                                     const userInfoId = response.data.user._id;
                                     axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${userInfoId}`)
                                         .then((response) => {
-                                            // console.log('response.data.posts', response.data.posts);
                                             setData(response.data.posts.reverse());
 
                                             // Check if deletePostMenuOptions is already in menuOptions before adding it
@@ -187,14 +189,15 @@ export default function FilterablePostTable() {
             }
         }
     }, [router, userId, orderOneComplete, loggedInUser]); // Add loggedInUser to the dependencies
+    const [singlePostDateTimeAgo, setSinglePostDateTimeAgo] = useState('');
 
     const handleOpenModal = (postId) => {
         setSelectedPostId(postId);
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
             .then((response) => {
-                // console.log('response.data.post', response.data.post);
                 setSinglePost(response.data.post);
                 setComments(response.data.post.comments);
+                setSinglePostDateTimeAgo(moment(new Date(response.data.post.createdAt)).fromNow());
             });
         setIsOpen(true);
     };
@@ -204,14 +207,13 @@ export default function FilterablePostTable() {
         setIsOpen(false);
     };
 
-    // const handleAddLike = (postId, userId) => {
-    //     axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${postId}/likes/new`, { userId })
-    //         .then(response => {
-    //             // console.log('response.data.post', response.data.post);
-    //             setSinglePost(response.data.post);
-    //         })
-    //         .catch(error => console.log('===> Error in Adding like', error));
-    // };
+    const handleUpdateLikes = (updatedLikes) => {
+        // Update the singlePost likes with the new data received from the LikeButton
+        setSinglePost((prevPost) => ({
+            ...prevPost,
+            likes: updatedLikes,
+        }));
+    };
 
     const handleCommentSubmit = (e) => {
         e.preventDefault();
@@ -219,7 +221,6 @@ export default function FilterablePostTable() {
             const newComment = { createdBy: loggedInUser._id, comment: commentBody };
             axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${selectedPostId}/comments/new`, newComment)
                 .then(response => {
-                    // console.log('response.data.post', response.data.post);
                     setCommentBody('');
                     setSinglePost(response.data.post);
                     setComments(response.data.post.comments);
@@ -230,6 +231,46 @@ export default function FilterablePostTable() {
             console.log('need to input something');
         }
     };
+
+    const handleFollower = (e) => {
+        e.preventDefault();
+        console.log('handleFollower');
+        const newFollower = { userId: userId, follower: loggedInUser._id };
+        const newFollowing = { userId: loggedInUser._id, following: userId };
+        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers/`, newFollower)
+            .then(response => {
+                // console.log('response.data', response.data);
+                axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/`, newFollowing)
+                    .then(response => {
+                        // console.log('response.data', response.data);
+                    })
+                    .catch(error => console.log('===> Error in Adding following', error));
+            })
+            .catch(error => console.log('===> Error in Adding follower', error));
+    };
+
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/${userId}`)
+            .then(followingResponse => {
+                // console.log('response.data following', followingResponse.data.following[0]);
+                setFollowingData(followingResponse.data.following[0].following);
+            })
+            .catch((error) => {
+                console.log(error);
+            }
+            );
+    }, [userId]);
+
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers/${userId}`)
+            .then(followerResponse => {
+                // console.log('response.data follower', followerResponse.data.follower[0]);
+                setFollowerData(followerResponse.data.follower[0].follower);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [userId]);
 
     if (isLoading) return <p>Loading...</p>;
     if (!userInfo) return <p>No data shown...</p>;
@@ -260,11 +301,15 @@ export default function FilterablePostTable() {
                                         </button>
                                     </div>
                                 ) : (
-                                    <div>
+
+                                    <form onSubmit={handleFollower}>
                                         <div className="profile-user-settings">
                                             <h1 className="profile-user-name">{userInfo.username}</h1>
+                                            <a href="/users/edit">
+                                                <button type='submit' className="profile-edit-btn">Follow</button>
+                                            </a>
                                         </div>
-                                    </div>
+                                    </form>
                                 )}
                             </div>
 
@@ -277,10 +322,10 @@ export default function FilterablePostTable() {
                                         &nbsp;posts
                                     </li>
                                     <li>
-                                        <span className="profile-stat-count">188</span> followers
+                                        <span className="profile-stat-count">{followerData.length}</span> followers
                                     </li>
                                     <li>
-                                        <span className="profile-stat-count">206</span> following
+                                        <a href={'/users/following/' + userId}><span className="profile-stat-count">{followingData.length}</span> following</a>
                                     </li>
                                 </ul>
                             </div>
@@ -307,7 +352,7 @@ export default function FilterablePostTable() {
                                                     <li className="gallery-item-likes white-icon">
                                                         <span className="visually-hidden" >Likes:</span>
                                                         <FontAwesomeIcon icon={faHeart} className="me-2" />
-                                                        {post.likes > 0 ? post.likes : 0}
+                                                        {post.likes.length > 0 ? post.likes.length : 0}
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <span className="visually-hidden">Comments:</span>
                                                         <FontAwesomeIcon icon={faComment} className="me-2n" />
@@ -347,7 +392,7 @@ export default function FilterablePostTable() {
                                 &nbsp;
                                 &nbsp;
                                 <hr />
-                                <div className="modal-comment-style box-body" >
+                                <div className="modal-comment-style" >
                                     <div>
                                         <div style={{ display: 'inline-flex' }}>
                                             <img src={userInfo.profilePicture || 'https://freesvg.org/img/abstract-user-flat-4.png'}
@@ -390,31 +435,40 @@ export default function FilterablePostTable() {
                                             {singlePost.caption}
                                         </div>
                                         <hr />
-                                        {/* {singlePostDateTimeAgo} */}
 
                                         <div style={{ maxHeight: '800px', overflowY: 'auto' }}>
                                             {commentRows}
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="instagram-post-actions">
+                                        <div className="instagram-post-actions" >
                                             <hr />
-                                            {/* <button type="button" onClick={() => handleAddLike(singlePost._id, userInfo._id)} className="btn btn-default btn-xs"> */}
-                                            <button type="button" className="btn btn-default btn-xs">
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </button>
-                                            &nbsp;
-                                            <button type="button" className="btn btn-default btn-xs">
-                                                <FontAwesomeIcon icon={faComment} />
-                                            </button>
-                                            &nbsp;
-                                            <button type="button" className="btn btn-default btn-xs">
-                                                <FontAwesomeIcon icon={faPaperPlane} />
-                                            </button>
-                                            &nbsp;
-                                            <span className="pull-right text-muted">
-                                                {singlePost.likes} likes - {singlePost.comments.length} comments
-                                            </span>
+                                            <div style={{ display: 'inline-flex', }}>
+                                                <LikeButton
+                                                    postId={singlePost._id}
+                                                    loggedInUser={loggedInUser}
+                                                    likes={singlePost.likes}
+                                                    handleUpdateLikes={handleUpdateLikes}
+                                                />
+                                                &nbsp;&nbsp;&nbsp;
+                                                <button type="button" className="btn btn-default btn-xs">
+                                                    <FontAwesomeIcon icon={regularComment} size='xl' flip='horizontal' className='icon-style' />
+                                                </button>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <button type="button" className="btn btn-default btn-xs">
+                                                    <FontAwesomeIcon icon={regularPlane} size='xl' className='icon-style' />
+                                                </button>
+                                                &nbsp;
+
+                                            </div>
+                                            <div>
+                                                <span className="pull-right text-muted">
+                                                    {singlePost.likes.length} likes - {singlePost.comments.length} comments
+                                                </span>
+                                            </div>
+                                            <div style={{ fontSize: '10px' }}>
+                                                {singlePostDateTimeAgo}
+                                            </div>
                                             <hr />
                                             <form onSubmit={handleCommentSubmit}>
                                                 <div className='form-group'>

@@ -7,14 +7,14 @@ import setAuthToken from '@/app/utils/setAuthToken';
 const FollowerPage = () => {
     const [followers, setFollowers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { userId } = useParams();
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const jwtToken = localStorage.getItem('jwtToken');
             if (jwtToken) {
                 setAuthToken(jwtToken);
-                axios
-                    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers`)
+                axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers/${userId}}`)
                     .then((response) => {
                         setFollowers(response.data.followers);
                         setIsLoading(false);
