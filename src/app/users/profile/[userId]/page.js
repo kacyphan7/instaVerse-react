@@ -19,6 +19,9 @@ import Comment from '@/app/comment/Comment';
 import { use } from 'passport';
 import moment from 'moment';
 import ModalManager from '@/app/post/new/modalManager';
+import DropdownSelect from 'react-dropdown-select';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function FilterablePostTable() {
@@ -32,12 +35,69 @@ export default function FilterablePostTable() {
     const [selectedPostId, setSelectedPostId] = useState(null);
     const router = useRouter();
     const { userId } = useParams();
+    const [postId, setPostId] = useState(null);
     const [singlePost, setSinglePost] = useState(null);
     const [comments, setComments] = useState(0);
     const [commentBody, setCommentBody] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
     const [photoUploaded, setPhotoUploaded] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    //const [dropdownOptions, setDropdownOptions] = useState([]);
+    const [menuOptions, setMenuOptions] = useState([]);
 
+
+    let posts = [];
+
+    const handleDeletePost = (postId) => {
+        console.log('Deleting post with ID:', postId);
+        // Check to see if the post exists
+        const post = posts.find((post) => post._id === postId);
+        console.log('Post found:', post);
+        const postIndex = posts.findIndex((post) => post._id === postId);
+        if (postIndex !== -1) {
+            // Remove the post from the posts array
+            const updatedPosts = [...posts];
+            updatedPosts.splice(postIndex, 1);
+            setPostId(updatedPosts); // Assuming you have a state variable 'posts' and a setter function 'setPosts' to update it.
+            setSelectedPostId(null); // Clear the selected post ID
+        }
+
+        // Make an API request to delete the post
+        if (typeof window !== 'undefined') {
+            setAuthToken(localStorage.getItem('jwtToken'));
+            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
+                .then((response) => {
+                    // Handle the post deletion, for example, remove the deleted post from the data array.
+                    posts = posts.filter((post) => post._id !== postId); // Use postId here
+                    setSelectedPostId(null); // Clear the selected post ID
+                    // Show the popup notification
+                    toast.success('Post has been deleted. Please refresh the page to see the changes.');
+                })
+                .catch((error) => {
+                    console.log('Error deleting post:', error);
+                })
+                .finally(() => {
+                    setIsDeleting(false); // Reset the isDeleting state after the request is complete
+                });
+        }
+    };
+
+    // Define deletePostMenuOptions here
+    const deletePost = (postId) => {
+        // Make an API request to delete the post
+        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
+            .then((response) => {
+                // Handle the post deletion, for example, remove the deleted post from the data array.
+                posts = posts.filter((post) => post._id !== postId); // Use postId here
+                setSelectedPostId(null); // Clear the selected post ID
+            })
+            .catch((error) => {
+                console.log('Error deleting post:', error);
+            })
+            .finally(() => {
+                setIsDeleting(false); // Reset the isDeleting state after the request is complete
+            });
+    };
 
     const customStyles = {
         overlay: {
@@ -46,7 +106,7 @@ export default function FilterablePostTable() {
         },
         content: {
             width: '1200px',
-            height: '75%',
+            height: '68%',
             top: '50%',
             left: '50%',
             right: 'auto',
@@ -96,9 +156,17 @@ export default function FilterablePostTable() {
                                         .then((response) => {
                                             // console.log('response.data.posts', response.data.posts);
                                             setData(response.data.posts.reverse());
+
+                                            // Check if deletePostMenuOptions is already in menuOptions before adding it
+                                            setMenuOptions([
+                                                {
+                                                    label: 'Delete Post',
+                                                    action: handleDeletePost,
+                                                    isMenuOpen: false,
+                                                },
+                                            ]);
                                             setOrderOneComplete(false);
-                                        }
-                                        )
+                                        })
                                         .catch((error) => {
                                             console.log(error);
                                             setTimeout(() => {
@@ -118,7 +186,7 @@ export default function FilterablePostTable() {
                 }, 0);
             }
         }
-    }, [router, userId, orderOneComplete]);
+    }, [router, userId, orderOneComplete, loggedInUser]); // Add loggedInUser to the dependencies
 
     const handleOpenModal = (postId) => {
         setSelectedPostId(postId);
@@ -165,6 +233,7 @@ export default function FilterablePostTable() {
 
     if (isLoading) return <p>Loading...</p>;
     if (!userInfo) return <p>No data shown...</p>;
+    if (isDeleting) return <p>Post has been deleted...</p>;
 
     return (
         <main className="profile-center">
@@ -285,7 +354,37 @@ export default function FilterablePostTable() {
                                                 alt="Profile Image"
                                                 style={{ width: '30px', height: '30px' }} />&nbsp;
                                             <a href={'/users/profile/' + userInfo._id} >{userInfo.username}</a>
+                                            <DropdownSelect
+                                                options={menuOptions.map((option) => ({
+                                                    label: option.label,
+                                                    value: option.label,
+                                                }))}
+                                                values={[]} // You might need to set the initial value based on the selected post.
+                                                closeOnSelect
+                                                onChange={(values) => {
+                                                    console.log('Selected values:', values);
+                                                    // Find the selected option based on the selected value
+                                                    const selectedOption = menuOptions.find((option) => option.label === values[0]?.label);
+                                                    console.log('Selected option:', selectedOption);
+                                                    if (selectedOption && selectedOption.label === 'Delete Post') {
+                                                        handleDeletePost(selectedPostId); // Pass the postId here
+
+                                                        // Update the menuOptions state to close the dropdown after selecting 'Delete Post'
+                                                        setMenuOptions((prevOptions) =>
+                                                            prevOptions.map((option) =>
+                                                                option.label === 'Delete Post'
+                                                                    ? { ...option, isMenuOpen: false } // Close the dropdown for 'Delete Post'
+                                                                    : option
+                                                            )
+                                                        );
+                                                    }
+                                                }}
+                                                isOpen={menuOptions.find((option) => option.isMenuOpen)}
+                                                className="menu-dropdown"
+                                            >
+                                            </DropdownSelect>
                                         </div>
+
                                         <hr />
                                         <div style={{ display: 'inline-flex', width: '100%' }}>
                                             {singlePost.caption}
@@ -344,6 +443,9 @@ export default function FilterablePostTable() {
                     </Modal>
                 </div>
             )}
+            <div>
+                <ToastContainer position="top-center" autoClose={3000} />
+            </div>
         </main>
     );
-}
+};

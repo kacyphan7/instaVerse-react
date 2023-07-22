@@ -98,7 +98,7 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     margin-right: 3rem;
-    
+
 }
 
 .avatar-img {
@@ -108,16 +108,17 @@ input[type="file"] {
     border-radius: 50%;
 }
 
-.modal-comment-style{
+.modal-comment-style {
     color: black;
     display: flex;
     justify-content: space-between;
-    flex-direction: column ;
+    flex-direction: column;
     height: 100%;
-    position:absolute;
+    position: absolute;
     right: 0;
     width: 25%;
 }
+
 /* make profile pic from square to circle */
 
 .profile-image img {
@@ -192,7 +193,7 @@ input[type="file"] {
     flex-wrap: wrap;
     margin: -1rem -1rem;
     padding-bottom: 3rem;
-    justify-content: center ;
+    justify-content: center;
 }
 
 .gallery-item {
@@ -249,7 +250,7 @@ input[type="file"] {
     display: none;
 }
 
-.nopost-title{
+.nopost-title {
     margin-top: 25%;
     text-align: center;
     flex-direction: column;
@@ -257,7 +258,7 @@ input[type="file"] {
     grid-column: 2;
 }
 
-.nopost-sub-title{
+.nopost-sub-title {
     width: 300px;
     font-size: 1.5rem;
     cursor: pointer;
@@ -293,7 +294,7 @@ input[type="file"] {
 
 .ReactModal__Overlay--before-close {
     opacity: 0;
-}   
+}
 
 /* Spinner Animation */
 
@@ -370,4 +371,25 @@ input[type="file"] {
 
 .instagram-post-actions {
     margin: 10px 0;
+}
+
+/* Custom styles for the container of user name and DropdownSelect */
+.modal-comment-style.box-body {
+    display: flex;
+    align-items: left;
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: -10px;
+    /* Adjust the top value to position the dropdown vertically */
+    left: 60px;
+    /* Adjust the width as needed */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom styles for each dropdown option on hover */
+.menu-dropdown .Dropdown-Menu-Item:hover {
+    background-color: #f0f0f0;
 }
