@@ -68,7 +68,7 @@ export default function FilterablePostTable() {
         // Make an API request to delete the post
         if (typeof window !== 'undefined') {
             setAuthToken(localStorage.getItem('jwtToken'));
-            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
+            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${postId}`)
                 .then((response) => {
                     // Handle the post deletion, for example, remove the deleted post from the data array.
                     posts = posts.filter((post) => post._id !== postId); // Use postId here
@@ -88,7 +88,7 @@ export default function FilterablePostTable() {
     // Define deletePostMenuOptions here
     const deletePost = (postId) => {
         // Make an API request to delete the post
-        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/post/${postId}`)
+        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${postId}`)
             .then((response) => {
                 // Handle the post deletion, for example, remove the deleted post from the data array.
                 posts = posts.filter((post) => post._id !== postId); // Use postId here
@@ -188,7 +188,7 @@ export default function FilterablePostTable() {
                 }, 0);
             }
         }
-    }, [router, userId, orderOneComplete, loggedInUser, handleDeletePost]); // Add loggedInUser to the dependencies
+    }, [router, userId, orderOneComplete, loggedInUser]); // Add loggedInUser to the dependencies
     const [singlePostDateTimeAgo, setSinglePostDateTimeAgo] = useState('');
 
     const handleOpenModal = (postId) => {
@@ -239,7 +239,7 @@ export default function FilterablePostTable() {
         const newFollowing = { userId: loggedInUser._id, following: userId };
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers/`, newFollower)
             .then(response => {
-                console.log('response.data', response.data);
+                // console.log('response.data', response.data);
                 axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/`, newFollowing)
                     .then(response => {
                         console.log('response.data', response.data);
@@ -264,7 +264,7 @@ export default function FilterablePostTable() {
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers/${userId}`)
             .then(followerResponse => {
-                console.log('response.data follower', followerResponse.data.follower[0]);
+                // console.log('response.data follower', followerResponse.data.follower[0]);
                 setFollowerData(followerResponse.data.follower[0].follower);
             })
             .catch((error) => {
