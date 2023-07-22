@@ -71,14 +71,9 @@ Setup requirements:
 
 ## **Additional Installations:**
 
-Modal
+Dropdown Select
 ```
-npm install react-modal
-```
-
-Moment
-```
-npm install moment
+npm install react-dropdown-select
 ```
 
 Faker
@@ -92,6 +87,22 @@ npm install @fortawesome/fontawesome-svg-core \
             @fortawesome/free-solid-svg-icons \
             @fortawesome/react-fontawesome
 ```
+
+Modal
+```
+npm install react-modal
+```
+
+Moment
+```
+npm install moment
+```
+
+Toastify (pop up notification)
+```
+npm install react-toastify
+```
+
 # **Preview Screen**
 ## Sign Up
 ![Sign Up](src/app/assets/signup.png)
@@ -103,13 +114,10 @@ npm install @fortawesome/fontawesome-svg-core \
 ![Home](src/app/assets/home.png)
 
 ## Profile
-![Profile](src/app/assets/profile.png)
+![Profile](src/app/assets/profile-bio.png)
 
 ## Profile Post
 ![Profile Post](src/app/assets/profile-post.png)
-
-## Follower
-![Follow](src/app/assets/follower.png)
 
 ## Profile Setting
 ![Edit Profile](src/app/assets/edit-profile.png)
@@ -174,11 +182,14 @@ The Post entity has a many-to-many relationship with the Comment entity, meaning
 - Search functionality for users and content.
 - Reels feature for short videos.
 - Notifications for likes and comments.
+- Add follower and following to users. 
 
 # **Sources**
+- [Cloudinary](https://cloudinary.com/documentation/upload_images) - A cloud-based image and video management platform that provides image and video upload, storage, optimization, and delivery services.
+- [Dropdown](https://www.npmjs.com/package/react-dropdown-select) - Customisable dropdown select for react.
 - [Faker](https://fakerjs.dev/guide/) - A library for generating fake data.
 - [Font Awesome](https://fontawesome.com/v4/get-started/) - An iconic font and CSS toolkit.
-- [Cloudinary](https://cloudinary.com/documentation/upload_images) - A cloud-based image and video management platform that provides image and video upload, storage, optimization, and delivery services.
+- [Toastify](https://www.npmjs.com/package/react-toastify) - React-Toastify allows you to add notifications.
 
 # **License**
 
