@@ -19,6 +19,7 @@ InstaVerse is a photo social media application. The app allows users to view oth
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#built-with">Features of InstaVerse</a></li>
+        <li><a href="#built-with">Deployment</a></li>
         <li><a href="#built-with">How to Install</a></li>
          <li><a href="#built-with">Preview Screen</a></li>
         <li><a href="#built-with">How does InstaVerse work?</a></li>
@@ -60,7 +61,7 @@ InstaVerse is a photo social media application. The app allows users to view oth
 - User profiles with customization options.
 - Explore feature to discover new content.
 
-### Deployment
+## Deployment
 - Frontend deployed on [Netlify](https://instaverse-react.netlify.app/users/login)
 - Backend deployed on [Heroku](https://instaverse-apps-server-676759d03789.herokuapp.com/)
 - Backend [Github](https://github.com/kacyphan7/InstaVerse-BackEnd/tree/main)
