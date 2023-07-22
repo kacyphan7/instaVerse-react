@@ -18,8 +18,7 @@ export default function FilterableFollowerTable() {
         const jwtToken = localStorage.getItem('jwtToken');
         if (typeof window !== 'undefined' && jwtToken) {
             setAuthToken(jwtToken);
-            axios
-                .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings`)
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings`)
                 .then((response) => {
                     let userData = jwtDecode(jwtToken);
                     if (userData.email === localStorage.getItem('email')) {

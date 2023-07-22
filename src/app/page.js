@@ -19,12 +19,17 @@ import handleLogout from './utils/handleLogout';
 import Explore from './explore/page';
 import Link from 'next/link';
 import Search from './search/page';
+import { use } from 'passport';
+import moment from 'moment';
 
 export default function Homepage() {
 
   const router = useRouter();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [following, setFollowing] = useState(0);
+  const [followingPostData, setFollowingPostData] = useState([]);
+
 
 
   useEffect(() => {
@@ -53,9 +58,37 @@ export default function Homepage() {
           if (userData.email === localStorage.getItem('email')) {
             setData(response.data.users);
             setLoading(false);
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/${localStorage.getItem('userId')}`)
+              .then((response) => {
+                console.log('response', response.data.following[0].following);
+                setFollowing(response.data.following[0].following);
+                const userIds = [];
+                for (let i = 0; i < response.data.following[0].following.length; i++) {
+                  userIds.push(response.data.following[0].following[i]._id);
+                }
+                console.log('userIds', userIds);
+                axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/posts`, {
+                  params: { userIds: userIds }
+                })
+                  .then((response) => {
+                    // console.log('response', response.data.posts);
+                    setFollowingPostData(response.data.posts);
+                    // setLoading(false);
+                    console.log('response', response.data.posts);
+                  })
+                  .catch((error) => {
+                    console.log('Error fetching posts:', error);
+                    // setData([]);
+                  }
+                  );
+              })
+              .catch((error) => {
+                console.log('Error fetching followings:', error);
+                // router.push('/users/login');
+              });
           } else {
 
-            router.push('/users/login');
+            // router.push('/users/login');
           }
         })
         .catch((error) => {
@@ -68,7 +101,7 @@ export default function Homepage() {
   }, [router]);
 
   if (isLoading) return <p>Loading...</p>;
-  if (!data) return <p>No data shown...</p>;
+  if (data.length === 0) return <p>No data shown...</p>;
 
   return (
     <main className="d-flex justify-content-center align-items-center">
@@ -215,7 +248,7 @@ export default function Homepage() {
 
         <div className="row container d-flex justify-content-center">
           <div >
-            {data.map((user, index) => {
+            {followingPostData.map((user, index) => {
               return (
                 <div key={index}>
                   <div className="box box-widget">
@@ -224,12 +257,12 @@ export default function Homepage() {
                       <div className="user-block ">
                         <br></br>
 
-                        <img src={user.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
+                        <img src={user.createdBy.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
                         <span className="username">
-                          <Link href={"/users/profile/" + user._id} data-abc="true">{user.username}</Link>
+                          <Link href={"/users/profile/" + user.createdBy._id} data-abc="true">{user.createdBy.username}</Link>
 
                         </span>
-                        <span className="description">Public - 7:30 PM Today</span>
+
                       </div>
                       <div className="box-tools">
                         <button type="button" className="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
@@ -244,8 +277,8 @@ export default function Homepage() {
                       </div>
                     </div>
                     <div className="box-body">
-                      <img className="img-responsive pad" src={faker.image.url()} alt="Photo" />
-                      <p>{faker.lorem.sentence()}</p>
+                      <img className="img-responsive pad" src={user.photo} alt="Photo" />
+                      <p>{user.caption}</p>
                       <button type="button" className="btn btn-default btn-xs">
                         <FontAwesomeIcon icon={faHeart} />
                       </button>
@@ -255,7 +288,9 @@ export default function Homepage() {
                       <button type="button" className="btn btn-default btn-xs">
                         <FontAwesomeIcon icon={faPaperPlane} />
                       </button>
-                      <span className="pull-right text-muted">127 likes - 3 comments</span>
+                      <span className="text-muted">{moment(new Date(user.createdAt)).fromNow()}</span>
+                      <span className="pull-right text-muted">{user.likes.length} likes - {user.comments.length} comments</span>
+
                     </div>
                     <div className="box-footer box-comments">
                       <div className="box-comment">
@@ -283,7 +318,7 @@ export default function Homepage() {
           </div>
         </div>
       </div>
-    </main>
+    </main >
   );
 }
 
