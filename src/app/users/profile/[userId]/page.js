@@ -20,6 +20,8 @@ import { use } from 'passport';
 import moment from 'moment';
 import ModalManager from '@/app/post/new/modalManager';
 import DropdownSelect from 'react-dropdown-select';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function FilterablePostTable() {
@@ -56,7 +58,7 @@ export default function FilterablePostTable() {
             // Remove the post from the posts array
             const updatedPosts = [...posts];
             updatedPosts.splice(postIndex, 1);
-            setPosts(updatedPosts); // Assuming you have a state variable 'posts' and a setter function 'setPosts' to update it.
+            setPostId(updatedPosts); // Assuming you have a state variable 'posts' and a setter function 'setPosts' to update it.
             setSelectedPostId(null); // Clear the selected post ID
         }
 
@@ -68,6 +70,8 @@ export default function FilterablePostTable() {
                     // Handle the post deletion, for example, remove the deleted post from the data array.
                     posts = posts.filter((post) => post._id !== postId); // Use postId here
                     setSelectedPostId(null); // Clear the selected post ID
+                    // Show the popup notification
+                    toast.success('Post has been deleted. Please refresh the page to see the changes.');
                 })
                 .catch((error) => {
                     console.log('Error deleting post:', error);
@@ -102,7 +106,7 @@ export default function FilterablePostTable() {
         },
         content: {
             width: '1200px',
-            height: '75%',
+            height: '68%',
             top: '50%',
             left: '50%',
             right: 'auto',
@@ -350,36 +354,37 @@ export default function FilterablePostTable() {
                                                 alt="Profile Image"
                                                 style={{ width: '30px', height: '30px' }} />&nbsp;
                                             <a href={'/users/profile/' + userInfo._id} >{userInfo.username}</a>
-                                        </div>
-                                        <DropdownSelect
-                                            options={menuOptions.map((option) => ({
-                                                label: option.label,
-                                                value: option.label,
-                                            }))}
-                                            values={[]} // You might need to set the initial value based on the selected post.
-                                            closeOnSelect
-                                            onChange={(values) => {
-                                                console.log('Selected values:', values);
-                                                // Find the selected option based on the selected value
-                                                const selectedOption = menuOptions.find((option) => option.label === values[0]?.label);
-                                                console.log('Selected option:', selectedOption);
-                                                if (selectedOption && selectedOption.label === 'Delete Post') {
-                                                    handleDeletePost(selectedPostId); // Pass the postId here
+                                            <DropdownSelect
+                                                options={menuOptions.map((option) => ({
+                                                    label: option.label,
+                                                    value: option.label,
+                                                }))}
+                                                values={[]} // You might need to set the initial value based on the selected post.
+                                                closeOnSelect
+                                                onChange={(values) => {
+                                                    console.log('Selected values:', values);
+                                                    // Find the selected option based on the selected value
+                                                    const selectedOption = menuOptions.find((option) => option.label === values[0]?.label);
+                                                    console.log('Selected option:', selectedOption);
+                                                    if (selectedOption && selectedOption.label === 'Delete Post') {
+                                                        handleDeletePost(selectedPostId); // Pass the postId here
 
-                                                    // Update the menuOptions state to close the dropdown after selecting 'Delete Post'
-                                                    setMenuOptions((prevOptions) =>
-                                                        prevOptions.map((option) =>
-                                                            option.label === 'Delete Post'
-                                                                ? { ...option, isMenuOpen: false } // Close the dropdown for 'Delete Post'
-                                                                : option
-                                                        )
-                                                    );
-                                                }
-                                            }}
-                                            isOpen={menuOptions.find((option) => option.isMenuOpen)}
-                                            className="menu-dropdown"
-                                        >
-                                        </DropdownSelect>
+                                                        // Update the menuOptions state to close the dropdown after selecting 'Delete Post'
+                                                        setMenuOptions((prevOptions) =>
+                                                            prevOptions.map((option) =>
+                                                                option.label === 'Delete Post'
+                                                                    ? { ...option, isMenuOpen: false } // Close the dropdown for 'Delete Post'
+                                                                    : option
+                                                            )
+                                                        );
+                                                    }
+                                                }}
+                                                isOpen={menuOptions.find((option) => option.isMenuOpen)}
+                                                className="menu-dropdown"
+                                            >
+                                            </DropdownSelect>
+                                        </div>
+
                                         <hr />
                                         <div style={{ display: 'inline-flex', width: '100%' }}>
                                             {singlePost.caption}
@@ -438,6 +443,9 @@ export default function FilterablePostTable() {
                     </Modal>
                 </div>
             )}
+            <div>
+                <ToastContainer position="top-center" autoClose={3000} />
+            </div>
         </main>
     );
 };

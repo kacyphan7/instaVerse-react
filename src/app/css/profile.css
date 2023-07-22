@@ -373,20 +373,23 @@ input[type="file"] {
     margin: 10px 0;
 }
 
+/* Custom styles for the container of user name and DropdownSelect */
+.modal-comment-style.box-body {
+    display: flex;
+    align-items: left;
+}
+
 .menu-dropdown {
-    margin-left: 5px;
-    cursor: pointer;
-    width: 20px;
+    position: absolute;
+    top: -10px;
+    /* Adjust the top value to position the dropdown vertically */
+    left: 60px;
+    /* Adjust the width as needed */
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-.menu-dropdown .dropdown-content div {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.menu-dropdown .dropdown-content div:hover {
-    background-color: #f1f1f1;
+/* Custom styles for each dropdown option on hover */
+.menu-dropdown .Dropdown-Menu-Item:hover {
+    background-color: #f0f0f0;
 }
