@@ -242,7 +242,7 @@ export default function FilterablePostTable() {
                 // console.log('response.data', response.data);
                 axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/`, newFollowing)
                     .then(response => {
-                        console.log('response.data', response.data);
+                        // console.log('response.data', response.data);
                     })
                     .catch(error => console.log('===> Error in Adding following', error));
             })
@@ -301,6 +301,7 @@ export default function FilterablePostTable() {
                                         </button>
                                     </div>
                                 ) : (
+
                                     <form onSubmit={handleFollower}>
                                         <div className="profile-user-settings">
                                             <h1 className="profile-user-name">{userInfo.username}</h1>

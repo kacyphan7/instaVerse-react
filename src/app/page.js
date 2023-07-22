@@ -248,73 +248,150 @@ export default function Homepage() {
 
         <div className="row container d-flex justify-content-center">
           <div >
-            {followingPostData > 0 ? followingPostData.map((user, index) => {
-              return (
-                <div key={index}>
-                  <div className="box box-widget">
+            {followingPostData > 0 ?
 
-                    <div className="box-header with-border ">
-                      <div className="user-block ">
-                        <br></br>
+              followingPostData.map((user, index) => {
+                return (
+                  <>
 
-                        <img src={user.createdBy.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
-                        <span className="username">
-                          <Link href={"/users/profile/" + user.createdBy._id} data-abc="true">{user.createdBy.username}</Link>
+                    <div key={index}>
+                      <div className="box box-widget">
 
-                        </span>
+                        <div className="box-header with-border ">
+                          <div className="user-block ">
+                            <br></br>
 
-                      </div>
-                      <div className="box-tools">
-                        <button type="button" className="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
-                          <i className="fa fa-circle-o"></i>
-                        </button>
-                        <button type="button" className="btn btn-box-tool" data-widget="collapse">
-                          <i className="fa fa-minus"></i>
-                        </button>
-                        <button type="button" className="btn btn-box-tool" data-widget="remove">
-                          <i className="fa fa-times"></i>
-                        </button>
+                            <img src={user.createdBy.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
+                            <span className="username">
+                              <Link href={"/users/profile/" + user.createdBy._id} data-abc="true">{user.createdBy.username}</Link>
+
+                            </span>
+
+                          </div>
+                          <div className="box-tools">
+                            <button type="button" className="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                              <i className="fa fa-circle-o"></i>
+                            </button>
+                            <button type="button" className="btn btn-box-tool" data-widget="collapse">
+                              <i className="fa fa-minus"></i>
+                            </button>
+                            <button type="button" className="btn btn-box-tool" data-widget="remove">
+                              <i className="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div className="box-body">
+                          <img className="img-responsive pad" src={user.photo} alt="Photo" />
+                          <p>{user.caption}</p>
+                          <button type="button" className="btn btn-default btn-xs">
+                            <FontAwesomeIcon icon={faHeart} />
+                          </button>
+                          <button type="button" className="btn btn-default btn-xs">
+                            <FontAwesomeIcon icon={faComment} />
+                          </button>
+                          <button type="button" className="btn btn-default btn-xs">
+                            <FontAwesomeIcon icon={faPaperPlane} />
+                          </button>
+                          <span className="text-muted">{moment(new Date(user.createdAt)).fromNow()}</span>
+                          <span className="pull-right text-muted">{user.likes.length} likes - {user.comments.length} comments</span>
+
+                        </div>
+                        <div className="box-footer box-comments">
+                          <div className="box-comment">
+                            <img className="img-circle img-sm" src={faker.image.avatar()} alt="User Image" />
+                            <div className="comment-text">
+                              <span className="username">
+                                {user.username}<span className="text-muted pull-right">8:03 PM Today</span>
+                              </span>
+                              {faker.lorem.sentence()}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="box-footer">
+                          <form action="#" method="post">
+                            <img className="img-responsive img-circle img-sm" src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} alt="Alt Text" />
+                            <div className="img-push">
+                              <input type="text" className="form-control input-sm" name='enterComment' placeholder="Press enter to post comment" />
+                            </div>
+                          </form>
+                        </div>
                       </div>
                     </div>
-                    <div className="box-body">
-                      <img className="img-responsive pad" src={user.photo} alt="Photo" />
-                      <p>{user.caption}</p>
-                      <button type="button" className="btn btn-default btn-xs">
-                        <FontAwesomeIcon icon={faHeart} />
-                      </button>
-                      <button type="button" className="btn btn-default btn-xs">
-                        <FontAwesomeIcon icon={faComment} />
-                      </button>
-                      <button type="button" className="btn btn-default btn-xs">
-                        <FontAwesomeIcon icon={faPaperPlane} />
-                      </button>
-                      <span className="text-muted">{moment(new Date(user.createdAt)).fromNow()}</span>
-                      <span className="pull-right text-muted">{user.likes.length} likes - {user.comments.length} comments</span>
+                    <div>
 
                     </div>
-                    <div className="box-footer box-comments">
-                      <div className="box-comment">
-                        <img className="img-circle img-sm" src={faker.image.avatar()} alt="User Image" />
-                        <div className="comment-text">
+
+                  </>
+                );
+              }) && data.map((user, index) => {
+                return (
+                  <div key={index}>
+                    <div className="box box-widget">
+
+                      <div className="box-header with-border ">
+                        <div className="user-block ">
+                          <br></br>
+
+                          <img src={user.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} />
                           <span className="username">
-                            {user.username}<span className="text-muted pull-right">8:03 PM Today</span>
+                            <Link href={"/users/profile/" + user._id} data-abc="true">{user.username}</Link>
+
                           </span>
-                          {faker.lorem.sentence()}
+
+                        </div>
+                        <div className="box-tools">
+                          <button type="button" className="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                            <i className="fa fa-circle-o"></i>
+                          </button>
+                          <button type="button" className="btn btn-box-tool" data-widget="collapse">
+                            <i className="fa fa-minus"></i>
+                          </button>
+                          <button type="button" className="btn btn-box-tool" data-widget="remove">
+                            <i className="fa fa-times"></i>
+                          </button>
                         </div>
                       </div>
-                    </div>
-                    <div className="box-footer">
-                      <form action="#" method="post">
-                        <img className="img-responsive img-circle img-sm" src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} alt="Alt Text" />
-                        <div className="img-push">
-                          <input type="text" className="form-control input-sm" name='enterComment' placeholder="Press enter to post comment" />
+                      <div className="box-body">
+                        <img className="img-responsive pad" src={faker.image.url()} alt="Photo" />
+                        <p>{user.caption}</p>
+                        <button type="button" className="btn btn-default btn-xs">
+                          <FontAwesomeIcon icon={faHeart} />
+                        </button>
+                        <button type="button" className="btn btn-default btn-xs">
+                          <FontAwesomeIcon icon={faComment} />
+                        </button>
+                        <button type="button" className="btn btn-default btn-xs">
+                          <FontAwesomeIcon icon={faPaperPlane} />
+                        </button>
+                        <span className="text-muted">{moment(new Date(user.createdAt)).fromNow()}</span>
+                        <span className="pull-right text-muted"> likes - comments</span>
+
+                      </div>
+                      <div className="box-footer box-comments">
+                        <div className="box-comment">
+                          <img className="img-circle img-sm" src={faker.image.avatar()} alt="User Image" />
+                          <div className="comment-text">
+                            <span className="username">
+                              {user.username}<span className="text-muted pull-right">8:03 PM Today</span>
+                            </span>
+                            {faker.lorem.sentence()}
+                          </div>
                         </div>
-                      </form>
+                      </div>
+                      <div className="box-footer">
+                        <form action="#" method="post">
+                          <img className="img-responsive img-circle img-sm" src={data.profilePicture || "https://freesvg.org/img/abstract-user-flat-4.png"} alt="Alt Text" />
+                          <div className="img-push">
+                            <input type="text" className="form-control input-sm" name='enterComment' placeholder="Press enter to post comment" />
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            }) :
+                );
+              })
+
+              :
               data.map((user, index) => {
                 return (
                   <div key={index}>

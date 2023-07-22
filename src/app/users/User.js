@@ -1,4 +1,5 @@
-import { useState } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 // import { faker } from "@faker-js/faker";
 export default function User({ user }) {
@@ -14,11 +15,12 @@ export default function User({ user }) {
             // make a condition that compares exp and current time
             if (currentTime >= expirationTime) {
                 handleLogout(); // Assuming you have defined this function somewhere
-                alert('Session has ended. Please login to continue.');
+                alert('Session has ended. Please login to continue2.');
                 router.push('/users/login');
             }
         }
     }, [router]);
+
 
     function addUserData() {
         // add email to localStorage
@@ -44,7 +46,7 @@ export default function User({ user }) {
             }}>
                 {user.email}
             </td>
-            <td><a href="/users/edit" class="card-footer-item">Edit</a></td>
+            <td><a href="/users/edit" className="card-footer-item">Edit</a></td>
         </tr>
     );
 }
