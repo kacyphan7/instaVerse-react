@@ -1,4 +1,3 @@
-// Imports
 'use client';
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { useState } from 'react';
@@ -20,8 +19,6 @@ const NewUser = () => {
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
-
-
     const handleFullName = (e) => {
         setFullName(e.target.value);
     };
@@ -41,11 +38,8 @@ const NewUser = () => {
     const handleSubmit = (e) => {
         e.preventDefault(); // at the beginning of a submit function
         const newUser = { fullName, username, email, password };
-        console.log(newUser);
-        // console.log(newUser);
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/signup`, newUser)
             .then(response => {
-                // console.log('response', response.data);
                 if (typeof window !== 'undefined') {
                     localStorage.setItem('username', response.data.user.username);
                     localStorage.setItem('userId', response.data.user._id);

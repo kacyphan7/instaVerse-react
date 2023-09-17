@@ -1,14 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-// import Comment from '../../comment/new/page';
-import { faker } from '@faker-js/faker';
-import jwtDecode from 'jwt-decode';
-import setAuthToken from '@/app/utils/setAuthToken';
-import moment from 'moment';
+import { useParams } from 'next/navigation';
 import '../../css/post.css';
 import PostTable from './PostTable';
 
@@ -21,7 +13,6 @@ export default function FilterablePostTable() {
         fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/username/${username}`)
             .then((res) => res.json())
             .then((data) => {
-                // data is an object
                 console.log('--- posts ---', data);
                 setData(data);
                 setLoading(false);

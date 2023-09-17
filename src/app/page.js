@@ -1,13 +1,9 @@
 'use client';
-// import Image from 'next/image';
-// import 'bootstrap/dist/css/bootstrap.css';
-//import './globals.css';
 import './css/post.css';
 import './css/home.css';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
@@ -16,11 +12,9 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
 import handleLogout from './utils/handleLogout';
-import Explore from './explore/page';
 import Link from 'next/link';
-import Search from './search/page';
-import { use } from 'passport';
 import moment from 'moment';
+import { LoadingCircle } from './components/Loading';
 
 export default function Homepage() {
 
@@ -29,8 +23,6 @@ export default function Homepage() {
   const [isLoading, setLoading] = useState(true);
   const [following, setFollowing] = useState(0);
   const [followingPostData, setFollowingPostData] = useState([]);
-
-
 
   useEffect(() => {
     if (typeof window !== undefined) {
@@ -52,43 +44,31 @@ export default function Homepage() {
     if (localStorage.getItem('jwtToken')) {
       axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`)
         .then((response) => {
-          // data is an object
-          // console.log('response', response.data);
           let userData = jwtDecode(localStorage.getItem('jwtToken'));
           if (userData.email === localStorage.getItem('email')) {
             setData(response.data.users);
             setLoading(false);
             axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/${localStorage.getItem('userId')}`)
               .then((response) => {
-                console.log('response', response.data.following[0].following);
                 setFollowing(response.data.following[0].following);
                 const userIds = [];
                 for (let i = 0; i < response.data.following[0].following.length; i++) {
                   userIds.push(response.data.following[0].following[i]._id);
                 }
-                console.log('userIds', userIds);
                 axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/posts`, {
                   params: { userIds: userIds }
                 })
                   .then((response) => {
-                    // console.log('response', response.data.posts);
                     setFollowingPostData(response.data.posts);
-                    // setLoading(false);
-                    console.log('response', response.data.posts);
                   })
                   .catch((error) => {
                     console.log('Error fetching posts:', error);
-                    // setData([]);
                   }
                   );
               })
               .catch((error) => {
                 console.log('Error fetching followings:', error);
-                // router.push('/users/login');
               });
-          } else {
-
-            // router.push('/users/login');
           }
         })
         .catch((error) => {
@@ -100,7 +80,7 @@ export default function Homepage() {
     }
   }, [router]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingCircle />;
   if (data.length === 0) return <p>No data shown...</p>;
 
   return (
@@ -467,5 +447,3 @@ export default function Homepage() {
     </main >
   );
 }
-
-// style=“left: 1039.5px;”

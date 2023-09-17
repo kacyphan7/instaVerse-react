@@ -1,12 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import modal from 'react-modal';
 import { useRouter, useParams } from 'next/navigation';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Comment from '../../comment/Comment';
-import { faker } from '@faker-js/faker';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import moment from 'moment';
@@ -61,8 +59,6 @@ export default function Post({ post }) {
                                 setCurrentUserData(response.data.user);
                                 setLoading(false);
                             });
-                        // setCurrentUserData(response.data.user);
-                        // setLoading(false);
                     } else {
                         console.log('error1', error);
                         router.push('/users/login');
@@ -86,13 +82,8 @@ export default function Post({ post }) {
     if (isLoading) return <p>Loading...</p>;
     if (!currentUserData) return <p>No data shown...</p>;
 
-    // setAuthToken(localStorage.getItem('jwtToken'));
     return (
         <div className="row container d-flex justify-content-center">
-
-            {/* {data.map((user, index) => ( */}
-            {/* <div key={index}> */}
-
             <div className="box box-widget">
                 <div className="box-header with-border ">
                     <div className="user-block">
@@ -143,13 +134,8 @@ export default function Post({ post }) {
                             <input type="text" name='comment' value={commentBody} onChange={handleCommentBody} className="form-control input-sm" placeholder="Add a comment..." />
                         </div>
                     </form>
-
-
                 </div>
             </div>
-
-            {/* ))} */}
-
         </div>
     );
 }
