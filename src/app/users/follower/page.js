@@ -1,12 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import FollowerTable from './FollowerTable';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { faker } from '@faker-js/faker';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
-import handleLogout from '@/app/utils/handleLogout';
 import '../../css/follower.css';
 
 export default function FilterableFollowerTable() {

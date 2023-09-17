@@ -36,7 +36,7 @@ export default function EditProfile() {
                 const token = localStorage.getItem('jwtToken');
                 if (!token) {
                     // Redirect to login if JWT token is missing
-                    router.push('/users/profile' + localStorage.getItem('userId'));
+                    router.push('/users/login');
                     return;
                 }
                 setAuthToken(token);
@@ -44,19 +44,18 @@ export default function EditProfile() {
                 const response = await axios.get(
                     `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`
                 );
-                // console.log('user data', response.data.user);
                 // Decode the token to get user data
                 const userData = jwtDecode(token);
                 if (userData.email === localStorage.getItem('email')) {
                     setData(response.data.user);
                 } else {
                     // Redirect to login if user data doesn't match the token
-                    router.push('/users/profile' + localStorage.getItem('userId'));
+                    router.push('/users/login');
                 }
             } catch (error) {
                 console.log(error);
                 // Redirect to login if there's an error fetching user data
-                router.push('/users/profile' + localStorage.getItem('userId'));
+                router.push('/users/login');
             } finally {
                 setLoading(false);
             }
@@ -64,23 +63,12 @@ export default function EditProfile() {
 
         fetchData();
     }, [router]);
-    // useEffect(() => {
-    //     fetchData();
-    //     // const interval = setInterval(fetchData, 2000); // Fetch data every 5 seconds
-
-    //     // return () => {
-    //     //     clearInterval(interval); // Clean up the interval on component unmount
-    //     // };
-    // }, [fetchData]);
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/${localStorage.getItem('userId')}`, data)
             .then((response) => {
                 console.log(response);
-                // setData(response.data.user);
                 router.push(`/users/profile/${data._id}`);
             })
             .catch((error) => {

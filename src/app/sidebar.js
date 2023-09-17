@@ -11,22 +11,28 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from "react";
+import handleLogout from './utils/handleLogout';
+// not using below icons for now
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation';
-import handleLogout from './utils/handleLogout';
 
 
-export default function Sidebar({ openModal, userId }) {
+export default function Sidebar({ openModal }) {
+
+    const [userInfoId, setUserInfoId] = useState(null);
+
+    useEffect(() => {
+        const storedUserId = localStorage.getItem('userId');
+        setUserInfoId(storedUserId);
+    }, []);
 
     return (
         <div className="sidenav d-flex flex flex-column flex-shrink-0 p-3 text-white bg-dark">
             < a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" >
-                <svg className="bi me-2" width="40" height="32"></svg>
                 <span className="fs-4">InstaVerse</span>
             </a >
             <hr />
@@ -84,7 +90,7 @@ export default function Sidebar({ openModal, userId }) {
                     </a>
                 </li>
                 <li className="list-display-block nav-item" >
-                    <a href={'/users/profile/' + userId} className="hover itemsCenter nav-link text-white">
+                    <a href={'/users/profile/' + userInfoId} className="hover itemsCenter nav-link text-white">
                         <svg className="bi me-2" width="16" height="16"></svg>
                         <FontAwesomeIcon icon={faUserCircle} className="me-2" />
                         Profile
@@ -99,7 +105,8 @@ export default function Sidebar({ openModal, userId }) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <Dropdown.Item href="#/action-1">
+                    {/* below commented out codes are for later use */}
+                    {/* <Dropdown.Item href="#/action-1">
                         <FontAwesomeIcon icon={faCog} className="me-2" />
                         Setting
                     </Dropdown.Item>
@@ -121,11 +128,11 @@ export default function Sidebar({ openModal, userId }) {
                     </Dropdown.Item>
                     <hr></hr>
                     <Dropdown.Item href="#/action-3">Switch accounts</Dropdown.Item>
-                    <hr></hr>
+                    <hr></hr> */}
                     <Dropdown.Item href="/users/login" onClick={handleLogout}>Log out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
 
         </div>
     );
-}
+};

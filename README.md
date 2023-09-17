@@ -64,7 +64,7 @@ InstaVerse is a photo social media application. The app allows users to view oth
 ## Deployment
 - Frontend deployed on [Netlify](https://instaverse-react.netlify.app/users/login)
 - Backend deployed on [Heroku](https://instaverse-apps-server-676759d03789.herokuapp.com/)
-- Backend [Github](https://github.com/kacyphan7/InstaVerse-BackEnd/tree/main)
+- Backend [Github](https://github.com/jaylee1021/InstaVerse-BackEnd)
 
 ## **How To Install**
 Setup requirements: 
