@@ -19,6 +19,7 @@ InstaVerse is a photo social media application. The app allows users to view oth
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#built-with">Features of InstaVerse</a></li>
+        <li><a href="#built-with">Deployment</a></li>
         <li><a href="#built-with">How to Install</a></li>
          <li><a href="#built-with">Preview Screen</a></li>
         <li><a href="#built-with">How does InstaVerse work?</a></li>
@@ -60,6 +61,11 @@ InstaVerse is a photo social media application. The app allows users to view oth
 - User profiles with customization options.
 - Explore feature to discover new content.
 
+## Deployment
+- Frontend deployed on [Netlify](https://instaverse-react.netlify.app/users/login)
+- Backend deployed on [Heroku](https://instaverse-apps-server-676759d03789.herokuapp.com/)
+- Backend [Github](https://github.com/jaylee1021/InstaVerse-BackEnd)
+
 ## **How To Install**
 Setup requirements: 
 `Node.js`, `Mongodb` 
@@ -67,7 +73,8 @@ Setup requirements:
 1. `Fork` and `Clone` this respository to your local machine
 2. Run `npm install` to install dependencies.
 3. Run `npm run dev` or `npm start` to start server.
-4. Open `http://localhost:3000` the web browser. 
+4. Open `http://localhost:3000` the web browser for Frontend.
+5. Open `http://localhost:8000` the web browser for Backend.
 
 ## **Additional Installations:**
 
