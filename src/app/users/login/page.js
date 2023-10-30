@@ -47,6 +47,34 @@ export default function Login() {
 
     };
 
+    const demo_email = process.env.NEXT_PUBLIC_DEMO_EMAIL;
+    const demo_password = process.env.NEXT_PUBLIC_DEMO_PASS;
+
+    const handleDemo = (e) => {
+        e.preventDefault();
+
+        axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`, { email: demo_email, password: demo_password })
+            .then(response => {
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('jwtToken', response.data.token);
+                    localStorage.setItem('email', response.data.userData.email);
+                    localStorage.setItem('expiration', response.data.userData.exp);
+                    localStorage.setItem('userId', response.data.userData.id);
+                    localStorage.setItem('username', response.data.userData.username);
+                    setAuthToken(response.data.token);
+                    let decoded = jwtDecode(response.data.token);
+                    setRedirect(true);
+                }
+            })
+            .catch(error => {
+                if (error.response.data.message === 'User not found') {
+                    console.log('===> Error in Login', error.response.data.message);
+                    setError(true);
+                }
+            });
+
+    };
+
     if (redirect) { router.push('/'); }
     if (error) {
         return (
@@ -89,9 +117,12 @@ export default function Login() {
                             <div className="d-flex justify-content-between">
                                 <button type="submit" className="btn btn-primary center-button login-button">Login</button>
                             </div>
-                            <p className="forgot-password">
+                            {/* <p className="forgot-password">
                                 <a href="/#">Forgot password?</a>
-                            </p>
+                            </p> */}
+                            <div className="d-flex justify-content-between">
+                                <button className="btn btn-primary demo-button" onClick={handleDemo}>Demo Account</button>
+                            </div>
                         </form>
                     </div>
                     <br />
@@ -99,7 +130,7 @@ export default function Login() {
                         <p className="text-muted mb-0">Do not have an account? <a href="/users/signup" className="btn btn-primary center-button login-button">Sign up</a></p>
                     </div>
                 </div>
-            </div>
-        </main>
+            </div >
+        </main >
     );
 }
