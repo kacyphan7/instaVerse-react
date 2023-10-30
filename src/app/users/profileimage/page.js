@@ -1,10 +1,7 @@
-// Imports
 'use client';
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import UploadProfileImage from './uploadProfile';
-import setAuthToken from '@/app/utils/setAuthToken';
 
 const ProfileImage = ({ editProfileImage }) => {
     const [profileImage, setProfileImage] = useState(undefined);
@@ -12,16 +9,6 @@ const ProfileImage = ({ editProfileImage }) => {
 
     const [redirect, setRedirect] = useState(false);
     const router = useRouter();
-
-    // const expirationTime = new Date(parseInt(localStorage.getItem('expiration')) * 1000);
-    // let currentTime = Date.now();
-    // setAuthToken(localStorage.getItem('jwtToken'));
-    // // make a condition that compares exp and current time
-    // if (currentTime >= expirationTime) {
-    //     handleLogout();
-    //     alert('Session has ended. Please login to continue.');
-    //     router.push('/users/login');
-    // }
 
     const handleProfileImage = (e) => {
         setProfileImage(e.target.files[0]);

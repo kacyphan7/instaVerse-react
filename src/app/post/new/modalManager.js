@@ -1,10 +1,8 @@
-// ModalManager.js
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import '../../css/create-post.css';
-import setAuthToken from '@/app/utils/setAuthToken';
 import '../../css/modal.css';
 
 

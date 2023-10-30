@@ -1,12 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
-import PostTable from '../PostTable';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import axios from 'axios';
-import { faker } from '@faker-js/faker';
-import jwtDecode from 'jwt-decode';
-import setAuthToken from '@/app/utils/setAuthToken';
-import handleLogout from '@/app/utils/handleLogout';
 import '../../../css/create-post.css';
 
 export default function CreatePost() {

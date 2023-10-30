@@ -1,6 +1,6 @@
 "use client";
 import 'bootstrap/dist/css/bootstrap.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import setAuthToken from '@/app/utils/setAuthToken';
@@ -15,17 +15,15 @@ export default function Login() {
     const [error, setError] = useState(false);
 
     const handleEmail = (e) => {
-        // fill in code
         setEmail(e.target.value);
     };
 
     const handlePassword = (e) => {
-        // fill in code
         setPassword(e.target.value);
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // at the beginning of a submit function
+        e.preventDefault();
 
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`, { email, password })
             .then(response => {

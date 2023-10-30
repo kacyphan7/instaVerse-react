@@ -19,14 +19,6 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-}
-
-
 .rightbar {
   height: 50%;
   position: absolute;
@@ -76,15 +68,13 @@ body {
 .list-display-block{
   display: block;
 }
+
 .sidenav a:hover {
   color: #f1f1f1;
 }
 
 .main {
-  /* margin-left: 280px; */
-  /* Same as the width of the sidenav */
   font-size: 28px;
-  /* Increased text to enable scrolling */
   padding: 0px 10px;
 
 }

@@ -8,23 +8,19 @@ import { faComment as regularComment } from '@fortawesome/free-regular-svg-icons
 import { faPaperPlane as regularPlane } from '@fortawesome/free-regular-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-// import { fa-circle-camera } from '@fortawesome/free-solid-svg-icons';
-import Image from 'next/image';
 import jwtDecode from 'jwt-decode';
 import { useRouter, useParams } from 'next/navigation';
-import handleLogout from '@/app/utils/handleLogout';
-import Link from 'next/link';
 import axios from 'axios';
 import setAuthToken from '@/app/utils/setAuthToken';
 import Modal from 'react-modal';
 import Comment from '@/app/comment/Comment';
-import { use } from 'passport';
 import moment from 'moment';
 import ModalManager from '@/app/post/new/modalManager';
 import LikeButton from './postLikes';
 import DropdownSelect from 'react-dropdown-select';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LoadingCircle } from '@/app/components/Loading';
 
 
 export default function FilterablePostTable() {
@@ -38,21 +34,17 @@ export default function FilterablePostTable() {
     const [selectedPostId, setSelectedPostId] = useState(null);
     const router = useRouter();
     const { userId } = useParams();
-    const [postId, setPostId] = useState(null);
     const [singlePost, setSinglePost] = useState(null);
     const [comments, setComments] = useState(0);
     const [commentBody, setCommentBody] = useState('');
     const [loggedInUser, setLoggedInUser] = useState(null);
-    const [photoUploaded, setPhotoUploaded] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    //const [dropdownOptions, setDropdownOptions] = useState([]);
     const [menuOptions, setMenuOptions] = useState([]);
 
 
     let posts = [];
 
     const handleDeletePost = (postId) => {
-        console.log('Deleting post with ID:', postId);
         // Check to see if the post exists
         const post = posts.find((post) => post._id === postId);
         console.log('Post found:', post);
@@ -61,7 +53,6 @@ export default function FilterablePostTable() {
             // Remove the post from the posts array
             const updatedPosts = [...posts];
             updatedPosts.splice(postIndex, 1);
-            setPostId(updatedPosts); // Assuming you have a state variable 'posts' and a setter function 'setPosts' to update it.
             setSelectedPostId(null); // Clear the selected post ID
         }
 
@@ -158,7 +149,6 @@ export default function FilterablePostTable() {
                                     axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/posts/${userInfoId}`)
                                         .then((response) => {
                                             setData(response.data.posts.reverse());
-
                                             // Check if deletePostMenuOptions is already in menuOptions before adding it
                                             setMenuOptions([
                                                 {
@@ -188,7 +178,7 @@ export default function FilterablePostTable() {
                 }, 0);
             }
         }
-    }, [router, userId, orderOneComplete, loggedInUser]); // Add loggedInUser to the dependencies
+    }, [router, userId, orderOneComplete, loggedInUser, handleDeletePost]);
     const [singlePostDateTimeAgo, setSinglePostDateTimeAgo] = useState('');
 
     const handleOpenModal = (postId) => {
@@ -239,10 +229,8 @@ export default function FilterablePostTable() {
         const newFollowing = { userId: loggedInUser._id, following: userId };
         axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers/`, newFollower)
             .then(response => {
-                // console.log('response.data', response.data);
                 axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/`, newFollowing)
                     .then(response => {
-                        // console.log('response.data', response.data);
                     })
                     .catch(error => console.log('===> Error in Adding following', error));
             })
@@ -252,7 +240,6 @@ export default function FilterablePostTable() {
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followings/${userId}`)
             .then(followingResponse => {
-                // console.log('response.data following', followingResponse.data.following[0]);
                 setFollowingData(followingResponse.data.following[0].following);
             })
             .catch((error) => {
@@ -264,7 +251,6 @@ export default function FilterablePostTable() {
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/followers/${userId}`)
             .then(followerResponse => {
-                // console.log('response.data follower', followerResponse.data.follower[0]);
                 setFollowerData(followerResponse.data.follower[0].follower);
             })
             .catch((error) => {
@@ -272,7 +258,7 @@ export default function FilterablePostTable() {
             });
     }, [userId]);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <LoadingCircle />;
     if (!userInfo) return <p>No data shown...</p>;
     if (isDeleting) return <p>Post has been deleted...</p>;
 
@@ -294,9 +280,9 @@ export default function FilterablePostTable() {
                                     <div>
                                         <h1 className="profile-user-name">{userInfo.username}</h1>
                                         <a href="/users/edit">
-                                            <button className="btn profile-edit-btn">Edit Profile</button>
+                                            <button className="btn profile-edit-btn"><h4>Edit Profile</h4></button>
                                         </a>
-                                        <button className="btn profile-settings-btn" aria-label="profile settings">
+                                        <button className="btns profile-settings-btn" aria-label="profile settings">
                                             <FontAwesomeIcon icon={faCog} className="me-2" />
                                         </button>
                                     </div>
@@ -305,9 +291,7 @@ export default function FilterablePostTable() {
                                     <form onSubmit={handleFollower}>
                                         <div className="profile-user-settings">
                                             <h1 className="profile-user-name">{userInfo.username}</h1>
-                                            <a href="/users/edit">
-                                                <button type='submit' className="profile-edit-btn">Follow</button>
-                                            </a>
+                                            <button type='submit' className="profile-edit-btn">Follow</button>
                                         </div>
                                     </form>
                                 )}

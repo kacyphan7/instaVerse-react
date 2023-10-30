@@ -1,9 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import FollowingTable from './Following';
-import { useRouter } from 'next/router';
 import axios from 'axios';
-import { faker } from '@faker-js/faker';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '@/app/utils/setAuthToken';
 import handleLogout from '@/app/utils/handleLogout';
