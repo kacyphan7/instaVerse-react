@@ -76,40 +76,6 @@ Setup requirements:
 4. Open `http://localhost:3000` the web browser for Frontend.
 5. Open `http://localhost:8000` the web browser for Backend.
 
-## **Additional Installations:**
-
-Dropdown Select
-```
-npm install react-dropdown-select
-```
-
-Faker
-```
-npm install --save-dev @faker-js/faker
-```
-
-Font Awesome
-```
-npm install @fortawesome/fontawesome-svg-core \
-            @fortawesome/free-solid-svg-icons \
-            @fortawesome/react-fontawesome
-```
-
-Modal
-```
-npm install react-modal
-```
-
-Moment
-```
-npm install moment
-```
-
-Toastify (pop up notification)
-```
-npm install react-toastify
-```
-
 # **Preview Screen**
 ## Sign Up
 ![Sign Up](src/app/assets/signup.png)
